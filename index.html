@@ -1414,6 +1414,14 @@ function updateMatchCards() {
     const r = RESULTS[key];
     if (!r) return;
 
+    // Sécurité ordre des équipes : le score affiché est toujours dans l'ordre RESULTS.h / RESULTS.a.
+    // Cela évite le piège Ghana–Croatie affiché alors que la source API répond Croatie–Ghana.
+    const matchEl = el.closest('.match');
+    const teamsEl = matchEl ? matchEl.querySelector('.teams') : null;
+    if (teamsEl) {
+      teamsEl.textContent = `${fullTeam(r.h)} vs ${fullTeam(r.a)}`;
+    }
+
     const timeEl = el.closest('.mright')
                  ? el.closest('.mright').querySelector('.mtime')
                  : null;
@@ -2130,14 +2138,27 @@ function buildTicker(){
     return r.status === 'final' ? ' ✓' : '';
   }
 
+  function tickerFromMatch(key) {
+    const r = RESULTS[key];
+    if (!r) return {t:`${key} ? – ?`, c:'ti-live'};
+    return {
+      t:`${shortTeam(r.h)} ${scoreFromResults(key)} ${shortTeam(r.a)}${statusSuffix(key)}`,
+      c:statusCls(key)
+    };
+  }
+
   const live=[
     {t:'🇸🇳 SEN 5 – 0 IRQ 🇮🇶 ✅',c:'ti-sn'},
-    {t:`🇺🇾 URU ${scoreFromResults('uru-esp')} ESP 🇪🇸${statusSuffix('uru-esp')}`,c:statusCls('uru-esp')},
-    {t:`🇪🇬 EGY ${scoreFromResults('egy-irn')} IRN 🇮🇷${statusSuffix('egy-irn')}`,c:statusCls('egy-irn')},
-    {t:`🇧🇪 BEL ${scoreFromResults('nzl-bel')} NZL 🇳🇿${statusSuffix('nzl-bel')}`,c:statusCls('nzl-bel')},
-    {t:`🇬🇭 GHA ${scoreFromResults('cro-gha')} CRO 🇭🇷${statusSuffix('cro-gha')}`,c:statusCls('cro-gha')},
-    {t:`🇨🇩 COD ${scoreFromResults('cod-uzb')} UZB 🇺🇿${statusSuffix('cod-uzb')}`,c:statusCls('cod-uzb')},
-    {t:`🇩🇿 ALG ${scoreFromResults('alg-aut')} AUT 🇦🇹${statusSuffix('alg-aut')}`,c:statusCls('alg-aut')},
+    tickerFromMatch('uru-esp'),
+    tickerFromMatch('cpv-ksa'),
+    tickerFromMatch('egy-irn'),
+    tickerFromMatch('nzl-bel'),
+    tickerFromMatch('cro-gha'),
+    tickerFromMatch('pan-eng'),
+    tickerFromMatch('col-por'),
+    tickerFromMatch('cod-uzb'),
+    tickerFromMatch('jor-arg'),
+    tickerFromMatch('alg-aut'),
   ];
   const all=[...live,...TICKER_STATIC,...live,...TICKER_STATIC];
   document.getElementById('ticker').innerHTML=all.map(i=>`<span class="ti ${i.c}">${i.t}</span>`).join('');
