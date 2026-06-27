@@ -367,6 +367,116 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   .mode-row{justify-content:center;}
 }
 
+/* ── TOP LIVE PANEL — statut qualification + matchs en direct ── */
+.status-live-split{
+  display:grid;
+  grid-template-columns: minmax(0,1fr) minmax(320px,.95fr);
+  gap:14px;
+  align-items:stretch;
+  margin-bottom:14px;
+}
+.qual-panel,.live-panel{
+  background:#0d0d0d;
+  border:1px solid #ffffff14;
+  border-radius:13px;
+  padding:14px 16px;
+}
+.qual-panel{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+  background:linear-gradient(135deg,#0D1F13,#0f0f0f);
+  border-color:#00853F55;
+}
+.live-panel{
+  background:linear-gradient(135deg,#210707,#111 72%);
+  border-color:#E31B2344;
+  box-shadow:inset 0 0 0 1px #E31B2318;
+}
+.live-panel-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+.live-panel-title{
+  font-family:'Oswald',sans-serif;
+  font-size:.74rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#fff;
+}
+.live-panel-title span{color:var(--rouge);}
+.live-panel-meta{
+  font-size:.58rem;
+  color:var(--mu);
+  white-space:nowrap;
+}
+.top-live-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+.top-live-card{
+  background:#141414;
+  border:1px solid #ffffff14;
+  border-left:3px solid var(--rouge);
+  border-radius:10px;
+  padding:10px 11px;
+  min-height:92px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.top-live-card .tl-teams{
+  font-size:.74rem;
+  line-height:1.35;
+  font-weight:700;
+}
+.top-live-card .tl-score{
+  font-family:'Oswald',sans-serif;
+  font-size:1.72rem;
+  line-height:1;
+  color:var(--or);
+  margin:8px 0 4px;
+  font-weight:800;
+  letter-spacing:.03em;
+}
+.top-live-card .tl-meta{
+  font-size:.6rem;
+  color:#aaa;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.top-live-card .tl-minute{
+  color:#fff;
+  background:#E31B2322;
+  border:1px solid #E31B2355;
+  border-radius:99px;
+  padding:2px 7px;
+  font-weight:700;
+}
+.top-live-card .tl-impact{
+  font-size:.58rem;
+  color:var(--mu);
+  line-height:1.35;
+  margin-top:5px;
+}
+.top-live-empty{
+  font-size:.68rem;
+  color:var(--mu);
+  line-height:1.55;
+  padding:10px 0;
+}
+@media(max-width:900px){
+  .status-live-split{grid-template-columns:1fr;}
+  .top-live-grid{grid-template-columns:1fr;}
+}
+
 </style>
 </head>
 <body>
@@ -505,16 +615,29 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 <!-- ═══ CHANCES ═══ -->
 <div class="sec">📊 Sénégal 5–0 Iraq — En attente des autres résultats</div>
 <div class="chance-card">
-  <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-    <div>
-      <div class="clabel" id="proba-label">Probabilité estimée</div>
-      <div class="cpct" id="mainPct">~30%</div>
+  <div class="status-live-split">
+    <div class="qual-panel">
+      <div>
+        <div class="clabel" id="proba-label">Probabilité estimée</div>
+        <div class="cpct" id="mainPct">~30%</div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <div class="mbar"><div class="mfill" id="mainBar" style="width:30%"></div></div>
+        <div class="csub" id="mainDesc">✅ <strong>Le Sénégal a fait le travail !</strong> 5–0 contre l'Iraq · 3 pts · GD +1. La qualification dépend maintenant des résultats des groupes G, H, J, K et L.</div>
+      </div>
     </div>
-    <div style="flex:1;min-width:200px;">
-      <div class="mbar"><div class="mfill" id="mainBar" style="width:30%"></div></div>
-      <div class="csub" id="mainDesc">✅ <strong>Le Sénégal a fait le travail !</strong> 5–0 contre l'Iraq · 3 pts · GD +1. La qualification dépend maintenant des résultats des groupes G, H, J, K et L.</div>
+
+    <div class="live-panel">
+      <div class="live-panel-head">
+        <div class="live-panel-title">🔴 <span>Matchs en direct</span></div>
+        <div class="live-panel-meta" id="top-live-updated">API en attente…</div>
+      </div>
+      <div id="top-live-matches" class="top-live-grid">
+        <div class="top-live-empty">Les matchs en cours remonteront ici automatiquement dès que l'API les signale en live.</div>
+      </div>
     </div>
   </div>
+
   <div class="virtual-card">
     <div class="vbox" id="virtual-status">
       <div class="vtitle">🇸🇳 Sénégal actuellement</div>
@@ -1279,6 +1402,11 @@ const MATCH_CARD_IDS = {
   'sen-irq': 'm-sen-irq',
 };
 
+function matchScoreText(r, fallback='? – ?') {
+  const hasScore = r && r.hg !== null && r.hg !== undefined && r.ag !== null && r.ag !== undefined;
+  return hasScore ? `${r.hg} – ${r.ag}` : fallback;
+}
+
 function updateMatchCards() {
   Object.entries(MATCH_CARD_IDS).forEach(([key, elId]) => {
     const el = document.getElementById(elId);
@@ -1286,37 +1414,108 @@ function updateMatchCards() {
     const r = RESULTS[key];
     if (!r) return;
 
+    const timeEl = el.closest('.mright')
+                 ? el.closest('.mright').querySelector('.mtime')
+                 : null;
+
     // Réinitialiser les classes proprement avec classList
     el.classList.remove('live','fin');
 
     if (r.status === 'final') {
-      el.textContent = r.hg + ' – ' + r.ag;
+      el.textContent = matchScoreText(r);
       el.classList.add('fin');
-      // Mettre à jour l'heure
-      const timeEl = el.closest('.mright')
-                   ? el.closest('.mright').querySelector('.mtime')
-                   : null;
       if (timeEl && !timeEl.textContent.includes('Terminé')) {
         timeEl.textContent = 'Terminé ✓';
       }
     } else if (r.status === 'live' || r.status === 'in_progress') {
-      el.textContent = (r.hg||0) + ' – ' + (r.ag||0);
+      el.textContent = matchScoreText(r, '0 – 0');
       el.classList.add('live');
+      if (timeEl) {
+        timeEl.textContent = r.minute ? `🔴 ${r.minute}'` : '🔴 En direct';
+      }
     } else {
-      // Pas encore joué — afficher SIM si saisi, sinon ? – ?
+      // API prioritaire : si l'API connaît le match et dit "scheduled" avec score null,
+      // on affiche ?–? et on ne reprend jamais un ancien score simulé de live.json.
+      const apiSaysScheduled = r.apiSynced && r.status === 'scheduled';
       const hs = r.simKeys ? r.simKeys[0] : null;
       const as = r.simKeys ? r.simKeys[1] : null;
       const simH = hs !== null ? SIM[hs] : null;
       const simA = as !== null ? SIM[as] : null;
-      if (simH !== null && simA !== null) {
+      const allowSimDisplay = appMode === 'simulation' && !apiSaysScheduled;
+
+      if (allowSimDisplay && simH !== null && simA !== null) {
         el.textContent = simH + ' – ' + simA + ' ⬡';
         el.classList.add('live');
       } else {
         el.textContent = '? – ?';
+        if (timeEl && r.apiStatusLong) {
+          timeEl.textContent = 'À venir';
+        }
       }
     }
   });
 }
+
+function liveImpactText(key) {
+  const impacts = {
+    'cro-gha': "Groupe L : influe sur le rang final du Sénégal et l'adversaire probable.",
+    'pan-eng': "Groupe L : peut modifier le 1er du groupe L et donc l'affiche du Sénégal.",
+    'col-por': "Groupe K : important si le Sénégal finit 7e meilleur 3e.",
+    'cod-uzb': "Groupe K : peut modifier le classement des 3e et le vainqueur du groupe.",
+    'jor-arg': "Groupe J : peut encore déplacer le Sénégal dans le tableau des 3e.",
+    'alg-aut': "Groupe J : peut encore déplacer le Sénégal dans le tableau des 3e.",
+    'egy-irn': "Groupe G : résultat désormais intégré au calcul.",
+    'nzl-bel': "Groupe G : résultat désormais intégré au calcul.",
+    'uru-esp': "Groupe H : résultat désormais intégré au calcul.",
+    'cpv-ksa': "Groupe H : résultat désormais intégré au calcul."
+  };
+  return impacts[key] || "Score officiel API intégré au calcul.";
+}
+
+function renderTopLiveMatches() {
+  const wrap = document.getElementById('top-live-matches');
+  const meta = document.getElementById('top-live-updated');
+  if (!wrap) return;
+
+  const liveEntries = Object.entries(RESULTS)
+    .filter(([key, r]) => r && (r.status === 'live' || r.status === 'in_progress'))
+    .sort(([ka, a], [kb, b]) => {
+      const ma = a.minute || 0;
+      const mb = b.minute || 0;
+      return mb - ma;
+    });
+
+  if (meta) {
+    const now = new Date();
+    meta.textContent = liveEntries.length
+      ? `${liveEntries.length} match${liveEntries.length>1?'s':''} live · ${now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`
+      : `Aucun live · ${now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`;
+  }
+
+  if (!liveEntries.length) {
+    wrap.className = 'top-live-grid';
+    wrap.innerHTML = '<div class="top-live-empty">Aucun match en direct pour le moment. Les prochains matchs remonteront ici automatiquement.</div>';
+    return;
+  }
+
+  wrap.className = 'top-live-grid';
+  wrap.innerHTML = liveEntries.map(([key, r]) => {
+    const score = matchScoreText(r, '0 – 0');
+    const statusLabel = r.apiStatusLong || 'Live';
+    const minute = r.minute ? `${r.minute}'` : 'LIVE';
+    return `<div class="top-live-card">
+      <div>
+        <div class="tl-teams">${NAMES[r.h]||r.h} <span style="color:var(--mu)">vs</span> ${NAMES[r.a]||r.a}</div>
+        <div class="tl-score">${score}</div>
+      </div>
+      <div>
+        <div class="tl-meta"><span>${statusLabel}</span><span class="tl-minute">${minute}</span></div>
+        <div class="tl-impact">${liveImpactText(key)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 
 // ════════════════════════════════════════════════
 // MOTEUR UNIQUE POST-MATCH
@@ -1408,6 +1607,7 @@ function recalculateAll() {
 
   // ── Cartes de match ──
   updateMatchCards();
+  renderTopLiveMatches();
 
   // ── Adversaire probable (bracket officiel) ──
   updateProbableOpponent();
@@ -1972,9 +2172,10 @@ function initAppDisplay(){
   recalculateAll();
   // updateMatchCards APRÈS recalculateAll pour afficher les scores officiels
   updateMatchCards();
+  renderTopLiveMatches();
   buildTicker();
   // Forcer une seconde passe 200ms plus tard pour les éléments chargés en retard
-  setTimeout(() => { updateMatchCards(); }, 200);
+  setTimeout(() => { updateMatchCards(); renderTopLiveMatches(); }, 200);
 }
 
 // ════════════════════════════════════════════════
@@ -2094,24 +2295,49 @@ if (document.readyState === 'loading') {
 // ════════════════════════════════════════════════
 
 function pollLiveJson() {
+  let source = 'api';
   fetch('/.netlify/functions/scores?t=' + Date.now())
     .then(r => { if (!r.ok) throw new Error('scores.js HTTP ' + r.status); return r.json(); })
-    .catch(() => fetch('/live.json?t=' + Date.now()).then(r => r.json()))
+    .then(data => {
+      if (!data || data.error || !data.matches) throw new Error(data?.message || 'scores.js sans matches');
+      return data;
+    })
+    .catch(() => {
+      source = 'live-json';
+      return fetch('/live.json?t=' + Date.now()).then(r => r.json());
+    })
     .then(data => {
       if (!data || !data.matches) return;
       let changed = false;
+      const apiPriority = source === 'api' || data.source === 'api-football';
 
       Object.entries(data.matches).forEach(([key, match]) => {
         const r = RESULTS[key];
         if (!r) return;
+
         const newStatus = match.status || 'scheduled';
         const newH = (match.home !== undefined && match.home !== null) ? match.home : null;
         const newA = (match.away !== undefined && match.away !== null) ? match.away : null;
+        const newMinute = (match.minute !== undefined && match.minute !== null) ? match.minute : null;
+        const newApiStatus = match.apiStatus || null;
+        const newApiStatusLong = match.apiStatusLong || null;
 
-        if (r.status !== newStatus || r.hg !== newH || r.ag !== newA) {
+        if (
+          r.status !== newStatus ||
+          r.hg !== newH ||
+          r.ag !== newA ||
+          r.minute !== newMinute ||
+          r.apiStatus !== newApiStatus ||
+          r.apiStatusLong !== newApiStatusLong ||
+          r.apiSynced !== apiPriority
+        ) {
           r.status = newStatus;
           r.hg = newH;
           r.ag = newA;
+          r.minute = newMinute;
+          r.apiStatus = newApiStatus;
+          r.apiStatusLong = newApiStatusLong;
+          r.apiSynced = apiPriority;
 
           if (newStatus === 'final') {
             // ── Match terminé : figer dans PLAYED, vider SIM ──
@@ -2121,27 +2347,24 @@ function pollLiveJson() {
             if (!already && newH !== null && newA !== null) {
               PLAYED[grp].push([r.h, r.a, newH, newA]);
             }
-            // Vider SIM — le résultat officiel est dans PLAYED
             if (r.simKeys) {
               SIM[r.simKeys[0]] = null;
               SIM[r.simKeys[1]] = null;
             }
 
           } else if ((newStatus === 'live' || newStatus === 'in_progress') && newH !== null && newA !== null) {
-            // ── Match en cours : alimenter SIM avec le score réel ──
-            // → recalculateAll() utilisera ce score dans calcGroupSim()
-            // → le tableau des 3e se met à jour automatiquement
+            // ── Match en cours : alimenter le calcul avec le score officiel API ──
             if (r.simKeys) {
-              SIM[r.simKeys[0]] = newH; // score home
-              SIM[r.simKeys[1]] = newA; // score away
+              SIM[r.simKeys[0]] = newH;
+              SIM[r.simKeys[1]] = newA;
             }
 
           } else if (newStatus === 'scheduled') {
-            // ── Match pas encore joué : remettre SIM à null si pas de saisie manuelle ──
-            // (ne pas écraser une simulation manuelle existante)
-            if (r.simKeys) {
-              // Seulement si la valeur était un score live précédent (pas une sim manuelle)
-              // On ne touche pas à SIM ici — l'utilisateur garde le contrôle
+            // ── Match pas encore joué : l'API est prioritaire.
+            // On efface les anciens scores simulés pour éviter les faux 2–2.
+            if (r.simKeys && apiPriority) {
+              SIM[r.simKeys[0]] = null;
+              SIM[r.simKeys[1]] = null;
             }
           }
 
@@ -2156,9 +2379,13 @@ function pollLiveJson() {
         tsEl.textContent = 'Mis à jour : ' + d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
       }
 
-      if (changed) recalculateAll();
+      if (changed) {
+        recalculateAll();
+      } else {
+        renderTopLiveMatches();
+      }
     })
-    .catch(() => console.log('live.json indisponible — mode manuel actif'));
+    .catch(() => console.log('Scores API/live.json indisponibles — dernier état conservé'));
 }
 
 pollLiveJson();
