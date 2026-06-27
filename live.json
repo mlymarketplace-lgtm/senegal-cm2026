@@ -5,7 +5,7 @@
     "cpv-ksa": { "home": 0, "away": 0, "status": "final" },
     "egy-irn": { "home": 1, "away": 1, "status": "final" },
     "nzl-bel": { "home": 1, "away": 5, "status": "final" },
-    "cro-gha": { "home": 0, "away": 0, "status": "live" },
+    "cro-gha": { "home": 1, "away": 0, "status": "live" },
     "pan-eng": { "home": 0, "away": 0, "status": "live" },
     "col-por": { "home": null, "away": null, "status": "scheduled" },
     "cod-uzb": { "home": null, "away": null, "status": "scheduled" },
