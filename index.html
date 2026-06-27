@@ -509,8 +509,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   <!-- ADVERSAIRE PROBABLE HEADER — dynamique depuis bracket officiel -->
   <div id="probable-opponent" class="opponent-card" title="Bracket officiel CM 2026 : 3e du Gr.I affronte le 1er du Gr.L au Round of 32">
     <div class="opp-label">🎯 Adversaire probable R32</div>
-    <div class="opp-main" id="opp-main-name">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Angleterre</div>
-    <div class="opp-sub" id="opp-main-sub">1er du Gr.L · bracket officiel</div>
+    <div class="opp-main" id="opp-main-name">🇨🇭 Suisse</div>
+    <div class="opp-sub" id="opp-main-sub">6e meilleur 3e → 1er du Gr.C · Round of 32</div>
   </div>
 
   <div class="hright">
@@ -653,7 +653,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   </div>
 
   <div style="background:#111;border:1px solid #FDEF4233;border-left:4px solid var(--or);border-radius:10px;padding:10px 14px;margin-top:12px;font-size:.72rem;line-height:1.6;color:#ddd;">
-    🎯 <strong style="color:var(--or)">Adversaire probable en cas de qualification : <span id="opp-encart-name">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Angleterre</span>.</strong>
+    🎯 <strong style="color:var(--or)">Adversaire probable en cas de qualification : <span id="opp-encart-name">🇨🇭 Suisse</span>.</strong>
     <span style="color:var(--mu)">Bracket officiel CM 2026 : 3e du Gr.I → affronte le 1er du Gr.L au Round of 32. <span id="opp-encart-sub">Sera mis à jour selon les résultats du Gr.L.</span></span>
   </div>
 
@@ -1090,8 +1090,8 @@ const RESULTS = {
   'gha-pan': {h:'GHA',a:'PAN',hg:1,ag:0,grp:'L',status:'final'},
   'eng-gha': {h:'ENG',a:'GHA',hg:0,ag:0,grp:'L',status:'final'},
   'cro-pan': {h:'CRO',a:'PAN',hg:1,ag:0,grp:'L',status:'final'},
-  'pan-eng': {h:'PAN',a:'ENG',hg:0,ag:0,grp:'L',status:'live',simKeys:['pan','eng']},
-  'cro-gha': {h:'CRO',a:'GHA',hg:1,ag:0,grp:'L',status:'live',simKeys:['cro','gha']},
+  'pan-eng': {h:'PAN',a:'ENG',hg:0,ag:2,grp:'L',status:'final',simKeys:['pan','eng']},
+  'cro-gha': {h:'CRO',a:'GHA',hg:2,ag:1,grp:'L',status:'final',simKeys:['cro','gha']},
 };
 
 // ── Construire PLAYED et PENDING dynamiquement depuis RESULTS ──
@@ -1345,45 +1345,90 @@ function estimateProbaLive(snRank, snGD, snPts) { return estimateProbaWith(snRan
 function estimateProba(snRank, snGD, snPts)     { return estimateProbaWith(snRank, snGD, snPts, scoreSim); }
 
 // ════════════════════════════════════════════════
-// ADVERSAIRE PROBABLE — BRACKET OFFICIEL CM 2026
-// 3e du Groupe I → Round of 32 → affronte 1er du Groupe L
-// Source : bracket officiel FIFA 2026 publié
+// ADVERSAIRE PROBABLE — MAPPING OFFICIEL SELON LE RANG DU SÉNÉGAL
+// Règle verrouillée dans le projet :
+// 5e → Angleterre · 6e → Suisse · 7e → 1er Groupe K · 8e → Belgique
+// Le rang du Sénégal est calculé dynamiquement dans le tableau des meilleurs 3es.
 // ════════════════════════════════════════════════
 
-function updateProbableOpponent() {
-  // Bracket officiel : 3e Gr.I vs 1er Gr.L (Match 76 du calendrier officiel)
-  const opponent_group = 'L';
+function isGroupFullyResolved(groupLetter) {
+  return Object.values(RESULTS)
+    .filter(m => m && m.grp === groupLetter)
+    .every(m => m.status === 'final');
+}
 
-  // Calculer le classement actuel du groupe L (avec simulations si saisies)
-  const grpL = calcGroupSim(opponent_group);
-  if (!grpL || grpL.length === 0) return;
+function getOpponentForSenegalRank(snRank) {
+  const rank = Number(snRank);
 
-  const [leaderCode] = grpL[0]; // 1er du groupe L
-  const leaderName = NAMES[leaderCode] || leaderCode;
-  const leaderPts  = grpL[0][1].pts;
-  const leaderPj   = grpL[0][1].pj;
-  const isGroupFinished = leaderPj >= 3;
+  if (rank === 5) {
+    return {
+      name: NAMES.ENG || '🏴 Angleterre',
+      sub: '5e meilleur 3e → 1er du Gr.L · Round of 32'
+    };
+  }
 
-  // Statut du groupe L
-  const grpLStatus = isGroupFinished
-    ? `1er confirmé du Gr.L`
-    : `1er provisoire du Gr.L (${leaderPts}pts · ${leaderPj}/3 matchs)`;
+  if (rank === 6) {
+    return {
+      name: NAMES.SUI || '🇨🇭 Suisse',
+      sub: '6e meilleur 3e → 1er du Gr.C · Round of 32'
+    };
+  }
+
+  if (rank === 7) {
+    const groupK = calcGroupLive('K');
+    const leaderCode = groupK && groupK[0] ? groupK[0][0] : null;
+    const groupKDone = isGroupFullyResolved('K');
+
+    if (groupKDone && leaderCode) {
+      return {
+        name: NAMES[leaderCode] || leaderCode,
+        sub: '7e meilleur 3e → 1er du Gr.K · Round of 32'
+      };
+    }
+
+    return {
+      name: '🇨🇴🇵🇹 Colombie ou Portugal',
+      sub: '7e meilleur 3e → 1er du Gr.K · en attente Groupe K'
+    };
+  }
+
+  if (rank === 8) {
+    return {
+      name: NAMES.BEL || '🇧🇪 Belgique',
+      sub: '8e meilleur 3e → Belgique · Round of 32'
+    };
+  }
+
+  return {
+    name: '⏳ À confirmer',
+    sub: `Rang ${rank || '?'}e · adversaire à confirmer selon le classement des meilleurs 3es`
+  };
+}
+
+function updateProbableOpponent(snRank) {
+  // Si snRank n'est pas transmis, on le recalcule depuis l'état live courant.
+  if (!snRank) {
+    const thirds = getThirdPlacesLive();
+    const idx = thirds.findIndex(t => t.team === 'SEN');
+    snRank = idx >= 0 ? idx + 1 : null;
+  }
+
+  const opponent = getOpponentForSenegalRank(snRank);
 
   // Mettre à jour le header
+  const cardEl  = document.getElementById('probable-opponent');
   const mainEl  = document.getElementById('opp-main-name');
   const subEl   = document.getElementById('opp-main-sub');
-  if (mainEl) mainEl.textContent = leaderName;
-  if (subEl)  subEl.textContent  = grpLStatus;
+
+  if (cardEl) cardEl.title = `Mapping R32 selon rang Sénégal : 5→Angleterre, 6→Suisse, 7→1er Groupe K, 8→Belgique. Rang actuel : ${snRank || '?'}`;
+  if (mainEl) mainEl.textContent = opponent.name;
+  if (subEl)  subEl.textContent  = opponent.sub;
 
   // Mettre à jour l'encart sous la proba
   const encartName = document.getElementById('opp-encart-name');
   const encartSub  = document.getElementById('opp-encart-sub');
-  if (encartName) encartName.textContent = leaderName;
-  if (encartSub) {
-    encartSub.textContent = isGroupFinished
-      ? `Bracket officiel confirmé · 1er du Gr.L`
-      : `Provisoire · Gr.L non terminé (${leaderPts}pts · ${leaderPj}/3 matchs joués)`;
-  }
+  if (encartName) encartName.textContent = opponent.name;
+  if (encartSub) encartSub.textContent = opponent.sub + ' · mapping automatique selon le rang actuel.';
 }
 
 // ════════════════════════════════════════════════
@@ -1622,7 +1667,7 @@ function recalculateAll() {
   renderTopLiveMatches();
 
   // ── Adversaire probable (bracket officiel) ──
-  updateProbableOpponent();
+  updateProbableOpponent(snRank);
 
   // ── Banner qualification mathématique ──
   showMathQualBanner(isMathQual, confirmedBehindCount);
