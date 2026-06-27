@@ -15,7 +15,7 @@ const SEASON = process.env.FOOTBALL_SEASON || "2026";
 
 // Cache anti-explosion du quota gratuit.
 // 300s = 5 minutes. Si tu veux économiser davantage le quota, mets 600 ou 900 via Netlify FOOTBALL_CACHE_SECONDS.
-const CACHE_SECONDS = Number(process.env.FOOTBALL_CACHE_SECONDS || 300);
+const CACHE_SECONDS = Number(process.env.FOOTBALL_CACHE_SECONDS || 90);
 
 let memoryCache = {
   expiresAt: 0,
