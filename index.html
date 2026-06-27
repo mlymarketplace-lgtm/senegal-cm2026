@@ -840,7 +840,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
       <div class="match bon">
         <div class="mst">⭐⭐⭐</div>
         <div class="minfo">
-          <div class="teams">🇧🇪 Belgique vs 🇳🇿 Nouvelle-Zélande</div>
+          <div class="teams">🇳🇿 Nouvelle-Zélande vs 🇧🇪 Belgique</div>
           <div class="lieu">Gr. G · BC Place, Vancouver</div>
           <div class="mwish">
             <span class="wbon">✅ Nouvelle-Zélande doit battre Belgique (idéal)</span><br>
@@ -857,7 +857,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
       <div class="match bon">
         <div class="mst">⭐⭐⭐</div>
         <div class="minfo">
-          <div class="teams">🇬🇭 Ghana vs 🇭🇷 Croatie</div>
+          <div class="teams">🇭🇷 Croatie vs 🇬🇭 Ghana</div>
           <div class="lieu">Gr. L · Lincoln Financial, Philadelphie</div>
           <div class="mwish">
             <span class="wbon">✅ Ghana doit battre Croatie</span><br>
@@ -1062,8 +1062,8 @@ const RESULTS = {
   'ksa-uru': {h:'KSA',a:'URU',hg:1,ag:1,grp:'H',status:'final'},
   'esp-ksa': {h:'ESP',a:'KSA',hg:4,ag:0,grp:'H',status:'final'},
   'uru-cpv': {h:'URU',a:'CPV',hg:2,ag:2,grp:'H',status:'final'},
-  'uru-esp': {h:'URU',a:'ESP',hg:null,ag:null,grp:'H',status:'scheduled',simKeys:['uru','esp']},
-  'cpv-ksa': {h:'CPV',a:'KSA',hg:null,ag:null,grp:'H',status:'scheduled',simKeys:['cpv','ksa']},
+  'uru-esp': {h:'URU',a:'ESP',hg:0,ag:1,grp:'H',status:'final',simKeys:['uru','esp']},
+  'cpv-ksa': {h:'CPV',a:'KSA',hg:0,ag:0,grp:'H',status:'final',simKeys:['cpv','ksa']},
   // ── Groupe I — TERMINÉ ──
   'fra-sen': {h:'FRA',a:'SEN',hg:3,ag:1,grp:'I',status:'final'},
   'nor-irq': {h:'NOR',a:'IRQ',hg:4,ag:1,grp:'I',status:'final'},
@@ -1090,8 +1090,8 @@ const RESULTS = {
   'gha-pan': {h:'GHA',a:'PAN',hg:1,ag:0,grp:'L',status:'final'},
   'eng-gha': {h:'ENG',a:'GHA',hg:0,ag:0,grp:'L',status:'final'},
   'cro-pan': {h:'CRO',a:'PAN',hg:1,ag:0,grp:'L',status:'final'},
-  'pan-eng': {h:'PAN',a:'ENG',hg:null,ag:null,grp:'L',status:'scheduled',simKeys:['pan','eng']},
-  'cro-gha': {h:'CRO',a:'GHA',hg:null,ag:null,grp:'L',status:'scheduled',simKeys:['cro','gha']},
+  'pan-eng': {h:'PAN',a:'ENG',hg:0,ag:0,grp:'L',status:'live',simKeys:['pan','eng']},
+  'cro-gha': {h:'CRO',a:'GHA',hg:1,ag:0,grp:'L',status:'live',simKeys:['cro','gha']},
 };
 
 // ── Construire PLAYED et PENDING dynamiquement depuis RESULTS ──
@@ -1184,6 +1184,10 @@ const NAMES = {
   COL:'🇨🇴 Colombie',POR:'🇵🇹 Portugal',COD:'🇨🇩 RD Congo',UZB:'🇺🇿 Ouzbékistan',
   ENG:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 Angleterre',GHA:'🇬🇭 Ghana',CRO:'🇭🇷 Croatie',PAN:'🇵🇦 Panama'
 };
+
+function fullTeam(code) {
+  return NAMES[code] || code;
+}
 
 // PENDING est construit dynamiquement depuis RESULTS via buildPlayedAndPending().
 
@@ -2315,100 +2319,162 @@ if (document.readyState === 'loading') {
 // voient les nouveaux scores dans les 30 secondes
 // ════════════════════════════════════════════════
 
-function pollLiveJson() {
-  let source = 'api';
-  fetch('/.netlify/functions/scores?t=' + Date.now())
-    .then(r => { if (!r.ok) throw new Error('scores.js HTTP ' + r.status); return r.json(); })
-    .then(data => {
-      if (!data || data.error || !data.matches) throw new Error(data?.message || 'scores.js sans matches');
-      return data;
-    })
-    .catch(() => {
-      source = 'live-json';
-      return fetch('/live.json?t=' + Date.now()).then(r => r.json());
-    })
-    .then(data => {
-      if (!data || !data.matches) return;
-      let changed = false;
-      const apiPriority = source === 'api' || data.source === 'api-football';
+// Fenêtres où l'on autorise les appels API.
+// Objectif : ne pas consommer l'API hors période utile, tout en gardant les scores déjà affichés.
+const API_ACTIVE_WINDOWS = [
+  // Derniers matchs G/H déjà terminés, fenêtre post-match courte pour confirmer les scores.
+  ['2026-06-27T01:30:00+02:00','2026-06-27T07:30:00+02:00'],
+  // Groupe L : Croatie–Ghana / Panama–Angleterre.
+  ['2026-06-27T22:45:00+02:00','2026-06-28T02:45:00+02:00'],
+  // Groupe K : Colombie–Portugal / RDC–Ouzbékistan.
+  ['2026-06-28T01:15:00+02:00','2026-06-28T05:45:00+02:00'],
+  // Groupe J : Jordanie–Argentine / Algérie–Autriche.
+  ['2026-06-28T03:45:00+02:00','2026-06-28T08:15:00+02:00'],
+];
 
-      Object.entries(data.matches).forEach(([key, match]) => {
-        const r = RESULTS[key];
-        if (!r) return;
+let fallbackLoaded = false;
+let lastApiSuccessAt = null;
 
-        const newStatus = match.status || 'scheduled';
-        const newH = (match.home !== undefined && match.home !== null) ? match.home : null;
-        const newA = (match.away !== undefined && match.away !== null) ? match.away : null;
-        const newMinute = (match.minute !== undefined && match.minute !== null) ? match.minute : null;
-        const newApiStatus = match.apiStatus || null;
-        const newApiStatusLong = match.apiStatusLong || null;
-
-        if (
-          r.status !== newStatus ||
-          r.hg !== newH ||
-          r.ag !== newA ||
-          r.minute !== newMinute ||
-          r.apiStatus !== newApiStatus ||
-          r.apiStatusLong !== newApiStatusLong ||
-          r.apiSynced !== apiPriority
-        ) {
-          r.status = newStatus;
-          r.hg = newH;
-          r.ag = newA;
-          r.minute = newMinute;
-          r.apiStatus = newApiStatus;
-          r.apiStatusLong = newApiStatusLong;
-          r.apiSynced = apiPriority;
-
-          if (newStatus === 'final') {
-            // ── Match terminé : figer dans PLAYED, vider SIM ──
-            const grp = r.grp;
-            PENDING[grp] = (PENDING[grp]||[]).filter(([h,a]) => !(h===r.h && a===r.a));
-            const already = PLAYED[grp].some(([h,a]) => h===r.h && a===r.a);
-            if (!already && newH !== null && newA !== null) {
-              PLAYED[grp].push([r.h, r.a, newH, newA]);
-            }
-            if (r.simKeys) {
-              SIM[r.simKeys[0]] = null;
-              SIM[r.simKeys[1]] = null;
-            }
-
-          } else if ((newStatus === 'live' || newStatus === 'in_progress') && newH !== null && newA !== null) {
-            // ── Match en cours : alimenter le calcul avec le score officiel API ──
-            if (r.simKeys) {
-              SIM[r.simKeys[0]] = newH;
-              SIM[r.simKeys[1]] = newA;
-            }
-
-          } else if (newStatus === 'scheduled') {
-            // ── Match pas encore joué : l'API est prioritaire.
-            // On efface les anciens scores simulés pour éviter les faux 2–2.
-            if (r.simKeys && apiPriority) {
-              SIM[r.simKeys[0]] = null;
-              SIM[r.simKeys[1]] = null;
-            }
-          }
-
-          changed = true;
-        }
-      });
-
-      // Horodatage
-      const tsEl = document.getElementById('live-updated-at');
-      if (tsEl && data.updatedAt) {
-        const d = new Date(data.updatedAt);
-        tsEl.textContent = 'Mis à jour : ' + d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-      }
-
-      if (changed) {
-        recalculateAll();
-      } else {
-        renderTopLiveMatches();
-      }
-    })
-    .catch(() => console.log('Scores API/live.json indisponibles — dernier état conservé'));
+function isApiWindowOpen(now = new Date()) {
+  const t = now.getTime();
+  return API_ACTIVE_WINDOWS.some(([start, end]) => {
+    return t >= new Date(start).getTime() && t <= new Date(end).getTime();
+  });
 }
 
+function applyScoresData(data, source = 'api') {
+  if (!data || !data.matches) return false;
+  let changed = false;
+  const apiPriority = source === 'api' || data.source === 'api-football';
+
+  Object.entries(data.matches).forEach(([key, match]) => {
+    const r = RESULTS[key];
+    if (!r) return;
+
+    const newStatus = match.status || 'scheduled';
+    const newH = (match.home !== undefined && match.home !== null) ? match.home : null;
+    const newA = (match.away !== undefined && match.away !== null) ? match.away : null;
+    const newMinute = (match.minute !== undefined && match.minute !== null) ? match.minute : null;
+    const newApiStatus = match.apiStatus || null;
+    const newApiStatusLong = match.apiStatusLong || null;
+
+    if (
+      r.status !== newStatus ||
+      r.hg !== newH ||
+      r.ag !== newA ||
+      r.minute !== newMinute ||
+      r.apiStatus !== newApiStatus ||
+      r.apiStatusLong !== newApiStatusLong ||
+      r.apiSynced !== apiPriority
+    ) {
+      r.status = newStatus;
+      r.hg = newH;
+      r.ag = newA;
+      r.minute = newMinute;
+      r.apiStatus = newApiStatus;
+      r.apiStatusLong = newApiStatusLong;
+      r.apiSynced = apiPriority;
+
+      if (newStatus === 'final') {
+        // Match terminé : figer dans PLAYED, retirer du pending et vider SIM.
+        const grp = r.grp;
+        PENDING[grp] = (PENDING[grp] || []).filter(([h, a]) => !(h === r.h && a === r.a));
+        const already = PLAYED[grp].some(([h, a]) => h === r.h && a === r.a);
+        if (!already && newH !== null && newA !== null) {
+          PLAYED[grp].push([r.h, r.a, newH, newA]);
+        }
+        if (r.simKeys) {
+          SIM[r.simKeys[0]] = null;
+          SIM[r.simKeys[1]] = null;
+        }
+      } else if ((newStatus === 'live' || newStatus === 'in_progress') && newH !== null && newA !== null) {
+        // Match live : utiliser le score API comme score de calcul.
+        if (r.simKeys) {
+          SIM[r.simKeys[0]] = newH;
+          SIM[r.simKeys[1]] = newA;
+        }
+      } else if (newStatus === 'scheduled') {
+        // Match non commencé : si l'API le connaît, elle efface les simulations.
+        // Cela évite les anciens 2–2 sur Colombie–Portugal, RDC–Ouzbékistan, etc.
+        if (r.simKeys && apiPriority) {
+          SIM[r.simKeys[0]] = null;
+          SIM[r.simKeys[1]] = null;
+        }
+      }
+      changed = true;
+    }
+  });
+
+  const tsEl = document.getElementById('live-updated-at');
+  if (tsEl && data.updatedAt) {
+    const d = new Date(data.updatedAt);
+    tsEl.textContent = 'Mis à jour : ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+  }
+
+  const meta = document.getElementById('top-live-updated');
+  if (meta && apiPriority) {
+    const d = data.updatedAt ? new Date(data.updatedAt) : new Date();
+    meta.textContent = 'API · ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+  }
+
+  if (changed) recalculateAll();
+  else {
+    updateMatchCards();
+    renderTopLiveMatches();
+    buildTicker();
+  }
+  return changed;
+}
+
+function loadFallbackScoresOnce() {
+  if (fallbackLoaded) return Promise.resolve(false);
+  return fetch('/live.json?t=' + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      fallbackLoaded = true;
+      return applyScoresData(data, 'live-json');
+    })
+    .catch(() => false);
+}
+
+function pollLiveJson() {
+  // 1) Charger live.json une seule fois au démarrage : les scores ne disparaissent plus pendant l'attente API.
+  return loadFallbackScoresOnce()
+    .then(() => {
+      const allowApi = isApiWindowOpen();
+      const meta = document.getElementById('top-live-updated');
+
+      if (!allowApi) {
+        if (meta) {
+          meta.textContent = lastApiSuccessAt
+            ? 'Hors fenêtre live · dernier API ' + lastApiSuccessAt.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})
+            : 'Hors fenêtre live · fallback live.json';
+        }
+        updateMatchCards();
+        renderTopLiveMatches();
+        buildTicker();
+        return null;
+      }
+
+      // 2) Appel API uniquement pendant les fenêtres de match live / post-match.
+      return fetch('/.netlify/functions/scores?t=' + Date.now())
+        .then(r => { if (!r.ok) throw new Error('scores.js HTTP ' + r.status); return r.json(); })
+        .then(data => {
+          if (!data || data.error || !data.matches) throw new Error(data?.message || 'scores.js sans matches');
+          lastApiSuccessAt = new Date();
+          applyScoresData(data, 'api');
+          return data;
+        })
+        .catch(() => {
+          // Ne jamais vider l'écran si l'API tarde : on conserve le dernier état connu.
+          if (meta) meta.textContent = 'API indisponible · dernier état conservé';
+          updateMatchCards();
+          renderTopLiveMatches();
+          buildTicker();
+          return null;
+        });
+    });
+}
 pollLiveJson();
 setInterval(pollLiveJson, 30000);
 
