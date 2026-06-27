@@ -2314,38 +2314,50 @@ if (document.readyState === 'loading') {
 // ════════════════════════════════════════════════
 
 // ════════════════════════════════════════════════
-// POLLING live.json — toutes les 30s
-// Tu modifies live.json + redéploies → tous les visiteurs
-// voient les nouveaux scores dans les 30 secondes
+// POLLING SCORES — live.json d'abord, API seulement quand utile
+// Objectif :
+// 1) ne jamais vider l'écran pendant l'attente API ;
+// 2) laisser live.json servir de secours ;
+// 3) appeler l'API uniquement pendant les fenêtres utiles ou si un match est déjà live ;
+// 4) ne jamais reprendre un faux score de simulation quand l'API dit scheduled/null.
 // ════════════════════════════════════════════════
 
-// Fenêtres où l'on autorise les appels API.
-// Objectif : ne pas consommer l'API hors période utile, tout en gardant les scores déjà affichés.
 const API_ACTIVE_WINDOWS = [
-  // Derniers matchs G/H déjà terminés, fenêtre post-match courte pour confirmer les scores.
-  ['2026-06-27T01:30:00+02:00','2026-06-27T07:30:00+02:00'],
+  // Résultats G/H : fenêtre post-match pour confirmer les scores.
+  ['2026-06-27T01:30:00+02:00','2026-06-27T08:30:00+02:00'],
   // Groupe L : Croatie–Ghana / Panama–Angleterre.
-  ['2026-06-27T22:45:00+02:00','2026-06-28T02:45:00+02:00'],
+  ['2026-06-27T22:30:00+02:00','2026-06-28T03:30:00+02:00'],
   // Groupe K : Colombie–Portugal / RDC–Ouzbékistan.
-  ['2026-06-28T01:15:00+02:00','2026-06-28T05:45:00+02:00'],
+  ['2026-06-28T01:00:00+02:00','2026-06-28T06:15:00+02:00'],
   // Groupe J : Jordanie–Argentine / Algérie–Autriche.
-  ['2026-06-28T03:45:00+02:00','2026-06-28T08:15:00+02:00'],
+  ['2026-06-28T03:30:00+02:00','2026-06-28T08:45:00+02:00'],
 ];
 
 let fallbackLoaded = false;
 let lastApiSuccessAt = null;
+let lastApiAttemptAt = null;
+let apiHadLiveRecently = false;
 
 function isApiWindowOpen(now = new Date()) {
   const t = now.getTime();
-  return API_ACTIVE_WINDOWS.some(([start, end]) => {
-    return t >= new Date(start).getTime() && t <= new Date(end).getTime();
-  });
+  return API_ACTIVE_WINDOWS.some(([start, end]) => t >= new Date(start).getTime() && t <= new Date(end).getTime());
+}
+
+function hasLiveMatchInCurrentState() {
+  return Object.values(RESULTS).some(r => r && (r.status === 'live' || r.status === 'in_progress'));
+}
+
+function shouldCallScoresApi() {
+  // Appel API autorisé seulement pendant les fenêtres de match ou lorsqu'un live est déjà connu.
+  // Cela évite de consommer l'API toute la journée.
+  return isApiWindowOpen() || hasLiveMatchInCurrentState() || apiHadLiveRecently;
 }
 
 function applyScoresData(data, source = 'api') {
   if (!data || !data.matches) return false;
   let changed = false;
   const apiPriority = source === 'api' || data.source === 'api-football';
+  let liveCount = 0;
 
   Object.entries(data.matches).forEach(([key, match]) => {
     const r = RESULTS[key];
@@ -2357,6 +2369,8 @@ function applyScoresData(data, source = 'api') {
     const newMinute = (match.minute !== undefined && match.minute !== null) ? match.minute : null;
     const newApiStatus = match.apiStatus || null;
     const newApiStatusLong = match.apiStatusLong || null;
+
+    if (newStatus === 'live' || newStatus === 'in_progress') liveCount++;
 
     if (
       r.status !== newStatus ||
@@ -2376,7 +2390,6 @@ function applyScoresData(data, source = 'api') {
       r.apiSynced = apiPriority;
 
       if (newStatus === 'final') {
-        // Match terminé : figer dans PLAYED, retirer du pending et vider SIM.
         const grp = r.grp;
         PENDING[grp] = (PENDING[grp] || []).filter(([h, a]) => !(h === r.h && a === r.a));
         const already = PLAYED[grp].some(([h, a]) => h === r.h && a === r.a);
@@ -2388,14 +2401,13 @@ function applyScoresData(data, source = 'api') {
           SIM[r.simKeys[1]] = null;
         }
       } else if ((newStatus === 'live' || newStatus === 'in_progress') && newH !== null && newA !== null) {
-        // Match live : utiliser le score API comme score de calcul.
         if (r.simKeys) {
           SIM[r.simKeys[0]] = newH;
           SIM[r.simKeys[1]] = newA;
         }
       } else if (newStatus === 'scheduled') {
-        // Match non commencé : si l'API le connaît, elle efface les simulations.
-        // Cela évite les anciens 2–2 sur Colombie–Portugal, RDC–Ouzbékistan, etc.
+        // Point critique : si l'API connaît le match et dit scheduled/null,
+        // on efface les anciennes simulations et on affiche ?–?.
         if (r.simKeys && apiPriority) {
           SIM[r.simKeys[0]] = null;
           SIM[r.simKeys[1]] = null;
@@ -2404,6 +2416,10 @@ function applyScoresData(data, source = 'api') {
       changed = true;
     }
   });
+
+  if (apiPriority) {
+    apiHadLiveRecently = liveCount > 0;
+  }
 
   const tsEl = document.getElementById('live-updated-at');
   if (tsEl && data.updatedAt) {
@@ -2414,7 +2430,9 @@ function applyScoresData(data, source = 'api') {
   const meta = document.getElementById('top-live-updated');
   if (meta && apiPriority) {
     const d = data.updatedAt ? new Date(data.updatedAt) : new Date();
-    meta.textContent = 'API · ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+    meta.textContent = liveCount
+      ? `${liveCount} match${liveCount>1?'s':''} live · API ${d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`
+      : `API ${d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})} · aucun live`;
   }
 
   if (changed) recalculateAll();
@@ -2437,46 +2455,49 @@ function loadFallbackScoresOnce() {
     .catch(() => false);
 }
 
-function pollLiveJson() {
-  // 1) Charger live.json une seule fois au démarrage : les scores ne disparaissent plus pendant l'attente API.
-  return loadFallbackScoresOnce()
-    .then(() => {
-      const allowApi = isApiWindowOpen();
-      const meta = document.getElementById('top-live-updated');
+function fetchApiScoresIfUseful() {
+  const meta = document.getElementById('top-live-updated');
 
-      if (!allowApi) {
-        if (meta) {
-          meta.textContent = lastApiSuccessAt
-            ? 'Hors fenêtre live · dernier API ' + lastApiSuccessAt.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})
-            : 'Hors fenêtre live · fallback live.json';
-        }
-        updateMatchCards();
-        renderTopLiveMatches();
-        buildTicker();
-        return null;
-      }
+  if (!shouldCallScoresApi()) {
+    if (meta) {
+      meta.textContent = lastApiSuccessAt
+        ? 'Hors fenêtre live · dernier API ' + lastApiSuccessAt.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})
+        : 'Hors fenêtre live · fallback live.json';
+    }
+    updateMatchCards();
+    renderTopLiveMatches();
+    buildTicker();
+    return Promise.resolve(null);
+  }
 
-      // 2) Appel API uniquement pendant les fenêtres de match live / post-match.
-      return fetch('/.netlify/functions/scores?t=' + Date.now())
-        .then(r => { if (!r.ok) throw new Error('scores.js HTTP ' + r.status); return r.json(); })
-        .then(data => {
-          if (!data || data.error || !data.matches) throw new Error(data?.message || 'scores.js sans matches');
-          lastApiSuccessAt = new Date();
-          applyScoresData(data, 'api');
-          return data;
-        })
-        .catch(() => {
-          // Ne jamais vider l'écran si l'API tarde : on conserve le dernier état connu.
-          if (meta) meta.textContent = 'API indisponible · dernier état conservé';
-          updateMatchCards();
-          renderTopLiveMatches();
-          buildTicker();
-          return null;
-        });
+  lastApiAttemptAt = new Date();
+  if (meta) meta.textContent = 'API en cours…';
+
+  return fetch('/.netlify/functions/scores?t=' + Date.now())
+    .then(r => { if (!r.ok) throw new Error('scores.js HTTP ' + r.status); return r.json(); })
+    .then(data => {
+      if (!data || data.error || !data.matches) throw new Error(data?.message || 'scores.js sans matches');
+      lastApiSuccessAt = new Date();
+      applyScoresData(data, 'api');
+      return data;
+    })
+    .catch(() => {
+      // Ne jamais vider l'écran si l'API tarde : on conserve live.json / dernier état connu.
+      if (meta) meta.textContent = 'API indisponible · dernier état conservé';
+      updateMatchCards();
+      renderTopLiveMatches();
+      buildTicker();
+      return null;
     });
 }
+
+function pollLiveJson() {
+  return loadFallbackScoresOnce().then(fetchApiScoresIfUseful);
+}
+
+// Premier chargement immédiat, puis polling raisonnable.
 pollLiveJson();
-setInterval(pollLiveJson, 30000);
+setInterval(pollLiveJson, 60000);
 
 // ════════════════════════════════════════════════
 // COMPATIBILITÉ API / ADMIN
