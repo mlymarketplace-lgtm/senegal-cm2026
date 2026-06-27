@@ -175,6 +175,22 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 .gq1{background:#00853F18;}.gq2{background:#00853F0b;}.gq3{background:#FDEF4210;}.gel{opacity:.32;}
 .gst{font-size:.56rem;padding:4px 8px;background:#0d0d0d;color:var(--mu);border-top:1px solid #fff07;line-height:1.45;}
 
+/* ── TABLEAU 16ES — style bracket FIFA compact ── */
+.r32-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0 18px;}
+.r32-card{background:var(--g2);border:1px solid #fff08;border-radius:9px;overflow:hidden;transition:border-color .2s,transform .2s;min-height:108px;}
+.r32-card:hover{border-color:#fff2;transform:translateY(-1px);}
+.r32-card.senegal-slot{border-color:var(--or);box-shadow:0 0 0 1px #FDEF4222;background:linear-gradient(135deg,#1a1500,var(--g2) 60%);}
+.r32-head{padding:6px 9px;font-family:'Oswald',sans-serif;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;background:#0d0d0d;border-bottom:1px solid #fff08;color:#8ab4ff;}
+.r32-date{font-size:.55rem;color:var(--mu);font-family:'Inter',sans-serif;letter-spacing:0;text-transform:none;}
+.r32-teams{padding:7px 9px;display:flex;flex-direction:column;gap:5px;}
+.r32-team{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#ffffff06;border:1px solid #ffffff08;border-radius:6px;padding:5px 7px;font-size:.72rem;font-weight:600;min-height:28px;}
+.r32-team.tbd{color:var(--mu);font-weight:500;}
+.r32-card.senegal-slot .r32-team.sen{color:var(--or);border-color:#FDEF4244;background:#FDEF4210;}
+.r32-note{padding:0 9px 7px;font-size:.56rem;color:var(--mu);line-height:1.35;}
+@media(max-width:1000px){.r32-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:620px){.r32-grid{grid-template-columns:1fr;}}
+
+
 /* ── TIP ── */
 .tip{background:#0d0d0d;border:1px solid #fff0e;border-radius:8px;padding:9px 12px;
   font-size:.67rem;color:var(--mu);line-height:1.75;margin-top:8px;}
@@ -645,7 +661,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
       <div class="vsub" id="virtual-sub">Match terminé 5–0 · 3 pts · GD +1 · En attente des groupes G, H, J, K, L.</div>
     </div>
     <div class="vbox" id="danger-status">
-      <div class="vtitle">🎯 Ce qui peut encore changer</div>
+      <div class="vtitle">🎯 Ce qui peut changer l’adversaire</div>
       <div class="vmain" id="danger-main">Groupes ouverts</div>
       <div class="vsub" id="danger-sub">G, H, J, K et L peuvent encore modifier le classement des 3e.</div>
       <div class="group-chip-row" id="open-groups-list"></div>
@@ -653,8 +669,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   </div>
 
   <div style="background:#111;border:1px solid #FDEF4233;border-left:4px solid var(--or);border-radius:10px;padding:10px 14px;margin-top:12px;font-size:.72rem;line-height:1.6;color:#ddd;">
-    🎯 <strong style="color:var(--or)">Adversaire probable en cas de qualification : <span id="opp-encart-name">🇨🇭 Suisse</span>.</strong>
-    <span style="color:var(--mu)">Bracket officiel CM 2026 : 3e du Gr.I → affronte le 1er du Gr.L au Round of 32. <span id="opp-encart-sub">Sera mis à jour selon les résultats du Gr.L.</span></span>
+    🎯 <strong style="color:var(--or)">Adversaire probable du Sénégal en 16e : <span id="opp-encart-name">🇨🇭 Suisse</span>.</strong>
+    <span style="color:var(--mu)">Le Sénégal est qualifié ; l’enjeu est maintenant son rang parmi les meilleurs 3es. <span id="opp-encart-sub">Le mapping se met à jour automatiquement.</span></span>
   </div>
 
   <!-- Scénarios SEN-IRQ supprimés — match terminé -->
@@ -678,11 +694,11 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
       </table>
     </div>
     <div class="tip">
-      <strong>Logique exacte :</strong><br>
-      <span class="trouge">🔴 Gr. H :</span> <strong>Espagne doit battre Uruguay</strong> → 3e aura max 2 pts = <span class="tvert">aucun danger</span>. Si Uruguay gagne → 3e monte à 4-5 pts = danger.<br>
-      <span class="trouge">🔴 Gr. G :</span> <strong>Égypte doit battre Iran</strong> → peu importe Belgique-N-Zélande, le 3e du Gr.G n'aura pas 3 pts.<br>
-      <span class="trouge">🔴 Gr. L :</span> <strong>Ghana doit battre Croatie</strong> → Croatie reste à 3 pts GD négatif.<br>
-      <span class="tor">→ Classement mis à jour en temps réel selon ta simulation ↑</span>
+      <strong>Lecture du tableau :</strong><br>
+      Le Sénégal est déjà qualifié. Ce classement sert maintenant à déterminer son adversaire en 16e de finale.<br>
+      <span class="tor">Mapping officiel utilisé par l’app :</span>
+      <strong>5e → Angleterre</strong> · <strong>6e → Suisse</strong> · <strong>7e → 1er Groupe K</strong> · <strong>8e → Belgique</strong>.<br>
+      <span class="tvert">Les équipes à 4 points et le Sénégal sont marqués “Qualifiée”.</span>
     </div>
   </div>
 
@@ -693,39 +709,9 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 
   <!-- Simulateur autres matchs -->
   <div style="font-size:.63rem;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">
-    ⚽ Simule les autres matchs qui influencent la qualification
+    ⚽ Simule les matchs restants qui peuvent changer le rang et l’adversaire
   </div>
   <div class="sim-others">
-
-    <div class="sim-other">
-      <div class="so-label">⭐⭐⭐⭐ 🇺🇾 Uruguay vs 🇪🇸 Espagne</div>
-      <div class="so-row"><button class="so-btn" onclick="chg('uru',-1)">−</button><span class="so-snum" id="sc-uru">–</span><span class="so-sep">:</span><span class="so-snum" id="sc-esp">–</span><button class="so-btn" onclick="chg('esp',-1)">−</button><span class="so-sep" style="margin:0 2px;">|</span><button class="so-btn" onclick="chg('uru',1)">+</button><span class="so-sep">Uru</span><span class="so-sep">/</span><button class="so-btn" onclick="chg('esp',1)">+</button><span class="so-sep">Esp</span></div>
-    </div>
-
-    <div class="sim-other">
-      <div class="so-label">⭐⭐ 🇨🇻 Cap-Vert vs 🇸🇦 Arabie S.</div>
-      <div class="so-row"><button class="so-btn" onclick="chg('cpv',-1)">−</button><span class="so-snum" id="sc-cpv">–</span><span class="so-sep">:</span><span class="so-snum" id="sc-ksa">–</span><button class="so-btn" onclick="chg('ksa',-1)">−</button><span class="so-sep" style="margin:0 2px;">|</span><button class="so-btn" onclick="chg('cpv',1)">+</button><span class="so-sep">CPV</span><span class="so-sep">/</span><button class="so-btn" onclick="chg('ksa',1)">+</button><span class="so-sep">KSA</span></div>
-    </div>
-
-    <div class="sim-other">
-      <div class="so-label">⭐⭐⭐⭐ 🇪🇬 Égypte vs 🇮🇷 Iran</div>
-      <div class="so-row"><button class="so-btn" onclick="chg('egy',-1)">−</button><span class="so-snum" id="sc-egy">–</span><span class="so-sep">:</span><span class="so-snum" id="sc-irn">–</span><button class="so-btn" onclick="chg('irn',-1)">−</button><span class="so-sep" style="margin:0 2px;">|</span><button class="so-btn" onclick="chg('egy',1)">+</button><span class="so-sep">Egy</span><span class="so-sep">/</span><button class="so-btn" onclick="chg('irn',1)">+</button><span class="so-sep">Ira</span></div>
-    </div>
-
-    <div class="sim-other">
-      <div class="so-label">⭐⭐⭐ 🇳🇿 N-Zélande vs 🇧🇪 Belgique</div>
-      <div class="so-row"><button class="so-btn" onclick="chg('nzl',-1)">−</button><span class="so-snum" id="sc-nzl">–</span><span class="so-sep">:</span><span class="so-snum" id="sc-bel">–</span><button class="so-btn" onclick="chg('bel',-1)">−</button><span class="so-sep" style="margin:0 2px;">|</span><button class="so-btn" onclick="chg('nzl',1)">+</button><span class="so-sep">NZL</span><span class="so-sep">/</span><button class="so-btn" onclick="chg('bel',1)">+</button><span class="so-sep">Bel</span></div>
-    </div>
-
-    <div class="sim-other">
-      <div class="so-label">⭐⭐⭐ 🇭🇷 Croatie vs 🇬🇭 Ghana</div>
-      <div class="so-row"><button class="so-btn" onclick="chg('cro',-1)">−</button><span class="so-snum" id="sc-cro">–</span><span class="so-sep">:</span><span class="so-snum" id="sc-gha">–</span><button class="so-btn" onclick="chg('gha',-1)">−</button><span class="so-sep" style="margin:0 2px;">|</span><button class="so-btn" onclick="chg('cro',1)">+</button><span class="so-sep">Cro</span><span class="so-sep">/</span><button class="so-btn" onclick="chg('gha',1)">+</button><span class="so-sep">Gha</span></div>
-    </div>
-
-    <div class="sim-other">
-      <div class="so-label">⭐ 🇵🇦 Panama vs 🏴 Angleterre</div>
-      <div class="so-row"><button class="so-btn" onclick="chg('pan',-1)">−</button><span class="so-snum" id="sc-pan">–</span><span class="so-sep">:</span><span class="so-snum" id="sc-eng">–</span><button class="so-btn" onclick="chg('eng',-1)">−</button><span class="so-sep" style="margin:0 2px;">|</span><button class="so-btn" onclick="chg('pan',1)">+</button><span class="so-sep">PAN</span><span class="so-sep">/</span><button class="so-btn" onclick="chg('eng',1)">+</button><span class="so-sep">ENG</span></div>
-    </div>
 
     <div class="sim-other">
       <div class="so-label">⭐ 🇨🇴 Colombie vs 🇵🇹 Portugal</div>
@@ -752,7 +738,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 
 <!-- ═══ FEED INTELLIGENT ═══ -->
 <div class="need-feed">
-  <h3>🦁 Ce qu'il faut surveiller pour qualifier le Sénégal</h3>
+  <h3>🎯 Ce qu'il faut surveiller pour connaître l’adversaire du Sénégal en 16e de finale</h3>
   <div class="need-grid" id="need-grid"></div>
   <div class="proba-explain" id="proba-explain">Sénégal 5–0 Iraq · 3 pts · GD +1. Simule les autres matchs pour affiner la probabilité.</div>
 </div>
@@ -762,173 +748,53 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 
   <!-- MATCHS IMPORTANTS — visible sur toutes tailles -->
   <div>
-    <div class="sec">🗓️ Matchs — Importance pour le Sénégal</div>
+    <div class="sec">🗓️ Matchs restants — impact sur l’adversaire du Sénégal</div>
     <div class="match-col">
-      <div class="match" style="border-left-color:#4ade80;background:linear-gradient(90deg,#051a0e18,var(--g2) 40%);">
-        <div class="mst">✅</div>
-        <div class="minfo">
-          <div class="teams">🇸🇳 <strong>SÉNÉGAL 5 – 0 Iraq</strong> 🇮🇶</div>
-          <div class="lieu">Gr. I · BMO Field, Toronto · Match terminé</div>
-          <div class="mwish"><span class="wbon">✅ Les Lions ont fait le travail ! GD +1 · 3 pts</span></div>
-        </div>
-        <div class="mright">
-          <div class="mscore fin" id="m-sen-irq">5 – 0</div>
-          <div class="mtime">Terminé ✓</div>
-        </div>
-      </div>
-      <div class="match neu">
-        <div class="mst">⭐</div>
-        <div class="minfo">
-          <div class="teams">🇳🇴 Norvège vs 🇫🇷 France</div>
-          <div class="lieu">Gr. I · Gillette Stadium, Boston</div>
-          <div class="mwish"><span class="wneu">🟡 Sans impact direct pour le Sénégal</span></div>
-        </div>
-        <div class="mright">
-          <div class="mscore live" id="m-nor-fra">? – ?</div>
-          <div class="mtime">21h ET · 03h Paris</div>
-        </div>
-      </div>
-      <div class="sepl">Groupe H — 20h ET</div>
-      <div class="match bon">
-        <div class="mst">⭐⭐⭐⭐</div>
-        <div class="minfo">
-          <div class="teams">🇺🇾 Uruguay vs 🇪🇸 Espagne</div>
-          <div class="lieu">Gr. H · Estadio Akron, Guadalajara</div>
-          <div class="mwish">
-            <span class="wbon">✅ Espagne doit battre Uruguay</span><br>
-            <span class="wbon">→ 3e du Gr.H aura max 2 pts : aucun danger</span><br>
-            <span class="wmal">❌ Si Uruguay gagne : 3e monte à 4-5 pts</span>
-          </div>
-        </div>
-        <div class="mright">
-          <div class="mscore live" id="m-uru-esp">? – ?</div>
-          <div class="mtime">20h ET · 02h Paris</div>
-        </div>
-      </div>
-      <div class="match neu" id="card-cpv-ksa">
-        <div class="mst">⭐</div>
-        <div class="minfo">
-          <div class="teams">🇨🇻 Cap-Vert vs 🇸🇦 Arabie Saoudite</div>
-          <div class="lieu">Gr. H · NRG Stadium, Houston</div>
-          <div class="mwish">
-            <span class="wneu">🟡 Neutre si Espagne bat Uruguay</span><br>
-            <span class="wmal">❌ Si Uruguay gagne : nul ici = seule issue favorable</span>
-          </div>
-        </div>
-        <div class="mright">
-          <div class="mscore live" id="m-cpv-ksa">? – ?</div>
-          <div class="mtime">20h ET · 02h Paris</div>
-        </div>
-      </div>
-      <div class="sepl">Groupe G — 23h ET</div>
-      <div class="match bon">
-        <div class="mst">⭐⭐⭐⭐</div>
-        <div class="minfo">
-          <div class="teams">🇪🇬 Égypte vs 🇮🇷 Iran</div>
-          <div class="lieu">Gr. G · Lumen Field, Seattle</div>
-          <div class="mwish">
-            <span class="wbon">✅ Égypte doit battre Iran</span><br>
-            <span class="wbon">→ Quel que soit Bel-NZL : 3e du Gr.G sans 3 pts</span><br>
-            <span class="wmal">❌ Si Iran gagne → 5 pts, concurrent dangereux</span>
-          </div>
-        </div>
-        <div class="mright">
-          <div class="mscore live" id="m-egy-irn">? – ?</div>
-          <div class="mtime">23h ET · 05h Paris</div>
-        </div>
-      </div>
-      <div class="match bon">
-        <div class="mst">⭐⭐⭐</div>
-        <div class="minfo">
-          <div class="teams">🇳🇿 Nouvelle-Zélande vs 🇧🇪 Belgique</div>
-          <div class="lieu">Gr. G · BC Place, Vancouver</div>
-          <div class="mwish">
-            <span class="wbon">✅ Nouvelle-Zélande doit battre Belgique (idéal)</span><br>
-            <span class="wneu">🟡 Nul acceptable si Égypte bat Iran</span><br>
-            <span class="wmal">❌ Belgique gagne → 4 pts, concurrent si Iran perd</span>
-          </div>
-        </div>
-        <div class="mright">
-          <div class="mscore live" id="m-nzl-bel">? – ?</div>
-          <div class="mtime">23h ET · 05h Paris</div>
-        </div>
-      </div>
-      <div class="sepl">Groupe L — Samedi 27 Juin</div>
-      <div class="match bon">
-        <div class="mst">⭐⭐⭐</div>
-        <div class="minfo">
-          <div class="teams">🇭🇷 Croatie vs 🇬🇭 Ghana</div>
-          <div class="lieu">Gr. L · Lincoln Financial, Philadelphie</div>
-          <div class="mwish">
-            <span class="wbon">✅ Ghana doit battre Croatie</span><br>
-            <span class="wmal">❌ Croatie gagne → 3e du Gr.L monte à 4 pts</span>
-          </div>
-        </div>
-        <div class="mright">
-          <div class="mscore live" id="m-cro-gha">? – ?</div>
-          <div class="mtime">Sam. 17h ET</div>
-        </div>
-      </div>
-      <div class="match neu">
-        <div class="mst">⭐</div>
-        <div class="minfo">
-          <div class="teams">🇵🇦 Panama vs 🏴 Angleterre</div>
-          <div class="lieu">Gr. L · Lincoln Financial, Philadelphie</div>
-          <div class="mwish">
-            <span class="wneu">🟡 Impact secondaire, mais nécessaire pour verrouiller le groupe L</span><br>
-            <span class="wmal">❌ Scénario extrême : grosse victoire du Panama peut modifier le 3e</span>
-          </div>
-        </div>
-        <div class="mright">
-          <div class="mscore live" id="m-pan-eng">? – ?</div>
-          <div class="mtime">Sam. 17h ET</div>
-        </div>
-      </div>
-      <div class="sepl">Groupe K — Samedi 27 Juin</div>
+      <div class="sepl">Groupe K — matchs restants</div>
       <div class="match neu">
         <div class="mst">⭐</div>
         <div class="minfo">
           <div class="teams">🇨🇴 Colombie vs 🇵🇹 Portugal</div>
-          <div class="lieu">Gr. K · Mercedes-Benz, Atlanta</div>
+          <div class="lieu">Gr. K · Mercedes-Benz Stadium, Atlanta</div>
           <div class="mwish">
-            <span class="wneu">🟡 Impact secondaire, mais ferme le groupe K</span><br>
-            <span class="wneu">→ À surveiller avec RDC–Ouzbékistan</span>
+            <span class="wneu">🟡 Peut déterminer le 1er du Groupe K.</span><br>
+            <span class="wneu">→ Important si le Sénégal glisse au 7e rang des meilleurs 3es : il jouerait alors le 1er du Gr.K.</span>
           </div>
         </div>
         <div class="mright">
           <div class="mscore live" id="m-col-por">? – ?</div>
-          <div class="mtime">Sam. 19h30 ET</div>
+          <div class="mtime">À venir</div>
         </div>
       </div>
       <div class="match bon">
         <div class="mst">⭐⭐</div>
         <div class="minfo">
           <div class="teams">🇨🇩 RD Congo vs 🇺🇿 Ouzbékistan</div>
-          <div class="lieu">Gr. K · Mercedes-Benz, Atlanta</div>
+          <div class="lieu">Gr. K · Mercedes-Benz Stadium, Atlanta</div>
           <div class="mwish">
-            <span class="wbon">✅ Ouzbékistan ne doit pas perdre</span><br>
-            <span class="wmal">❌ RDC gagne → 4 pts, concurrent potentiel</span>
+            <span class="wbon">✅ Ouzbékistan qui ne perd pas limite la pression sur le Sénégal.</span><br>
+            <span class="wmal">❌ Une victoire de la RDC peut produire un 3e à 4 pts et faire reculer le Sénégal.</span>
           </div>
         </div>
         <div class="mright">
           <div class="mscore live" id="m-cod-uzb">? – ?</div>
-          <div class="mtime">Sam. 19h30 ET</div>
+          <div class="mtime">À venir</div>
         </div>
       </div>
-      <div class="sepl">Groupe J — Samedi 27 Juin</div>
+      <div class="sepl">Groupe J — matchs restants</div>
       <div class="match neu">
         <div class="mst">⭐</div>
         <div class="minfo">
           <div class="teams">🇯🇴 Jordanie vs 🇦🇷 Argentine</div>
           <div class="lieu">Gr. J · Arrowhead Stadium, Kansas City</div>
           <div class="mwish">
-            <span class="wneu">🟡 Impact secondaire, mais nécessaire pour verrouiller le groupe J</span><br>
-            <span class="wneu">→ À surveiller avec Algérie–Autriche</span>
+            <span class="wneu">🟡 Ce match verrouille le haut du Groupe J.</span><br>
+            <span class="wneu">→ Son effet principal est indirect : il fixe le classement final et donc le rang relatif du 3e.</span>
           </div>
         </div>
         <div class="mright">
           <div class="mscore live" id="m-jor-arg">? – ?</div>
-          <div class="mtime">Sam. 22h ET</div>
+          <div class="mtime">À venir</div>
         </div>
       </div>
       <div class="match bon">
@@ -937,13 +803,13 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
           <div class="teams">🇩🇿 Algérie vs 🇦🇹 Autriche</div>
           <div class="lieu">Gr. J · Arrowhead Stadium, Kansas City</div>
           <div class="mwish">
-            <span class="wbon">✅ Algérie doit battre Autriche</span><br>
-            <span class="wneu">→ Autriche reste à 3pts GD 0</span>
+            <span class="wbon">✅ Si le 3e du Groupe J reste derrière le Sénégal, l’adversaire probable se stabilise.</span><br>
+            <span class="wmal">❌ Si l’Autriche ou l’Algérie finit 3e avec 4 pts, le Sénégal peut descendre d’un rang.</span>
           </div>
         </div>
         <div class="mright">
           <div class="mscore live" id="m-alg-aut">? – ?</div>
-          <div class="mtime">Sam. 22h ET</div>
+          <div class="mtime">À venir</div>
         </div>
       </div>
     </div>
@@ -951,8 +817,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 </div>
 
 <!-- ═══ 12 GROUPES ═══ -->
-<div class="sec">📋 Les 12 Groupes — Classements mis à jour par simulation</div>
+<div class="sec">📋 Les 12 Groupes — classements actualisés</div>
 <div class="gg" id="groups-grid"></div>
+
+<!-- ═══ TABLEAU DES 16ES ═══ -->
+<div class="sec">🏆 Tableau des 16es de finale — bracket officiel</div>
+<div class="r32-grid" id="r32-grid"></div>
 
 <!-- FOOTER -->
 <div class="footer">
@@ -1513,6 +1383,30 @@ function updateMatchCards() {
   });
 }
 
+
+
+function filterImportantMatches() {
+  // Dans la section “matchs restants”, un match terminé ne doit plus apparaître.
+  const reverse = {};
+  Object.entries(MATCH_CARD_IDS).forEach(([key, id]) => reverse[id] = key);
+  document.querySelectorAll('.matches-full .match').forEach(card => {
+    const scoreEl = card.querySelector('.mscore[id]');
+    if (!scoreEl) return;
+    const key = reverse[scoreEl.id];
+    if (!key || !RESULTS[key]) return;
+    card.style.display = RESULTS[key].status === 'final' ? 'none' : '';
+  });
+  document.querySelectorAll('.matches-full .sepl').forEach(sep => {
+    let node = sep.nextElementSibling;
+    let hasVisible = false;
+    while(node && !node.classList.contains('sepl')){
+      if(node.classList && node.classList.contains('match') && node.style.display !== 'none') { hasVisible = true; break; }
+      node = node.nextElementSibling;
+    }
+    sep.style.display = hasVisible ? '' : 'none';
+  });
+}
+
 function liveImpactText(key) {
   const impacts = {
     'cro-gha': "Groupe L : influe sur le rang final du Sénégal et l'adversaire probable.",
@@ -1527,6 +1421,57 @@ function liveImpactText(key) {
     'cpv-ksa': "Groupe H : résultat désormais intégré au calcul."
   };
   return impacts[key] || "Score officiel API intégré au calcul.";
+}
+
+
+function r32Team(label, extraCls) {
+  const cls = extraCls ? ` ${extraCls}` : '';
+  return `<div class="r32-team${cls}">${label}</div>`;
+}
+
+function renderRound32Grid(snRank) {
+  const grid = document.getElementById('r32-grid');
+  if (!grid) return;
+  const rank = Number(snRank || 0);
+  const senLabel = NAMES.SEN || '🇸🇳 Sénégal';
+  const groupKLeader = calcGroupLive('K') && calcGroupLive('K')[0] ? calcGroupLive('K')[0][0] : null;
+  const groupKLabel = groupKLeader ? (NAMES[groupKLeader] || '1er Groupe K') : '1er Groupe K';
+  const groupJSecond = calcGroupLive('J') && calcGroupLive('J')[1] ? calcGroupLive('J')[1][0] : null;
+  const groupJSecondLabel = groupJSecond ? (NAMES[groupJSecond] || '2e Groupe J') : '2e Groupe J';
+  const groupKSecond = calcGroupLive('K') && calcGroupLive('K')[1] ? calcGroupLive('K')[1][0] : null;
+  const groupKSecondLabel = groupKSecond ? (NAMES[groupKSecond] || '2e Groupe K') : '2e Groupe K';
+
+  const cards = [
+    {id:'N73', date:'Dim. 28/06 · 21:00', a:NAMES.RSA, b:NAMES.CAN, note:'Vainqueur → huitième N89'},
+    {id:'N74', date:'Lun. 29/06 · 22:30', a:NAMES.GER, b:NAMES.PAR, note:'Vainqueur → huitième N89'},
+    {id:'N75', date:'Mar. 30/06 · 03:00', a:NAMES.NED, b:NAMES.MAR, note:'Vainqueur → huitième N90'},
+    {id:'N76', date:'Lun. 29/06 · 19:00', a:NAMES.BRA, b:NAMES.JPN, note:'Vainqueur → huitième N91'},
+    {id:'N77', date:'Mar. 30/06 · 23:00', a:NAMES.FRA, b:NAMES.SWE, note:'Vainqueur → huitième N90'},
+    {id:'N78', date:'Mar. 30/06 · 19:00', a:NAMES.CIV, b:NAMES.NOR, note:'Vainqueur → huitième N91'},
+    {id:'N79', date:'Mer. 01/07 · 03:00', a:NAMES.MEX, b:'3e C/E/F/H/I', note:'Slot meilleur 3e à confirmer'},
+    {id:'N80', date:'Mer. 01/07 · 18:00', a:NAMES.ENG, b: rank===5 ? senLabel : '3e E/H/I/J/K', sen: rank===5, note: rank===5 ? 'Scénario Sénégal 5e meilleur 3e' : 'Slot possible si Sénégal finit 5e'},
+    {id:'N81', date:'Jeu. 02/07 · 02:00', a:NAMES.USA, b:NAMES.BIH, note:'Affiche confirmée'},
+    {id:'N82', date:'Mer. 01/07 · 22:00', a:NAMES.BEL, b: rank===8 ? senLabel : '3e A/E/H/I/J', sen: rank===8, note: rank===8 ? 'Scénario Sénégal 8e meilleur 3e' : 'Slot possible si Sénégal finit 8e'},
+    {id:'N83', date:'Ven. 03/07 · 01:00', a:groupKSecondLabel, b:NAMES.CRO, note:'2e K à confirmer'},
+    {id:'N84', date:'Jeu. 02/07 · 21:00', a:NAMES.ESP, b:groupJSecondLabel, note:'2e J à confirmer'},
+    {id:'N85', date:'Ven. 03/07 · 05:00', a:NAMES.SUI, b: rank===6 ? senLabel : '3e E/F/G/I/J', sen: rank===6, note: rank===6 ? 'Scénario Sénégal 6e meilleur 3e' : 'Slot possible si Sénégal finit 6e'},
+    {id:'N86', date:'Sam. 04/07 · 00:00', a:NAMES.ARG, b:NAMES.CPV, note:'Affiche confirmée'},
+    {id:'N87', date:'Sam. 04/07 · 03:30', a:groupKLabel, b: rank===7 ? senLabel : NAMES.GHA, sen: rank===7, note: rank===7 ? 'Scénario Sénégal 7e meilleur 3e' : '1er K à confirmer'},
+    {id:'N88', date:'Ven. 03/07 · 20:00', a:NAMES.AUS, b:NAMES.EGY, note:'Affiche confirmée'}
+  ];
+
+  grid.innerHTML = cards.map(c => {
+    const senCls = c.sen ? ' senegal-slot' : '';
+    const bIsTbd = String(c.b).includes('3e') || String(c.b).includes('Groupe') || String(c.b).startsWith('2e') || String(c.b).startsWith('1er');
+    return `<div class="r32-card${senCls}">
+      <div class="r32-head"><span>${c.id}</span><span class="r32-date">${c.date}</span></div>
+      <div class="r32-teams">
+        ${r32Team(c.a || 'À définir', String(c.a||'').includes('Sénégal') ? 'sen' : '')}
+        ${r32Team(c.b || 'À définir', `${bIsTbd ? 'tbd' : ''}${String(c.b||'').includes('Sénégal') ? ' sen' : ''}`)}
+      </div>
+      <div class="r32-note">${c.note || ''}</div>
+    </div>`;
+  }).join('');
 }
 
 function renderTopLiveMatches() {
@@ -1653,21 +1598,23 @@ function recalculateAll() {
   const pe = document.getElementById('proba-explain');
   if(pe){
     if (isMathQual) {
-      pe.innerHTML = `🏆 <strong style="color:var(--or)">Qualification mathématique verrouillée</strong> — ${confirmedBehindCount} groupes terminés derrière le Sénégal.`;
+      pe.innerHTML = `🏆 <strong style="color:var(--or)">Sénégal qualifié</strong> — on surveille maintenant le rang final pour connaître l’adversaire en 16e.`;
     } else {
       const open = remainingOpenGroups();
       pe.innerHTML = open.length
-        ? `Il reste <strong style="color:var(--or)">${open.length}</strong> groupe${open.length>1?'s':''} ouvert${open.length>1?'s':''} (${open.join(', ')}). Chaque score officiel ou simulé recalcule le Top 8.`
+        ? `Il reste <strong style="color:var(--or)">${open.length}</strong> groupe${open.length>1?'s':''} ouvert${open.length>1?'s':''} (${open.join(', ')}). Chaque score officiel ou simulé peut modifier le rang du Sénégal et donc son adversaire.`
         : `Tous les groupes suivis sont terminés ou simulés — classement complet affiché.`;
     }
   }
 
   // ── Cartes de match ──
   updateMatchCards();
+  filterImportantMatches();
   renderTopLiveMatches();
 
   // ── Adversaire probable (bracket officiel) ──
   updateProbableOpponent(snRank);
+  renderRound32Grid(snRank);
 
   // ── Banner qualification mathématique ──
   showMathQualBanner(isMathQual, confirmedBehindCount);
@@ -1772,32 +1719,25 @@ function renderThirdTable(thirds, snIdx, mode) { mode = mode || 'live';
   thirds.forEach((t,i)=>{
     const rank = i+1;
     const isSen = t.team==='SEN';
-    const isQ = rank<=4; // déjà qualifiés fixes
+    const hasFourPts = t.stats.pts >= 4;
     const isTop8 = rank<=8;
+    const isQualified = isTop8 && (hasFourPts || isSen || rank<=4);
     const gdStr = t.stats.gd>=0?'+'+t.stats.gd:t.stats.gd;
-    const rowCls = isSen?'rsn':isQ?'rq':isTop8?'rb':'rel';
+    const rowCls = isSen?'rsn':isQualified?'rq':isTop8?'rb':'rel';
     const gdCls = t.stats.gd>0?'pos':t.stats.gd<0?'neg':'neu';
     let badge='';
-    if(rank<=4) {
-      // Top 4 déjà qualifiés — groupes terminés
-      badge='<span class="blk">🔒 QUALIFIÉ</span>';
-    } else if(isSen) {
-      // Sénégal — match terminé, en attente des autres
-      badge='<span class="blk">✅ TERMINÉ</span>';
+    if(isQualified) {
+      badge='<span class="blk">✅ QUALIFIÉE</span>';
     } else {
-      // Tous les autres : badge dynamique depuis RESULTS
       badge = getTeamStatusBadge(t.team);
     }
 
     if(rank===9) html+='<tr><td colspan="8" class="cut-td">━━━━━  LIGNE DE COUPURE TOP 8  ━━━━━</td></tr>';
 
     let statut = '';
-    if(isQ) {
-      statut='<span class="pos">✅ Qualifié</span>';
-    } else if(isSen) {
-      statut='<span style="color:#4ade80">⏳ En attente</span>';
+    if(isQualified) {
+      statut='<span class="pos">✅ Qualifiée</span>';
     } else {
-      // Statut dynamique selon RESULTS
       const teamMatches = Object.values(RESULTS).filter(r => r.h===t.team||r.a===t.team);
       const hasLive = teamMatches.some(r=>r.status==='live'||r.status==='in_progress');
       const allFinal = teamMatches.length>0 && teamMatches.every(r=>r.status==='final');
@@ -1940,24 +1880,48 @@ function matchState(a,b,goodText,badText,neutralText){
 
 function renderNeedFeed(){
   const grid=document.getElementById('need-grid'); if(!grid) return;
+  const thirds = getThirdPlacesSim();
+  const snIdx = thirds.findIndex(t=>t.team==='SEN');
+  const snRank = snIdx>=0 ? snIdx+1 : null;
+  const opponent = getOpponentForSenegalRank(snRank);
   const items=[];
-  // SEN-IRQ terminé — afficher comme résultat officiel
-  items.push({cls:'good', title:'🇸🇳 Sénégal–Iraq · TERMINÉ', body:'✅ Sénégal 5–0 Iraq · 3 pts · GD +1 · Le Sénégal attend les autres résultats.'});
-  // H : Espagne doit battre Uruguay (impact 3e du Gr.H)
-  const h=matchState(SIM.esp,SIM.uru,'Espagne devant : Groupe H neutralisé pour Sénégal.','Uruguay devant : danger, un 3e du Groupe H peut passer devant.','Nul ou score non saisi : encore incertain.');
-  items.push({cls:h.cls,title:'🇪🇸 Espagne–Uruguay',body:h.txt});
-  // G Egypt beat Iran
-  const g=matchState(SIM.egy,SIM.irn,'Égypte devant : Iran reste derrière, très favorable.','Iran devant : très mauvais, Iran passe devant Sénégal.','Nul ou score non saisi : Iran reste dangereux.');
-  items.push({cls:g.cls,title:'🇪🇬 Égypte–Iran',body:g.txt});
-  // Belgium vs NZL: NZL win best, draw acceptable if Egypt wins, Belgium win bad
-  let belCls='neutral', belTxt='Score non saisi : Belgique peut encore devenir dangereuse.';
-  if(SIM.bel!==null&&SIM.nzl!==null){ if(SIM.bel<SIM.nzl){belCls='good';belTxt='Nouvelle-Zélande devant : Belgique neutralisée.';} else if(SIM.bel>SIM.nzl){belCls='bad';belTxt='Belgique devant : 4 pts, danger direct.';} else {belCls=(SIM.egy>SIM.irn?'good':'neutral');belTxt='Nul : acceptable surtout si Égypte bat Iran.';} }
-  items.push({cls:belCls,title:'🇧🇪 Belgique–N-Zélande',body:belTxt});
-  const l=matchState(SIM.gha,SIM.cro,'Ghana devant : Croatie reste à portée.','Croatie devant : 4 pts, très mauvais.','Nul ou score non saisi : Croatie peut rester dangereuse.');
-  items.push({cls:l.cls,title:'🇬🇭 Ghana–Croatie',body:l.txt});
-  let kCls='neutral', kTxt='Ouzbékistan ne doit pas perdre.';
-  if(SIM.cod!==null&&SIM.uzb!==null){ if(SIM.cod<=SIM.uzb){kCls='good';kTxt='Ouzbékistan ne perd pas : Groupe K neutralisé.';} else {kCls='bad';kTxt='RDC gagne : 4 pts, danger.';} }
-  items.push({cls:kCls,title:'🇨🇩 RDC–Ouzbékistan',body:kTxt});
+
+  items.push({
+    cls:'good',
+    title:'🇸🇳 Sénégal qualifié',
+    body:`Rang actuel : ${snRank || '?'}e meilleur 3e. Adversaire probable : ${opponent.name}.`
+  });
+
+  if(!isGroupOfficiallyFinal('K')){
+    items.push({
+      cls:'neutral',
+      title:'🇨🇴🇵🇹 Groupe K — vainqueur à connaître',
+      body:'Si le Sénégal glisse au 7e rang, il jouera le 1er du Groupe K. Colombie–Portugal et RDC–Ouzbékistan fixent ce scénario.'
+    });
+    items.push({
+      cls:'neutral',
+      title:'🇨🇩🇺🇿 RDC–Ouzbékistan',
+      body:'Une victoire de la RDC peut créer un 3e à 4 pts et faire reculer le Sénégal dans le classement des meilleurs 3es.'
+    });
+  }
+
+  if(!isGroupOfficiallyFinal('J')){
+    items.push({
+      cls:'neutral',
+      title:'🇩🇿🇦🇹 Groupe J — rang du Sénégal',
+      body:'Le résultat du Groupe J peut faire descendre ou stabiliser le Sénégal. S’il reste 6e, l’affiche probable reste Suisse–Sénégal.'
+    });
+    items.push({
+      cls:'neutral',
+      title:'🇯🇴🇦🇷 Jordanie–Argentine',
+      body:'Ce match verrouille le classement du groupe J ; son 3e peut influencer le rang final du Sénégal.'
+    });
+  }
+
+  if(items.length===1){
+    items.push({cls:'good', title:'✅ Tous les groupes décisifs sont terminés', body:'L’adversaire du Sénégal peut être considéré comme connu selon le mapping officiel.'});
+  }
+
   grid.innerHTML=items.map(it=>`<div class="need-item ${it.cls}"><strong>${it.title}</strong><br>${it.body}</div>`).join('');
 }
 
@@ -2003,7 +1967,7 @@ function updateVirtualStatus(snRank, snGD, snPts, pct){
   }
   if(ds){
     ds.textContent = remaining.length
-      ? `Les groupes terminés sortent automatiquement de la liste ; les autres restent simulables.`
+      ? `Les groupes terminés sortent automatiquement de la liste ; les autres peuvent encore modifier le rang du Sénégal.`
       : 'Le classement affiché correspond aux résultats officiels et aux simulations restantes.';
   }
 
@@ -2242,10 +2206,11 @@ function initAppDisplay(){
   recalculateAll();
   // updateMatchCards APRÈS recalculateAll pour afficher les scores officiels
   updateMatchCards();
+  filterImportantMatches();
   renderTopLiveMatches();
   buildTicker();
   // Forcer une seconde passe 200ms plus tard pour les éléments chargés en retard
-  setTimeout(() => { updateMatchCards(); renderTopLiveMatches(); }, 200);
+  setTimeout(() => { updateMatchCards(); filterImportantMatches(); renderTopLiveMatches(); }, 200);
 }
 
 // ════════════════════════════════════════════════
@@ -2483,6 +2448,7 @@ function applyScoresData(data, source = 'api') {
   if (changed) recalculateAll();
   else {
     updateMatchCards();
+    filterImportantMatches();
     renderTopLiveMatches();
     buildTicker();
   }
@@ -2510,6 +2476,7 @@ function fetchApiScoresIfUseful() {
         : 'Hors fenêtre live · fallback live.json';
     }
     updateMatchCards();
+    filterImportantMatches();
     renderTopLiveMatches();
     buildTicker();
     return Promise.resolve(null);
@@ -2530,6 +2497,7 @@ function fetchApiScoresIfUseful() {
       // Ne jamais vider l'écran si l'API tarde : on conserve live.json / dernier état connu.
       if (meta) meta.textContent = 'API indisponible · dernier état conservé';
       updateMatchCards();
+      filterImportantMatches();
       renderTopLiveMatches();
       buildTicker();
       return null;
