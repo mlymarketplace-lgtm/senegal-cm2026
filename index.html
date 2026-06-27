@@ -2094,8 +2094,9 @@ if (document.readyState === 'loading') {
 // ════════════════════════════════════════════════
 
 function pollLiveJson() {
-  fetch('/live.json?t=' + Date.now())
-    .then(r => r.json())
+  fetch('/.netlify/functions/scores?t=' + Date.now())
+    .then(r => { if (!r.ok) throw new Error('scores.js HTTP ' + r.status); return r.json(); })
+    .catch(() => fetch('/live.json?t=' + Date.now()).then(r => r.json()))
     .then(data => {
       if (!data || !data.matches) return;
       let changed = false;
