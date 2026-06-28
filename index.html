@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦁 Sénégal 5–0 Iraq · En attente des résultats · CM 2026</title>
+<title>Sénégal à la Coupe du monde 2026 · Une histoire de Gaïndés</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
 :root{--vert:#00853F;--rouge:#E31B23;--or:#FDEF42;--noir:#0A0A0A;--g2:#1C1C1C;--g3:#2A2A2A;--mu:#777;}
@@ -493,6 +493,21 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   .top-live-grid{grid-template-columns:1fr;}
 }
 
+
+/* ── PATCH V0 : header historique + mascotte ── */
+.mascot-logo{width:48px;height:48px;border-radius:10px;object-fit:cover;background:#005a2a;border:1px solid #FDEF4266;box-shadow:0 0 0 2px #00853F55,0 8px 22px #0008;flex-shrink:0;}
+.header-scores{display:grid;grid-template-columns:repeat(3,minmax(128px,1fr));gap:7px;min-width:min(620px,100%);}
+.hscore{background:linear-gradient(135deg,#07160c,#111);border:1px solid #ffffff18;border-radius:10px;padding:7px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 8px 22px #0005;}
+.hscore .hs-label{font-family:'Oswald',sans-serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);white-space:nowrap;}
+.hscore .hs-score{font-family:'Oswald',sans-serif;font-size:1.15rem;font-weight:800;line-height:1.05;color:#fff;margin-top:2px;}
+.hscore.win{border-color:#4ade8060;background:linear-gradient(135deg,#072814,#111 70%);}
+.hscore.win .hs-score{color:#4ade80;}
+.hscore.loss{border-color:#E31B2348;background:linear-gradient(135deg,#220809,#111 72%);}
+.hscore.loss .hs-score{color:#ff8f8f;}
+.hscore .hs-note{font-size:.52rem;color:var(--mu);margin-top:2px;}
+.site-kicker{font-size:.62rem;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;margin-top:2px;}
+@media(max-width:900px){.header-scores{grid-template-columns:1fr;min-width:0;width:100%;}.hscore{padding:6px 9px;}.mascot-logo{width:42px;height:42px}.hflag{justify-content:flex-start;}#live-center > div:first-child{display:flex !important;}}
+
 </style>
 </head>
 <body>
@@ -501,25 +516,33 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 
 <header>
   <div class="hflag">
-    <svg class="fsv" viewBox="0 0 45 30" xmlns="http://www.w3.org/2000/svg">
-      <rect width="15" height="30" fill="#00853F"/>
-      <rect x="15" width="15" height="30" fill="#FDEF42"/>
-      <rect x="30" width="15" height="30" fill="#E31B23"/>
-      <polygon points="22.5,11 23.9,15.2 28.3,15.2 24.7,17.8 26.1,22 22.5,19.4 18.9,22 20.3,17.8 16.7,15.2 21.1,15.2" fill="#00853F"/>
-    </svg>
+    <img class="mascot-logo" src="assets/lion-mascotte.png" alt="Mascotte Lion du Sénégal">
     <div>
-      <div class="htitle">🦁 <span>Sénégal</span> — CM 2026</div>
-      <div class="live-tag" style="background:#00853F"><span class="ldot" style="background:#4ade80"></span>MATCH TERMINÉ · 5–0 · En attente</div>
+      <div class="htitle"><span>Sénégal</span> — CM 2026</div>
+      <div class="site-kicker">Une histoire de Gaïndés</div>
     </div>
   </div>
-  <!-- LIVE CENTER HEADER -->
-  <div id="live-center" class="live-header-card" style="display:flex;flex-direction:column;align-items:center;
-    background:#ffffff08;border:1px solid #ffffff18;border-radius:10px;
-    padding:5px 12px;gap:1px;min-width:150px;">
-    <div class="live-mini-label">🟢 SCORE RÉEL · SEN – IRQ</div>
-    <div style="font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;color:var(--or);line-height:1" id="hdr-score">5 – 0</div>
-    <div style="font-size:.65rem;font-weight:600;color:#4ade80" id="hdr-statut">✅ Match terminé</div>
-    <div style="font-size:.58rem;color:var(--mu)">Rang : <span id="hdr-rang" style="color:#fff;font-weight:600">?e</span> · <span id="hdr-proba" style="color:var(--or);font-weight:700">~30%</span></div>
+  <!-- HEADER SCORES — les trois matchs du Sénégal -->
+  <div id="live-center" class="live-header-card header-scores" aria-label="Résultats du Sénégal en phase de groupes">
+    <div class="hscore loss">
+      <div class="hs-label">Match 1</div>
+      <div class="hs-score">🇫🇷 France 3–1 Sénégal 🇸🇳</div>
+      <div class="hs-note">Défaite inaugurale</div>
+    </div>
+    <div class="hscore loss">
+      <div class="hs-label">Match 2</div>
+      <div class="hs-score">🇳🇴 Norvège 3–2 Sénégal 🇸🇳</div>
+      <div class="hs-note">Les Lions proches du retour</div>
+    </div>
+    <div class="hscore win">
+      <div class="hs-label">Match 3</div>
+      <div class="hs-score">🇸🇳 Sénégal 5–0 Iraq 🇮🇶</div>
+      <div class="hs-note">Réveil des Gaïndés</div>
+    </div>
+    <span id="hdr-score" style="display:none">5 – 0</span>
+    <span id="hdr-statut" style="display:none">✅ Match terminé</span>
+    <span id="hdr-rang" style="display:none">?e</span>
+    <span id="hdr-proba" style="display:none">~30%</span>
   </div>
 
   <!-- ADVERSAIRE PROBABLE HEADER — dynamique depuis bracket officiel -->
@@ -588,7 +611,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
       text-transform:uppercase;
       text-shadow:0 2px 12px #000a;
       line-height:1.1;
-    ">🦁 Les Lions de la Téranga</div>
+    ">Sénégal à la Coupe du monde 2026</div>
     <div style="
       font-size:.8rem;
       color:var(--or);
@@ -596,7 +619,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
       font-weight:600;
       text-shadow:0 1px 6px #000a;
       letter-spacing:.06em;
-    ">Coupe du Monde 2026 · 5–0 contre l'Iraq · En route pour les huitièmes 🇸🇳</div>
+    ">Une histoire de Gaïndés, de courage et de fierté 🇸🇳</div>
   </div>
 </div>
 
@@ -629,7 +652,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 </div>
 
 <!-- ═══ CHANCES ═══ -->
-<div class="sec">📊 Sénégal 5–0 Iraq — En attente des autres résultats</div>
+<div class="sec">📊 Sénégal à la Coupe du monde 2026 — une histoire de Gaïndés</div>
 <div class="chance-card">
   <div class="status-live-split">
     <div class="qual-panel">
@@ -702,8 +725,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
     </div>
   </div>
 
-<!-- ═══ MATCH TERMINÉ + SIMULATEUR AUTRES MATCHS ═══ -->
-<div class="sec">✅ Match terminé · 🟠 Simule les autres matchs</div>
+<!-- ═══ SIMULATEUR AUTRES MATCHS ═══ -->
 <div class="sim-card">
   <!-- Résultat officiel Sénégal–Iraq supprimé ici : déjà affiché dans le header -->
 
