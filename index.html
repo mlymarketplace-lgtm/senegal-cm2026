@@ -483,9 +483,10 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   justify-content:space-between;
 }
 .top-live-card .tl-teams{
-  font-size:.74rem;
-  line-height:1.35;
+  font-size:.78rem;
+  line-height:1.4;
   font-weight:700;
+  letter-spacing:.01em;
 }
 .top-live-card .tl-score{
   font-family:Oswald,sans-serif;
@@ -813,13 +814,43 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   height:100%;
 }
 .top-live-card.featured-live{
-  border-left-color:var(--rouge);
-  background:linear-gradient(135deg,#241010,#141414 70%);
-  box-shadow:inset 0 0 0 1px #E31B2318;
+  border-left:none;
+  border-top:3px solid var(--rouge);
+  border-radius:14px;
+  background:linear-gradient(135deg,#1a0505 0%,#141414 55%,#071208 100%);
+  box-shadow:0 8px 40px #0009, inset 0 0 0 1px #E31B2320;
+  padding:18px 16px 14px;
 }
+/* Score centré */
 .top-live-card.featured-live .tl-score{
-  font-size:2rem;
+  font-size:3.4rem;
+  letter-spacing:.06em;
+  text-align:center;
+  font-weight:900;
+  line-height:1;
+  margin:0;
 }
+/* Layout équipe gauche | score | équipe droite */
+.tl-scoreboard{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
+}
+.tl-team-home{ text-align:right; }
+.tl-team-away{ text-align:left; }
+.tl-team-flag{ font-size:2rem; display:block; margin-bottom:3px; }
+.tl-team-name-big{
+  font-family:'Oswald',sans-serif;
+  font-size:.78rem;
+  font-weight:700;
+  color:rgba(255,255,255,.85);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  line-height:1.2;
+}
+.tl-score-center{ text-align:center; }
 @media(max-width:900px){
   .top-live-grid.live-plus-next{grid-template-columns:1fr;}
 }
@@ -2216,18 +2247,46 @@ function renderTopLiveMatches() {
 
   const liveCardHtml = (key, r) => {
     const score = matchScoreText(r, '0 – 0');
-    const statusLabel = r.apiStatusLong || t('liveStatus');
-    const minute = r.minute ? `${r.minute}'` : 'LIVE';
-    return `<div class="top-live-card featured-live">
-       <div>
-         <div class="tl-teams">${NAMES[r.h]||r.h} <span style="color:var(--mu)">vs</span> ${NAMES[r.a]||r.a}</div>
-         <div class="tl-score">${score}</div>
-       </div>
-       <div>
-         <div class="tl-meta"><span>${statusLabel}</span><span class="tl-minute">${minute}</span></div>
-         <div class="tl-impact">${liveImpactText(key)}</div>
-       </div>
-     </div>`;
+    const rawStatus = r.apiStatusLong || '';
+    const STATUS_FR = {
+      'First Half':'1ère mi-temps','Second Half':'2ème mi-temps',
+      'Half Time':'Mi-temps','Extra Time':'Prolongations',
+      'Break Time':'Pause','Penalty In Progress':'Tirs au but',
+      'Match Suspended':'Suspendu','Match Interrupted':'Interrompu',
+      'Match Finished':'Terminé','Match Finished After Extra Time':'Terminé (prol.)',
+      'Match Finished Penalties':'Terminé (tab)'
+    };
+    const statusLabel = STATUS_FR[rawStatus] || rawStatus || t('liveStatus');
+    const minute = r.minute ? `${r.minute}'` : '●';
+    const FLAGS = {
+      RSA:'🇿🇦',CAN:'🇨🇦',BRA:'🇧🇷',JPN:'🇯🇵',GER:'🇩🇪',PAR:'🇵🇾',
+      NED:'🇳🇱',MAR:'🇲🇦',CIV:'🇨🇮',NOR:'🇳🇴',FRA:'🇫🇷',SWE:'🇸🇪',
+      MEX:'🇲🇽',ECU:'🇪🇨',ENG:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',COD:'🇨🇩',BEL:'🇧🇪',SEN:'🇸🇳',
+      USA:'🇺🇸',BIH:'🇧🇦',ESP:'🇪🇸',AUT:'🇦🇹',POR:'🇵🇹',CRO:'🇭🇷',
+      SUI:'🇨🇭',ALG:'🇩🇿',AUS:'🇦🇺',EGY:'🇪🇬',ARG:'🇦🇷',CPV:'🇨🇻',
+      COL:'🇨🇴',GHA:'🇬🇭'
+    };
+    const hFlag = FLAGS[r.h] || '';
+    const aFlag = FLAGS[r.a] || '';
+    const hName = NAMES[r.h] || r.h;
+    const aName = NAMES[r.a] || r.a;
+    return \`<div class="top-live-card featured-live">
+      <div class="tl-scoreboard">
+        <div class="tl-team-home">
+          <span class="tl-team-flag">\${hFlag}</span>
+          <span class="tl-team-name-big">\${hName}</span>
+        </div>
+        <div class="tl-score-center">
+          <div class="tl-score">\${score}</div>
+        </div>
+        <div class="tl-team-away">
+          <span class="tl-team-flag">\${aFlag}</span>
+          <span class="tl-team-name-big">\${aName}</span>
+        </div>
+      </div>
+      <div class="tl-meta"><span>\${statusLabel}</span><span class="tl-minute">\${minute}</span></div>
+      <div class="tl-impact">\${liveImpactText(key)}</div>
+    </div>\`;
   };
 
   const liveEntries = [...Object.entries(RESULTS), ...Object.entries(KNOCKOUT_LIVE_RESULTS)]
