@@ -656,6 +656,74 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   background:linear-gradient(90deg,#172406,#061428);
 }
 
+
+
+/* ── PATCH V7 : expérience supporter Belgique–Sénégal ── */
+.header-home{color:inherit;text-decoration:none;cursor:pointer;transition:transform .18s ease,filter .18s ease;}
+.header-home:hover{transform:translateY(-1px);filter:brightness(1.08);}
+.live-standalone{margin:0 0 16px;}
+.live-standalone .live-panel{min-height:128px;border-radius:18px;padding:18px 20px;background:linear-gradient(135deg,#260606,#101010 62%,#07180d);border-color:#E31B2358;box-shadow:0 16px 50px #0006,inset 0 0 0 1px #FDEF4210;}
+.live-standalone .live-panel-title{font-size:1rem;letter-spacing:.16em;}
+.live-standalone .top-live-empty{font-size:.82rem;padding:18px 2px;}
+.live-standalone .top-live-card{min-height:112px;}
+.live-standalone .tl-score{font-size:2rem;}
+
+.match-countdown-card{padding:20px;}
+.match-countdown-grid{display:grid;grid-template-columns:minmax(210px,.9fr) minmax(300px,1.25fr) minmax(210px,.9fr);gap:18px;align-items:stretch;}
+.player-side{background:#0d0d0d;border:1px solid #ffffff14;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:245px;box-shadow:inset 0 0 0 1px #ffffff08;}
+.player-side.bel{background:linear-gradient(135deg,#260809,#111 72%);border-color:#E31B2350;}
+.player-side.sen{background:linear-gradient(135deg,#062814,#111 72%);border-color:#00853F66;}
+.player-photo{width:100%;height:150px;object-fit:cover;border-radius:14px;border:1px solid #ffffff18;box-shadow:0 12px 30px #0008;}
+.side-title{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.side-sub{font-size:.62rem;color:var(--mu);margin-top:-5px;}
+.form-list{display:flex;flex-direction:column;gap:5px;margin-top:auto;}
+.form-row{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#ffffff08;border:1px solid #ffffff0e;border-radius:9px;padding:7px 9px;font-size:.68rem;line-height:1.25;}
+.form-row strong{font-family:'Oswald',sans-serif;color:var(--or);font-size:.82rem;white-space:nowrap;}
+.countdown-center{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border-radius:18px;background:radial-gradient(circle at 50% 15%,#FDEF4228,transparent 45%),linear-gradient(135deg,#04180d,#080808);border:1px solid #FDEF4248;padding:18px;box-shadow:inset 0 0 0 1px #00853F28;}
+.countdown-center .countdown-match{font-size:2.05rem;}
+.countdown-center .countdown-boxes{margin-top:2px;}
+.countdown-end{font-size:.68rem;color:#4ade80;line-height:1.5;margin-top:10px;}
+
+.full-sim-zone{background:radial-gradient(circle at 82% 0,#38bdf82f,transparent 34%),linear-gradient(135deg,#041225,#091428 45%,#160b2e);border-color:#38bdf85a;box-shadow:inset 0 0 0 1px #7c3aed22,0 18px 55px #0006;}
+.bracket-scroll{overflow-x:auto;overflow-y:hidden;padding:6px 2px 10px;-webkit-overflow-scrolling:touch;}
+.bracket-tree{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:14px;min-width:940px;align-items:start;}
+.bracket-col{display:flex;flex-direction:column;gap:10px;}
+.bracket-col-title{font-family:'Oswald',sans-serif;font-size:.88rem;letter-spacing:.15em;text-transform:uppercase;color:#67e8f9;margin:2px 0 4px;padding-left:3px;}
+.ko-card{background:linear-gradient(180deg,#0a1830,#0b1020);border:1px solid #38bdf830;border-radius:12px;overflow:hidden;min-height:142px;display:flex;flex-direction:column;box-shadow:inset 0 0 0 1px #7c3aed16;}
+.ko-card.senegal-path{border-color:#FDEF42;box-shadow:0 0 0 1px #FDEF4238,0 0 28px #FDEF4214;background:linear-gradient(135deg,#182317,#071a30 64%,#15122c);}
+.ko-head{display:flex;justify-content:space-between;gap:8px;align-items:center;background:linear-gradient(90deg,#061428,#10102a);border-bottom:1px solid #38bdf824;padding:8px 10px;font-family:'Oswald',sans-serif;color:#67e8f9;font-size:.7rem;letter-spacing:.11em;text-transform:uppercase;}
+.ko-card.senegal-path .ko-head{color:#FDEF42;background:linear-gradient(90deg,#172406,#061428);}
+.ko-date{font-family:'Inter',sans-serif;font-size:.55rem;letter-spacing:0;text-transform:none;color:var(--mu);white-space:nowrap;}
+.ko-team{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid #38bdf812;padding:8px 10px;font-size:.78rem;font-weight:800;min-height:36px;cursor:pointer;user-select:none;-webkit-user-select:none;}
+.ko-team:hover{background:#ffffff0a;}
+.ko-team.placeholder{color:#9ca3af;font-weight:500;cursor:default;}
+.ko-team.picked{background:#4ade8012;color:#4ade80;border-color:#4ade8040;}
+.ko-card.senegal-path .ko-team.picked{color:#FDEF42;background:#FDEF4214;}
+.ko-pick{font-size:.56rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);font-weight:800;white-space:nowrap;}
+.ko-team.picked .ko-pick{color:#4ade80;}
+.ko-scoreline{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:8px 10px;margin-top:auto;}
+.ko-scoreline input{width:100%;height:28px;border-radius:7px;border:1px solid #38bdf82a;background:#070b15;color:#fff;text-align:center;font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:800;outline:none;}
+.ko-scoreline input:focus{border-color:#67e8f9;box-shadow:0 0 0 2px #38bdf826;}
+.ko-scoreline input:disabled{opacity:.32;cursor:not-allowed;}
+.ko-scoreline span{font-size:.58rem;color:#9ca3af;text-transform:uppercase;letter-spacing:.08em;}
+.ko-note{font-size:.58rem;color:#9ca3af;line-height:1.35;padding:0 10px 9px;min-height:28px;}
+.ko-final-winner{margin-top:14px;border:1px solid #FDEF4250;background:linear-gradient(135deg,#241d02,#07180d);border-radius:15px;padding:13px 15px;text-align:center;font-size:.82rem;line-height:1.5;}
+.ko-final-winner strong{font-family:'Oswald',sans-serif;color:var(--or);font-size:1.35rem;letter-spacing:.08em;}
+
+@media(max-width:980px){
+  .match-countdown-grid{grid-template-columns:1fr;}
+  .player-side{min-height:auto;}
+  .player-photo{height:190px;}
+  .bracket-tree{min-width:860px;}
+}
+@media(max-width:620px){
+  .live-standalone .live-panel{padding:14px;}
+  .countdown-center .countdown-match{font-size:1.55rem;}
+  .player-photo{height:170px;}
+  .form-row{font-size:.64rem;}
+  .bracket-tree{grid-template-columns:repeat(4,210px);min-width:880px;}
+}
+
 </style>
 </head>
 <body>
@@ -663,13 +731,13 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 <div id="yt-player" style="position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;"></div>
 
 <header>
- <div class="hflag">
+ <a class="hflag header-home" href="/" title="Rafraîchir la page">
    <img class="mascot-logo" src="assets/lion-mascotte.png" alt="Mascotte Lion du Sénégal">
    <div>
      <div class="htitle"><span>Sénégal</span> — CM 2026</div>
      <div class="site-kicker">Une histoire de Gaïndés</div>
    </div>
- </div>
+ </a>
  <!-- HEADER SCORES — les trois matchs du Sénégal -->
  <div id="live-center" class="live-header-card header-scores" aria-label="Résultats du Sénégal en phase de groupes">
    <div class="hscore loss">
@@ -799,54 +867,72 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
  <div class="ticker-track"><div class="ticker-inner" id="ticker"></div></div>
 </div>
 
-<!-- ═══ CHANCES ═══ -->
-<div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Sénégal à la Coupe du monde 2026 — une histoire de Gaïndés</div>
-<div class="chance-card">
- <div class="status-live-split">
-   <div class="qual-panel">
-     <div>
-       <div class="clabel" id="proba-label">Statut de qualification</div>
-       <div class="cpct high" id="mainPct">Qualifié</div>
-     </div>
-     <div style="flex:1;min-width:200px;">
-       <div class="mbar"><div class="mfill" id="mainBar" style="width:100%"></div></div>
-       <div class="csub" id="mainDesc"><strong>Qualification actée.</strong> Les Lions affronteront la Belgique en 16e de finale.</div>
-     </div>
-   </div>
+<!-- ═══ MATCH EN DIRECT ═══ -->
 
-   <div class="live-panel">
-     <div class="live-panel-head">
-       <div class="live-panel-title"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte"><span>Matchs en direct</span></div>
-       <div class="live-panel-meta" id="top-live-updated">API en attente…</div>
-     </div>
-     <div id="top-live-matches" class="top-live-grid">
-       <div class="top-live-empty">Les matchs en cours remonteront ici automatiquement dès que l'API les signale en live.</div>
-     </div>
-   </div>
- </div>
+<div id="legacy-status-bridge" style="display:none" aria-hidden="true">
+  <div id="proba-label"></div>
+  <div id="mainPct">Qualifié</div>
+  <div id="mainBar"></div>
+  <div id="mainDesc"></div>
+  <div id="virtual-main"></div>
+  <div id="virtual-sub"></div>
+  <div id="virtual-status"></div>
+  <div id="need-grid"></div>
+  <div id="proba-explain"></div>
+  <span id="live-updated-at"></span>
+</div>
 
- <div class="virtual-card">
-   <div class="vbox" id="virtual-status">
-     <div class="vtitle"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Sénégal actuellement</div>
-     <div class="vmain" id="virtual-main">Qualifié — meilleur troisième</div>
-     <div class="vsub" id="virtual-sub">Le Sénégal poursuit son Mondial en 16e de finale face à la Belgique.</div>
-   </div>
- </div>
-
-
-
+<section class="live-standalone" id="match-live-section">
+  <div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Match en direct</div>
+  <div class="live-panel live-panel-large">
+    <div class="live-panel-head">
+      <div class="live-panel-title"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte"><span>Match en direct</span></div>
+      <div class="live-panel-meta" id="top-live-updated">API en pause · aucun match en direct</div>
+    </div>
+    <div id="top-live-matches" class="top-live-grid">
+      <div class="top-live-empty">Aucun match en direct pour le moment. Le prochain grand rendez-vous est Belgique–Sénégal.</div>
+    </div>
+  </div>
+</section>
 
 <!-- ═══ COMPTE À REBOURS ═══ -->
 <div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Prochaine rencontre des Gaïndés</div>
-<section class="countdown-card" id="countdown-card">
-  <div class="countdown-kicker">Prochaine rencontre des Gaïndés</div>
-  <div class="countdown-match">🇧🇪 Belgique vs Sénégal 🇸🇳</div>
-  <div class="countdown-meta">Mercredi 1er juillet 2026 · 22h00 Paris · Seattle · Lumen Field</div>
-  <div class="countdown-boxes">
-    <div class="cd-box"><div class="cd-num" id="cd-days">--</div><div class="cd-lbl">jours</div></div>
-    <div class="cd-box"><div class="cd-num" id="cd-hours">--</div><div class="cd-lbl">heures</div></div>
-    <div class="cd-box"><div class="cd-num" id="cd-min">--</div><div class="cd-lbl">min</div></div>
-    <div class="cd-box"><div class="cd-num" id="cd-sec">--</div><div class="cd-lbl">sec</div></div>
+<section class="countdown-card match-countdown-card" id="countdown-card">
+  <div class="match-countdown-grid">
+    <aside class="player-side bel" aria-label="Forme récente de la Belgique">
+      <img class="player-photo" src="assets/kevin-de-bruyne.png" alt="Kevin De Bruyne, Belgique">
+      <div class="side-title"><span>🇧🇪 Belgique</span><span>Diables Rouges</span></div>
+      <div class="side-sub">Trois derniers résultats</div>
+      <div class="form-list">
+        <div class="form-row"><span>Belgique 1–1 Égypte</span><strong>N</strong></div>
+        <div class="form-row"><span>Belgique 0–0 Iran</span><strong>N</strong></div>
+        <div class="form-row"><span>Nouvelle-Zélande 1–5 Belgique</span><strong>V</strong></div>
+      </div>
+    </aside>
+
+    <div class="countdown-center">
+      <div class="countdown-kicker">Coup d’envoi dans</div>
+      <div class="countdown-match">🇧🇪 Belgique vs Sénégal 🇸🇳</div>
+      <div class="countdown-meta">Mercredi 1er juillet 2026 · 22h00 Paris · Seattle · Lumen Field</div>
+      <div class="countdown-boxes">
+        <div class="cd-box"><div class="cd-num" id="cd-days">--</div><div class="cd-lbl">jours</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-hours">--</div><div class="cd-lbl">heures</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-min">--</div><div class="cd-lbl">min</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-sec">--</div><div class="cd-lbl">sec</div></div>
+      </div>
+      <div class="countdown-end" id="countdown-end-msg">Les secondes défilent : les Gaïndés arrivent.</div>
+    </div>
+
+    <aside class="player-side sen" aria-label="Forme récente du Sénégal">
+      <img class="player-photo" src="assets/sadio-mane.png" alt="Sadio Mané, Sénégal">
+      <div class="side-title"><span>🇸🇳 Sénégal</span><span>Gaïndés</span></div>
+      <div class="side-sub">Trois derniers résultats</div>
+      <div class="form-list">
+        <div class="form-row"><span>France 3–1 Sénégal</span><strong>D</strong></div>
+        <div class="form-row"><span>Norvège 3–2 Sénégal</span><strong>D</strong></div>
+        <div class="form-row"><span>Sénégal 5–0 Iraq</span><strong>V</strong></div>
+      </div>
+    </aside>
   </div>
 </section>
 
@@ -912,17 +998,19 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 
 <!-- ═══ TABLEAU DES 16ES ═══ -->
 <section class="knockout-zone knockout-r32">
-  <div class="sec knockout-title"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Tableau officiel des 16es de finale — simulation interactive</div>
-  <div class="r16-help knockout-copy">Affiches confirmées après la phase de groupes. Renseigne un score ou clique directement sur une équipe pour la faire avancer. Les huitièmes se remplissent automatiquement avec les vainqueurs des matchs N73 à N88.</div>
+  <div class="sec knockout-title"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Tableau officiel des 16es de finale — affiches confirmées</div>
+  <div class="r16-help knockout-copy">Affiches figées après la phase de groupes. Clique sur une équipe ou renseigne un score : le simulateur complet se met à jour automatiquement jusqu’à la finale.</div>
   <div class="r32-grid" id="r32-grid"></div>
 </section>
 
-<section class="knockout-zone knockout-sim">
-  <div class="sec knockout-title"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Simulation du prochain tour — huitièmes de finale</div>
-  <div class="r16-help knockout-copy">Cette zone se remplit selon tes choix dans le tableau des 16es. Le chemin potentiel du Sénégal est volontairement mis en lumière.</div>
-  <div class="r16-grid" id="r16-grid"></div>
+<section class="knockout-zone knockout-sim full-sim-zone">
+  <div class="sec knockout-title"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Simule le chemin jusqu’à la finale</div>
+  <div class="r16-help knockout-copy">Choisis les vainqueurs tour après tour. Les libellés techniques restent cachés : seuls les scénarios lisibles apparaissent pour les supporters.</div>
+  <div class="bracket-scroll">
+    <div class="bracket-tree" id="bracket-tree"></div>
+  </div>
+  <div class="ko-final-winner" id="ko-final-winner">Le champion simulé apparaîtra ici après tes choix.</div>
 </section>
-
 
 <!-- ═══ 12 GROUPES — ARCHIVE PHASE DE POULES ═══ -->
 <div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Classement final des 12 groupes — archive de la phase de poules</div>
@@ -1540,8 +1628,8 @@ const R32_CARDS = [
 
   {id:'N83', date:'Ven. 3 juillet · 01h00 Paris', venue:'Toronto · BMO Field', a:NAMES.POR, b:NAMES.CRO, note:'Tableau E–H'},
   {id:'N84', date:'Jeu. 2 juillet · 21h00 Paris', venue:'Los Angeles · SoFi Stadium', a:NAMES.ESP, b:NAMES.AUT, note:'Tableau E–H'},
-  {id:'N81', date:'Jeu. 2 juillet · 02h00 Paris', venue:'San Francisco · Levi’s Stadium', a:NAMES.USA, b:NAMES.BIH, note:'Vainqueur → possible duel contre Belgique–Sénégal'},
-  {id:'N82', date:'Mer. 1er juillet · 22h00 Paris', venue:'Seattle · Lumen Field', a:NAMES.BEL, b:NAMES.SEN, sen:true, note:'Prochain match officiel du Sénégal'},
+  {id:'N81', date:'Jeu. 2 juillet · 02h00 Paris', venue:'San Francisco · Levi’s Stadium', a:NAMES.USA, b:NAMES.BIH, note:'Possible prochain obstacle pour Belgique ou Sénégal'},
+  {id:'N82', date:'Mer. 1er juillet · 22h00 Paris', venue:'Seattle · Lumen Field', a:NAMES.BEL, b:NAMES.SEN, sen:true, note:'Belgique–Sénégal : le choc de rang'},
 
   {id:'N76', date:'Lun. 29 juin · 19h00 Paris', venue:'Houston · NRG Stadium', a:NAMES.BRA, b:NAMES.JPN, note:'Tableau I–L'},
   {id:'N78', date:'Mar. 30 juin · 19h00 Paris', venue:'Dallas · AT&T Stadium', a:NAMES.CIV, b:NAMES.NOR, note:'Tableau I–L'},
@@ -1554,37 +1642,99 @@ const R32_CARDS = [
   {id:'N87', date:'Sam. 4 juillet · 03h30 Paris', venue:'Kansas City · Arrowhead Stadium', a:NAMES.COL, b:NAMES.GHA, note:'Tableau M–P'}
 ];
 
-const R16_MATCHES = [
-  {id:'N89', date:'Sam. 4 juillet · 23h00 Paris', a:'N74', b:'N77', note:'Vainqueur N74 contre vainqueur N77'},
-  {id:'N90', date:'Sam. 4 juillet · 19h00 Paris', a:'N73', b:'N75', note:'Vainqueur N73 contre vainqueur N75'},
-  {id:'N93', date:'Lun. 6 juillet · 21h00 Paris', a:'N83', b:'N84', note:'Vainqueur N83 contre vainqueur N84'},
-  {id:'N94', date:'Mar. 7 juillet · 02h00 Paris', a:'N81', b:'N82', senPath:true, note:'Chemin potentiel du Sénégal : vainqueur N82 contre vainqueur N81'},
-  {id:'N91', date:'Dim. 5 juillet · 22h00 Paris', a:'N76', b:'N78', note:'Vainqueur N76 contre vainqueur N78'},
-  {id:'N92', date:'Lun. 6 juillet · 02h00 Paris', a:'N79', b:'N80', note:'Vainqueur N79 contre vainqueur N80'},
-  {id:'N95', date:'Mar. 7 juillet · 18h00 Paris', a:'N86', b:'N88', note:'Vainqueur N86 contre vainqueur N88'},
-  {id:'N96', date:'Mar. 7 juillet · 22h00 Paris', a:'N85', b:'N87', note:'Vainqueur N85 contre vainqueur N87'}
+const KO_ROUNDS = [
+  {key:'r16', title:'Huitièmes', matches:[
+    {id:'N89', date:'4 juillet · 23h00', sources:[{type:'r32', id:'N74'}, {type:'r32', id:'N77'}]},
+    {id:'N90', date:'4 juillet · 19h00', sources:[{type:'r32', id:'N73'}, {type:'r32', id:'N75'}]},
+    {id:'N93', date:'6 juillet · 21h00', sources:[{type:'r32', id:'N83'}, {type:'r32', id:'N84'}]},
+    {id:'N94', date:'7 juillet · 02h00', sources:[{type:'r32', id:'N81'}, {type:'r32', id:'N82'}], senPath:true},
+    {id:'N91', date:'5 juillet · 22h00', sources:[{type:'r32', id:'N76'}, {type:'r32', id:'N78'}]},
+    {id:'N92', date:'6 juillet · 02h00', sources:[{type:'r32', id:'N79'}, {type:'r32', id:'N80'}]},
+    {id:'N95', date:'7 juillet · 18h00', sources:[{type:'r32', id:'N86'}, {type:'r32', id:'N88'}]},
+    {id:'N96', date:'7 juillet · 22h00', sources:[{type:'r32', id:'N85'}, {type:'r32', id:'N87'}]}
+  ]},
+  {key:'qf', title:'Quarts', matches:[
+    {id:'N97', date:'9 juillet · 22h00', sources:[{type:'ko', round:'r16', id:'N89'}, {type:'ko', round:'r16', id:'N90'}]},
+    {id:'N98', date:'10 juillet · 21h00', sources:[{type:'ko', round:'r16', id:'N93'}, {type:'ko', round:'r16', id:'N94'}], senPath:true},
+    {id:'N99', date:'11 juillet · 23h00', sources:[{type:'ko', round:'r16', id:'N91'}, {type:'ko', round:'r16', id:'N92'}]},
+    {id:'N100', date:'12 juillet · 03h00', sources:[{type:'ko', round:'r16', id:'N95'}, {type:'ko', round:'r16', id:'N96'}]}
+  ]},
+  {key:'sf', title:'Demi-finales', matches:[
+    {id:'N101', date:'14 juillet · 21h00', sources:[{type:'ko', round:'qf', id:'N97'}, {type:'ko', round:'qf', id:'N98'}], senPath:true},
+    {id:'N102', date:'15 juillet · 21h00', sources:[{type:'ko', round:'qf', id:'N99'}, {type:'ko', round:'qf', id:'N100'}]}
+  ]},
+  {key:'final', title:'Finale', matches:[
+    {id:'N104', date:'19 juillet · 21h00', sources:[{type:'ko', round:'sf', id:'N101'}, {type:'ko', round:'sf', id:'N102'}], final:true, senPath:true}
+  ]}
 ];
 
 const r32Scores = {};
 const r32Picks = {};
+const koPicks = { r16:{}, qf:{}, sf:{}, final:{} };
+const koScores = { r16:{}, qf:{}, sf:{}, final:{} };
+const ROUND_ORDER = ['r16','qf','sf','final'];
 
 function cleanLabel(label) {
   return String(label || '').replace(/<[^>]*>/g, '').trim();
 }
+function escapeAttr(value) { return cleanLabel(value).replace(/"/g, '&quot;'); }
 function r32CardById(id) { return R32_CARDS.find(c => c.id === id); }
+function koRoundByKey(round) { return KO_ROUNDS.find(r => r.key === round); }
+function koMatchById(round, id) { return koRoundByKey(round)?.matches.find(m => m.id === id); }
+function laterRounds(round) {
+  const idx = ROUND_ORDER.indexOf(round);
+  return idx < 0 ? ROUND_ORDER : ROUND_ORDER.slice(idx + 1);
+}
+function clearFutureFrom(round) {
+  laterRounds(round).forEach(r => { koPicks[r] = {}; koScores[r] = {}; });
+}
+function clearAllKo() {
+  ROUND_ORDER.forEach(r => { koPicks[r] = {}; koScores[r] = {}; });
+}
+function containsSenegal(label) { return cleanLabel(label).includes('Sénégal'); }
+
+function sourceLabel(source) {
+  if (source.type === 'r32') return r32WinnerLabel(source.id);
+  return koWinnerLabel(source.round, source.id);
+}
+function sourceResolved(source) {
+  if (source.type === 'r32') return r32Picks[source.id] !== undefined;
+  return koPicks[source.round] && koPicks[source.round][source.id] !== undefined;
+}
+function unresolvedLabelForSource(source) {
+  if (source.type === 'r32') {
+    const c = r32CardById(source.id);
+    if (!c) return 'En attente de ton choix';
+    return `Vainqueur ${cleanLabel(c.a)}–${cleanLabel(c.b)}`;
+  }
+  const m = koMatchById(source.round, source.id);
+  if (!m) return 'En attente de ton choix';
+  const labels = m.sources.map(src => cleanLabel(unresolvedLabelForSource(src)).replace(/^Vainqueur\s+/,'')).join(' / ');
+  return `Vainqueur ${labels}`;
+}
 function r32WinnerLabel(id) {
   const c = r32CardById(id);
   const pick = r32Picks[id];
-  if (!c || pick === undefined) return `Vainqueur ${id}`;
+  if (!c || pick === undefined) return null;
   return pick === 0 ? c.a : c.b;
 }
-function r32HasSenegalWinner(id) {
-  return cleanLabel(r32WinnerLabel(id)).includes('Sénégal');
+function koWinnerLabel(round, id) {
+  const m = koMatchById(round, id);
+  const pick = koPicks[round]?.[id];
+  if (!m || pick === undefined) return null;
+  return sourceLabel(m.sources[pick]);
+}
+function matchHasSenegal(round, match) {
+  return !!match.senPath || match.sources.some(src => {
+    const label = sourceLabel(src) || unresolvedLabelForSource(src);
+    return containsSenegal(label);
+  });
 }
 function pickR32(matchId, side) {
   r32Picks[matchId] = side;
+  clearAllKo();
   renderRound32Grid();
-  renderRound16Grid();
+  renderKnockoutTree();
 }
 function setR32Score(matchId, side, value) {
   if (!r32Scores[matchId]) r32Scores[matchId] = [null, null];
@@ -1593,15 +1743,35 @@ function setR32Score(matchId, side, value) {
   r32Scores[matchId][side] = Number.isFinite(n) ? n : null;
   const [a,b] = r32Scores[matchId];
   if (a !== null && b !== null && a !== b) r32Picks[matchId] = a > b ? 0 : 1;
+  clearAllKo();
   renderRound32Grid();
-  renderRound16Grid();
+  renderKnockoutTree();
+}
+function pickKO(round, matchId, side) {
+  const m = koMatchById(round, matchId);
+  if (!m || !sourceResolved(m.sources[side])) return;
+  koPicks[round][matchId] = side;
+  clearFutureFrom(round);
+  renderKnockoutTree();
+}
+function setKOScore(round, matchId, side, value) {
+  const m = koMatchById(round, matchId);
+  if (!m) return;
+  if (!sourceResolved(m.sources[0]) || !sourceResolved(m.sources[1])) return;
+  if (!koScores[round][matchId]) koScores[round][matchId] = [null, null];
+  const raw = String(value || '').trim();
+  const n = raw === '' ? null : Math.max(0, parseInt(raw, 10));
+  koScores[round][matchId][side] = Number.isFinite(n) ? n : null;
+  const [a,b] = koScores[round][matchId];
+  if (a !== null && b !== null && a !== b) koPicks[round][matchId] = a > b ? 0 : 1;
+  clearFutureFrom(round);
+  renderKnockoutTree();
 }
 function r32Team(label, matchId, side, extraCls) {
   const cls = extraCls ? ` ${extraCls}` : '';
   const picked = r32Picks[matchId] === side ? ' picked' : '';
-  const safeLabel = cleanLabel(label).replace(/"/g, '&quot;');
-  return `<div class="r32-team${cls}${picked}" role="button" tabindex="0" title="Faire avancer ${safeLabel}" onclick="pickR32('${matchId}',${side})">
-    <span>${label}</span><span class="r32-pick">${picked ? 'qualifié' : 'choisir'}</span>
+  return `<div class="r32-team${cls}${picked}" role="button" tabindex="0" title="Choisir ${escapeAttr(label)}" onclick="pickR32('${matchId}',${side})">
+    <span>${label}</span><span class="r32-pick">${picked ? 'Victoire' : 'Choisir'}</span>
   </div>`;
 }
 function renderRound32Grid() {
@@ -1612,37 +1782,60 @@ function renderRound32Grid() {
     const pickedCls = r32Picks[c.id] !== undefined ? ' picked' : '';
     const score = r32Scores[c.id] || [null, null];
     return `<div class="r32-card${senCls}${pickedCls}" data-match="${c.id}">
-     <div class="r32-head"><span>Match ${c.id}</span><span class="r32-date">${c.date}</span></div>
+     <div class="r32-head"><span>${c.id}</span><span class="r32-date">${c.date}</span></div>
      <div class="r32-teams">
         ${r32Team(c.a || 'À définir', c.id, 0, String(c.a||'').includes('Sénégal') ? 'sen' : '')}
         ${r32Team(c.b || 'À définir', c.id, 1, String(c.b||'').includes('Sénégal') ? 'sen' : '')}
      </div>
      <div class="r32-scoreline">
-       <input type="number" min="0" placeholder="-" value="${score[0] ?? ''}" aria-label="Score ${cleanLabel(c.a)}" onclick="event.stopPropagation()" onchange="setR32Score('${c.id}',0,this.value)">
+       <input type="number" min="0" placeholder="-" value="${score[0] ?? ''}" aria-label="Score ${escapeAttr(c.a)}" onclick="event.stopPropagation()" onchange="setR32Score('${c.id}',0,this.value)">
        <span>score</span>
-       <input type="number" min="0" placeholder="-" value="${score[1] ?? ''}" aria-label="Score ${cleanLabel(c.b)}" onclick="event.stopPropagation()" onchange="setR32Score('${c.id}',1,this.value)">
+       <input type="number" min="0" placeholder="-" value="${score[1] ?? ''}" aria-label="Score ${escapeAttr(c.b)}" onclick="event.stopPropagation()" onchange="setR32Score('${c.id}',1,this.value)">
      </div>
      <div class="r32-note"><strong>${c.venue || ''}</strong>${c.note ? ' · ' + c.note : ''}</div>
    </div>`;
   }).join('');
 }
-function renderRound16Grid() {
-  const grid = document.getElementById('r16-grid');
-  if (!grid) return;
-  grid.innerHTML = R16_MATCHES.map(m => {
-    const aResolved = r32Picks[m.a] !== undefined;
-    const bResolved = r32Picks[m.b] !== undefined;
-    const aLabel = r32WinnerLabel(m.a);
-    const bLabel = r32WinnerLabel(m.b);
-    const senPath = m.senPath || r32HasSenegalWinner(m.a) || r32HasSenegalWinner(m.b);
-    return `<div class="r16-card${senPath ? ' senegal-path' : ''}">
-      <div class="r16-head"><span>${m.id}</span><span class="r16-date">${m.date}</span></div>
-      <div class="r16-team${aResolved ? '' : ' placeholder'}"><span>${aLabel}</span><span>${aResolved ? 'issu de '+m.a : ''}</span></div>
-      <div class="r16-team${bResolved ? '' : ' placeholder'}"><span>${bLabel}</span><span>${bResolved ? 'issu de '+m.b : ''}</span></div>
-      <div class="r16-note">${m.note}</div>
-    </div>`;
-  }).join('');
+function koTeam(round, matchId, idx, label, resolved, picked) {
+  const css = `ko-team${resolved ? '' : ' placeholder'}${picked ? ' picked' : ''}`;
+  const pickText = picked ? 'Victoire' : (resolved ? 'Choisir' : 'En attente');
+  const click = resolved ? `onclick="pickKO('${round}','${matchId}',${idx})"` : '';
+  const title = resolved ? `title="Choisir ${escapeAttr(label)}"` : 'title="En attente des choix précédents"';
+  return `<div class="${css}" ${click} ${title}><span>${label}</span><span class="ko-pick">${pickText}</span></div>`;
 }
+function renderKOCard(round, m) {
+  const labels = m.sources.map(src => sourceLabel(src));
+  const resolved = m.sources.map(src => sourceResolved(src));
+  const display = labels.map((label, i) => label || unresolvedLabelForSource(m.sources[i]));
+  const pick = koPicks[round]?.[m.id];
+  const score = (koScores[round] && koScores[round][m.id]) || [null, null];
+  const senCls = matchHasSenegal(round, m) ? ' senegal-path' : '';
+  return `<div class="ko-card${senCls}" data-round="${round}" data-match="${m.id}">
+    <div class="ko-head"><span>${m.final ? 'Finale' : koRoundByKey(round).title}</span><span class="ko-date">${m.date}</span></div>
+    ${koTeam(round, m.id, 0, display[0], resolved[0], pick === 0)}
+    ${koTeam(round, m.id, 1, display[1], resolved[1], pick === 1)}
+    <div class="ko-scoreline">
+      <input type="number" min="0" placeholder="-" value="${score[0] ?? ''}" ${resolved[0] && resolved[1] ? '' : 'disabled'} onclick="event.stopPropagation()" onchange="setKOScore('${round}','${m.id}',0,this.value)">
+      <span>score</span>
+      <input type="number" min="0" placeholder="-" value="${score[1] ?? ''}" ${resolved[0] && resolved[1] ? '' : 'disabled'} onclick="event.stopPropagation()" onchange="setKOScore('${round}','${m.id}',1,this.value)">
+    </div>
+    <div class="ko-note">${resolved[0] && resolved[1] ? 'Choisis le vainqueur ou renseigne le score.' : 'En attente des choix précédents.'}</div>
+  </div>`;
+}
+function renderKnockoutTree() {
+  const tree = document.getElementById('bracket-tree');
+  if (tree) {
+    tree.innerHTML = KO_ROUNDS.map(round => `<div class="bracket-col"><div class="bracket-col-title">${round.title}</div>${round.matches.map(m => renderKOCard(round.key, m)).join('')}</div>`).join('');
+  }
+  const finalBox = document.getElementById('ko-final-winner');
+  if (finalBox) {
+    const winner = koWinnerLabel('final', 'N104');
+    finalBox.innerHTML = winner
+      ? `Champion simulé :<br><strong>${winner}</strong>`
+      : `Le champion simulé apparaîtra ici après tes choix.`;
+  }
+}
+function renderRound16Grid() { renderKnockoutTree(); }
 
 function updateCountdown() {
   const target = new Date('2026-07-01T22:00:00+02:00').getTime();
@@ -1657,6 +1850,8 @@ function updateCountdown() {
   set('cd-hours', hours);
   set('cd-min', minutes);
   set('cd-sec', seconds);
+  const msg = document.getElementById('countdown-end-msg');
+  if (msg && target - now <= 0) msg.textContent = 'C’est le jour du match : allez les Lions !';
 }
 
 function renderTopLiveMatches() {
@@ -1800,7 +1995,7 @@ function recalculateAll() {
   // ── Prochain match (bracket officiel figé) ──
   updateProbableOpponent(snRank);
   renderRound32Grid();
-  renderRound16Grid();
+  renderKnockoutTree();
   updateCountdown();
 
   // ── Banner qualification mathématique ──
@@ -1813,38 +2008,9 @@ function recalculateAll() {
 // Affiche ou cache le banner de qualification mathématique
 function showMathQualBanner(mathQual, confirmedBehind) {
   const banner = document.getElementById('math-qual-banner');
-  if (!banner) return;
-
-  if (mathQual) {
-    banner.style.display = 'block';
-    banner.innerHTML = `
-     <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
-       <span style="font-size:2rem"></span>
-       <div>
-         <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;font-weight:800;
-            letter-spacing:.1em;text-transform:uppercase;color:var(--or);">
-            Sénégal qualifié · adversaire connu : Belgique
-         </div>
-         <div style="font-size:.72rem;color:#4ade80;margin-top:3px;">
-            La qualification est actée · 16e de finale contre les Diables Rouges
-         </div>
-       </div>
-       <span style="font-size:2rem"></span>
-     </div>`;
-    // Lancer les confettis une seule fois
-    if (!window._confettiFired) {
-      window._confettiFired = true;
-      launchConfetti();
-    }
-    // Mettre à jour hdr-proba aussi
-    const hdrProba = document.getElementById('hdr-proba');
-    if (hdrProba) { hdrProba.textContent = 'Qualifié'; hdrProba.style.color = '#4ade80'; }
-    const hdrStatut = document.getElementById('hdr-statut');
-    if (hdrStatut) { hdrStatut.textContent = 'Qualification actée'; hdrStatut.style.color = '#4ade80'; }
-  } else {
-    banner.style.display = 'none';
-  }
+  if (banner) banner.style.display = 'none';
 }
+
 
 // Alias pour compatibilité
 function recalculateLive() { recalculateAll(); }
@@ -2395,7 +2561,7 @@ function initAppDisplay(){
   updateMatchCards();
   filterImportantMatches();
   renderTopLiveMatches();
-  renderRound16Grid();
+  renderKnockoutTree();
   updateCountdown();
   if (!window._countdownTimerStarted) {
     window._countdownTimerStarted = true;
