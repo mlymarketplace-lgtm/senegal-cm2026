@@ -1,0 +1,55 @@
+{
+  "updatedAt": "2026-06-28T00:55:00+02:00",
+  "matches": {
+    "uru-esp": {
+      "home": 0,
+      "away": 1,
+      "status": "final"
+    },
+    "cpv-ksa": {
+      "home": 0,
+      "away": 0,
+      "status": "final"
+    },
+    "egy-irn": {
+      "home": 1,
+      "away": 1,
+      "status": "final"
+    },
+    "nzl-bel": {
+      "home": 1,
+      "away": 5,
+      "status": "final"
+    },
+    "cro-gha": {
+      "home": 2,
+      "away": 1,
+      "status": "final"
+    },
+    "pan-eng": {
+      "home": 0,
+      "away": 2,
+      "status": "final"
+    },
+    "col-por": {
+      "home": null,
+      "away": null,
+      "status": "scheduled"
+    },
+    "cod-uzb": {
+      "home": null,
+      "away": null,
+      "status": "scheduled"
+    },
+    "jor-arg": {
+      "home": null,
+      "away": null,
+      "status": "scheduled"
+    },
+    "alg-aut": {
+      "home": null,
+      "away": null,
+      "status": "scheduled"
+    }
+  }
+}
