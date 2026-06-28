@@ -1124,7 +1124,16 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
        <thead>
          <tr><th>#</th><th>Équipe</th><th>Gr</th><th style="text-align:center">Pts</th><th style="text-align:center">GD</th><th style="text-align:center">BM</th><th>Statut</th></tr>
        </thead>
-       <tbody id="tp-body"></tbody>
+       <tbody id="tp-body">
+         <tr class="rq"><td class="rnk">1</td><td class="tnm">🇨🇩 RD Congo <span class="blk"> QUALIFIÉE</span></td><td style="font-size:.65rem;color:var(--mu);text-align:center">K</td><td class="ptc pos">4</td><td class="gdc pos">+1</td><td class="bmc">4</td><td class="stc"><span class="pos">Qualifiée</span></td></tr>
+         <tr class="rq"><td class="rnk">2</td><td class="tnm">🇪🇨 Équateur <span class="blk"> QUALIFIÉE</span></td><td style="font-size:.65rem;color:var(--mu);text-align:center">E</td><td class="ptc pos">4</td><td class="gdc pos">+1</td><td class="bmc">3</td><td class="stc"><span class="pos">Qualifiée</span></td></tr>
+         <tr class="rq"><td class="rnk">3</td><td class="tnm">🇸🇪 Suède <span class="blk"> QUALIFIÉE</span></td><td style="font-size:.65rem;color:var(--mu);text-align:center">F</td><td class="ptc pos">4</td><td class="gdc neu">0</td><td class="bmc">7</td><td class="stc"><span class="pos">Qualifiée</span></td></tr>
+         <tr class="rq"><td class="rnk">4</td><td class="tnm">🇦🇺 Australie <span class="blk"> QUALIFIÉE</span></td><td style="font-size:.65rem;color:var(--mu);text-align:center">D</td><td class="ptc pos">4</td><td class="gdc neu">0</td><td class="bmc">2</td><td class="stc"><span class="pos">Qualifiée</span></td></tr>
+         <tr class="rq"><td class="rnk">5</td><td class="tnm">🇬🇭 Ghana <span class="blk"> QUALIFIÉE</span></td><td style="font-size:.65rem;color:var(--mu);text-align:center">L</td><td class="ptc pos">4</td><td class="gdc neu">0</td><td class="bmc">2</td><td class="stc"><span class="pos">Qualifiée</span></td></tr>
+         <tr class="rq"><td class="rnk">6</td><td class="tnm">🇧🇦 Bosnie-Herzégovine <span class="blk"> QUALIFIÉE</span></td><td style="font-size:.65rem;color:var(--mu);text-align:center">B</td><td class="ptc pos">4</td><td class="gdc neg">-1</td><td class="bmc">5</td><td class="stc"><span class="pos">Qualifiée</span></td></tr>
+         <tr class="rq"><td class="rnk">7</td><td class="tnm">🇩🇿 Algérie <span class="blk"> QUALIFIÉE</span></td><td style="font-size:.65rem;color:var(--mu);text-align:center">J</td><td class="ptc pos">4</td><td class="gdc neg">-2</td><td class="bmc">4</td><td class="stc"><span class="pos">Qualifiée</span></td></tr>
+         <tr class="rsn"><td class="rnk">8</td><td class="tnm">🇸🇳 Sénégal <span class="blk"> QUALIFIÉE</span></td><td style="font-size:.65rem;color:var(--mu);text-align:center">I</td><td class="ptc pos">3</td><td class="gdc pos">+1</td><td class="bmc">8</td><td class="stc"><span class="pos">Qualifiée</span></td></tr>
+       </tbody>
      </table>
    </div>
    <div class="tip">
@@ -2429,6 +2438,9 @@ function getTeamStatusBadge(team) {
 
 function renderThirdTable(thirds, snIdx, mode) { mode = mode || 'live';
   const body = document.getElementById('tp-body');
+  if (!body) return;
+  // Fallback robuste : si le moteur ne renvoie rien, on conserve les lignes HTML figées.
+  if (!Array.isArray(thirds) || thirds.length === 0) return;
   let html = '';
   // Phase de groupes terminée : affichage figé aux 8 meilleurs troisièmes qualifiés.
   thirds.slice(0,8).forEach((t,i)=>{
