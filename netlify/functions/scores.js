@@ -15,7 +15,7 @@ const SEASON = process.env.FOOTBALL_SEASON || "2026";
 
 // Cache anti-explosion du quota gratuit.
 // 300s = 5 minutes. Si tu veux économiser davantage le quota, mets 600 ou 900 via Netlify FOOTBALL_CACHE_SECONDS.
-const CACHE_SECONDS = Number(process.env.FOOTBALL_CACHE_SECONDS || 90);
+const CACHE_SECONDS = Number(process.env.FOOTBALL_CACHE_SECONDS || 300);
 
 let memoryCache = {
   expiresAt: 0,
@@ -23,6 +23,7 @@ let memoryCache = {
 };
 
 const TRACKED_MATCHES = {
+  // Derniers matchs de groupes suivis pendant la qualification du Sénégal
   "uru-esp": { home: "URU", away: "ESP" },
   "cpv-ksa": { home: "CPV", away: "KSA" },
   "egy-irn": { home: "EGY", away: "IRN" },
@@ -33,6 +34,25 @@ const TRACKED_MATCHES = {
   "cod-uzb": { home: "COD", away: "UZB" },
   "jor-arg": { home: "JOR", away: "ARG" },
   "alg-aut": { home: "ALG", away: "AUT" },
+
+  // Phase à élimination directe — 16es de finale
+  // Important pour afficher les matchs live même s'ils ne concernent pas le Sénégal.
+  "rsa-can": { home: "RSA", away: "CAN" },
+  "bra-jpn": { home: "BRA", away: "JPN" },
+  "ger-par": { home: "GER", away: "PAR" },
+  "ned-mar": { home: "NED", away: "MAR" },
+  "civ-nor": { home: "CIV", away: "NOR" },
+  "fra-swe": { home: "FRA", away: "SWE" },
+  "mex-ecu": { home: "MEX", away: "ECU" },
+  "eng-cod": { home: "ENG", away: "COD" },
+  "bel-sen": { home: "BEL", away: "SEN" },
+  "usa-bih": { home: "USA", away: "BIH" },
+  "esp-aut": { home: "ESP", away: "AUT" },
+  "por-cro": { home: "POR", away: "CRO" },
+  "sui-alg": { home: "SUI", away: "ALG" },
+  "aus-egy": { home: "AUS", away: "EGY" },
+  "arg-cpv": { home: "ARG", away: "CPV" },
+  "col-gha": { home: "COL", away: "GHA" },
 };
 
 const TEAM_ALIASES = {
@@ -56,6 +76,25 @@ const TEAM_ALIASES = {
   ARG: ["Argentina", "Argentine"],
   ALG: ["Algeria", "Algérie", "Algerie"],
   AUT: ["Austria", "Autriche"],
+  RSA: ["South Africa", "Afrique du Sud", "South-Africa"],
+  CAN: ["Canada"],
+  BRA: ["Brazil", "Brésil", "Brasil"],
+  JPN: ["Japan", "Japon"],
+  GER: ["Germany", "Allemagne"],
+  PAR: ["Paraguay"],
+  NED: ["Netherlands", "Pays-Bas", "Pays Bas", "Holland", "Netherlands"],
+  MAR: ["Morocco", "Maroc"],
+  CIV: ["Ivory Coast", "Cote d Ivoire", "Côte d'Ivoire", "Côte d’Ivoire", "Cote d'Ivoire"],
+  NOR: ["Norway", "Norvège", "Norvege"],
+  FRA: ["France"],
+  SWE: ["Sweden", "Suède", "Suede"],
+  MEX: ["Mexico", "Mexique"],
+  ECU: ["Ecuador", "Équateur", "Equateur"],
+  USA: ["United States", "USA", "United States of America", "Etats-Unis", "États-Unis"],
+  BIH: ["Bosnia and Herzegovina", "Bosnia", "Bosnie-Herzégovine", "Bosnie Herzégovine", "Bosnie"],
+  SUI: ["Switzerland", "Suisse"],
+  AUS: ["Australia", "Australie"],
+  SEN: ["Senegal", "Sénégal"],
 };
 
 function json(statusCode, body, extraHeaders = {}) {
