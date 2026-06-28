@@ -253,10 +253,12 @@ exports.handler = async function handler(event) {
     const params = event?.queryStringParameters || {};
     const today = new Date();
 
-    // Par défaut : hier → +3 jours.
-    // Tu peux forcer avec /.netlify/functions/scores?from=2026-06-26&to=2026-06-28
+    // Par défaut : hier → +6 jours.
+    // Fenêtre volontairement plus large pendant les 16es : elle couvre tous les matchs R32 proches
+    // sans appeler plus souvent l'API, car le front décide quand appeler cette fonction.
+    // Tu peux forcer avec /.netlify/functions/scores?from=2026-06-28&to=2026-07-04
     const from = params.from || process.env.FOOTBALL_DATE_FROM || ymd(addDays(today, -1));
-    const to = params.to || process.env.FOOTBALL_DATE_TO || ymd(addDays(today, 3));
+    const to = params.to || process.env.FOOTBALL_DATE_TO || ymd(addDays(today, 6));
 
     const api = await fetchFixtures({ from, to });
 
