@@ -798,6 +798,32 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 }
 
 
+
+/* ── PATCH V9.2 : live + prochain match côte à côte ── */
+.top-live-grid.live-plus-next{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  align-items:stretch;
+}
+.top-live-grid.next-only{
+  grid-template-columns:1fr;
+}
+.top-live-grid.live-plus-next .top-live-card,
+.top-live-grid.live-plus-next .next-match-card{
+  min-height:128px;
+  height:100%;
+}
+.top-live-card.featured-live{
+  border-left-color:var(--rouge);
+  background:linear-gradient(135deg,#241010,#141414 70%);
+  box-shadow:inset 0 0 0 1px #E31B2318;
+}
+.top-live-card.featured-live .tl-score{
+  font-size:2rem;
+}
+@media(max-width:900px){
+  .top-live-grid.live-plus-next{grid-template-columns:1fr;}
+}
+
 /* ── PATCH V8.1 : prochain match + leaders du tournoi ── */
 .live-panel.next-mode{
   background:linear-gradient(135deg,#061628,#101010 62%,#07180d);
@@ -2152,29 +2178,21 @@ function renderTopLiveMatches() {
   const sec = document.querySelector('#match-live-section .sec');
   if (!wrap) return;
 
-  const liveEntries = Object.entries(RESULTS)
-    .filter(([key, r]) => r && (r.status === 'live' || r.status === 'in_progress'))
-    .sort(([ka, a], [kb, b]) => {
-      const ma = a.minute || 0;
-      const mb = b.minute || 0;
-      return mb - ma;
-    });
+  const nextMatchCardHtml = (next) => {
+    if (!next) return '';
+    return `<div class="next-match-card">
+      <div class="next-team"><div class="next-team-name">${next.a}</div><div class="next-team-sub">${t('nextPoster')}</div></div>
+      <div class="next-vs"><div class="next-vs-main">VS</div><div class="next-vs-time">${next.date}</div></div>
+      <div class="next-team"><div class="next-team-name">${next.b}</div><div class="next-team-sub">${t('round32')}</div></div>
+      <div class="next-venue"><strong>${next.venue}</strong></div>
+    </div>`;
+  };
 
-  if (liveEntries.length) {
-    if (panel) panel.classList.remove('next-mode');
-    if (titleSpan) titleSpan.textContent = t('matchLive');
-    if (sec) sec.innerHTML = mascotImg()+t('matchLive');
-    if (meta) {
-      const now = new Date();
-      meta.textContent = `${liveEntries.length} match${liveEntries.length>1?'s':''} live · ${now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`;
-    }
-
-    wrap.className = 'top-live-grid';
-    wrap.innerHTML = liveEntries.map(([key, r]) => {
-      const score = matchScoreText(r, '0 – 0');
-      const statusLabel = r.apiStatusLong || t('liveStatus');
-      const minute = r.minute ? `${r.minute}'` : 'LIVE';
-      return `<div class="top-live-card">
+  const liveCardHtml = (key, r) => {
+    const score = matchScoreText(r, '0 – 0');
+    const statusLabel = r.apiStatusLong || t('liveStatus');
+    const minute = r.minute ? `${r.minute}'` : 'LIVE';
+    return `<div class="top-live-card featured-live">
        <div>
          <div class="tl-teams">${NAMES[r.h]||r.h} <span style="color:var(--mu)">vs</span> ${NAMES[r.a]||r.a}</div>
          <div class="tl-score">${score}</div>
@@ -2184,29 +2202,48 @@ function renderTopLiveMatches() {
          <div class="tl-impact">${liveImpactText(key)}</div>
        </div>
      </div>`;
-    }).join('');
+  };
+
+  const liveEntries = Object.entries(RESULTS)
+    .filter(([key, r]) => r && (r.status === 'live' || r.status === 'in_progress'))
+    .sort(([ka, a], [kb, b]) => {
+      const ma = a.minute || 0;
+      const mb = b.minute || 0;
+      return mb - ma;
+    });
+
+  const next = nextScheduledFixture();
+
+  if (liveEntries.length) {
+    if (panel) panel.classList.remove('next-mode');
+    if (titleSpan) titleSpan.textContent = t('matchLive');
+    if (sec) sec.innerHTML = mascotImg()+t('matchLive');
+    if (meta) {
+      const now = new Date();
+      const extra = liveEntries.length > 1 ? ` · +${liveEntries.length - 1} autre${liveEntries.length > 2 ? 's' : ''}` : '';
+      meta.textContent = `${liveEntries.length} match${liveEntries.length>1?'s':''} live${extra} · ${now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`;
+    }
+
+    const [liveKey, liveResult] = liveEntries[0];
+    const nextHtml = nextMatchCardHtml(next);
+    wrap.className = nextHtml ? 'top-live-grid live-plus-next' : 'top-live-grid next-only';
+    wrap.innerHTML = liveCardHtml(liveKey, liveResult) + nextHtml;
     return;
   }
 
-  const next = nextScheduledFixture();
   if (panel) panel.classList.add('next-mode');
   if (titleSpan) titleSpan.textContent = t('nextMatch');
   if (sec) sec.innerHTML = mascotImg()+t('nextMatch');
   if (meta) meta.textContent = t('apiPaused');
 
   if (!next) {
-    wrap.className = 'top-live-grid';
+    wrap.className = 'top-live-grid next-only';
     wrap.innerHTML = `<div class="top-live-empty">${t('noLiveShort')}</div>`;
     return;
   }
 
-  wrap.className = 'top-live-grid';
-  wrap.innerHTML = `<div class="next-match-card">
-    <div class="next-team"><div class="next-team-name">${next.a}</div><div class="next-team-sub">${t('nextPoster')}</div></div>
-    <div class="next-vs"><div class="next-vs-main">VS</div><div class="next-vs-time">${next.date}</div></div>
-    <div class="next-team"><div class="next-team-name">${next.b}</div><div class="next-team-sub">${t('round32')}</div></div>
-    <div class="next-venue"><strong>${next.venue}</strong></div>
-  </div>`;
+  wrap.className = 'top-live-grid next-only';
+  wrap.innerHTML = nextMatchCardHtml(next);
 }
 
 function nextScheduledFixture() {
