@@ -6,6 +6,12 @@
   [headers.values]
     Cache-Control = "no-store, no-cache, must-revalidate, proxy-revalidate"
 
+
+[[headers]]
+  for = "/stats.json"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate, proxy-revalidate"
+
 [[headers]]
   for = "/*"
   [headers.values]
