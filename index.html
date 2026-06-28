@@ -847,6 +847,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 @media(max-width:920px){.leaders-grid{grid-template-columns:1fr;}.next-match-card{grid-template-columns:1fr;gap:9px}.next-vs{min-width:0}.next-venue{grid-column:auto}.next-team-name{font-size:1.18rem}}
 
 </style>
+<!-- Senegalen16CMDV8_2: leaders fallback static rows -->
 </head>
 <body>
 <div class="band"></div>
@@ -1065,20 +1066,27 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   <div class="leaders-grid">
     <div class="leader-card scorers">
       <div class="leader-title"><img src="assets/lion-mascotte.png" alt="Mascotte">Meilleurs buteurs · 4 buts et plus</div>
-      <div class="scorer-list" id="top-scorers-list"></div>
-      <div class="leader-note">Encart statique, facile à mettre à jour dans le code sans toucher au moteur API.</div>
+      <div class="scorer-list" id="top-scorers-list">
+        <!-- Fallback statique : visible même si le JS est bloqué. renderTournamentLeaders() remettra à jour au chargement. -->
+        <div class="scorer-row"><div class="scorer-rank">#1</div><div><div class="scorer-name">Lionel Messi</div><div class="scorer-team">🇦🇷 Argentine</div></div><div class="scorer-goals">6</div></div>
+        <div class="scorer-row"><div class="scorer-rank">#2</div><div><div class="scorer-name">Ousmane Dembélé</div><div class="scorer-team">🇫🇷 France</div></div><div class="scorer-goals">4</div></div>
+        <div class="scorer-row"><div class="scorer-rank">#3</div><div><div class="scorer-name">Kylian Mbappé</div><div class="scorer-team">🇫🇷 France</div></div><div class="scorer-goals">4</div></div>
+        <div class="scorer-row"><div class="scorer-rank">#4</div><div><div class="scorer-name">Vinícius Júnior</div><div class="scorer-team">🇧🇷 Brésil</div></div><div class="scorer-goals">4</div></div>
+        <div class="scorer-row"><div class="scorer-rank">#5</div><div><div class="scorer-name">Erling Haaland</div><div class="scorer-team">🇳🇴 Norvège</div></div><div class="scorer-goals">4</div></div>
+      </div>
+      <div class="leader-note">Données lues depuis stats.json, avec fallback HTML si le fichier manque.</div>
     </div>
     <div class="leader-card attack">
       <div class="leader-title"><img src="assets/lion-mascotte.png" alt="Mascotte">Meilleure attaque</div>
       <div class="leader-big" id="best-attack-goals">10</div>
       <div class="leader-teams" id="best-attack-teams">🇩🇪 Allemagne · 🇳🇱 Pays-Bas · 🇫🇷 France</div>
-      <div class="leader-note">Équipes avec le plus grand nombre de buts marqués en phase de groupes.</div>
+      <div class="leader-note">Équipes avec le plus grand nombre de buts marqués. Modifiable dans stats.json.</div>
     </div>
     <div class="leader-card defense">
       <div class="leader-title"><img src="assets/lion-mascotte.png" alt="Mascotte">Meilleure défense</div>
       <div class="leader-big" id="best-defense-goals">0</div>
       <div class="leader-teams" id="best-defense-teams">🇲🇽 Mexique · 🇪🇸 Espagne</div>
-      <div class="leader-note">Équipes avec le moins de buts encaissés en phase de groupes.</div>
+      <div class="leader-note">Équipes avec le moins de buts encaissés. Modifiable dans stats.json.</div>
     </div>
   </div>
 </section>
@@ -1767,13 +1775,24 @@ function liveImpactText(key) {
 
 
 
-const TOP_SCORERS_4PLUS = [
-  { rank: 1, name: 'Lionel Messi', team: '🇦🇷 Argentine', goals: 6 },
-  { rank: 2, name: 'Ousmane Dembélé', team: '🇫🇷 France', goals: 4 },
-  { rank: 3, name: 'Kylian Mbappé', team: '🇫🇷 France', goals: 4 },
-  { rank: 4, name: 'Vinícius Júnior', team: '🇧🇷 Brésil', goals: 4 },
-  { rank: 5, name: 'Erling Haaland', team: '🇳🇴 Norvège', goals: 4 }
-];
+const DEFAULT_TOURNAMENT_STATS = {
+  updatedAt: '2026-06-28T18:00:00+02:00',
+  topScorers: [
+    { rank: 1, name: 'Lionel Messi', team: '🇦🇷 Argentine', goals: 6 },
+    { rank: 2, name: 'Ousmane Dembélé', team: '🇫🇷 France', goals: 4 },
+    { rank: 3, name: 'Kylian Mbappé', team: '🇫🇷 France', goals: 4 },
+    { rank: 4, name: 'Vinícius Júnior', team: '🇧🇷 Brésil', goals: 4 },
+    { rank: 5, name: 'Erling Haaland', team: '🇳🇴 Norvège', goals: 4 }
+  ],
+  bestAttack: {
+    goals: 10,
+    teams: ['🇩🇪 Allemagne', '🇳🇱 Pays-Bas', '🇫🇷 France']
+  },
+  bestDefense: {
+    goalsAgainst: 0,
+    teams: ['🇲🇽 Mexique', '🇪🇸 Espagne']
+  }
+};
 
 const NEXT_KNOCKOUT_FIXTURES = [
   { id:'N73', ts:'2026-06-28T21:00:00+02:00', date:'Dim. 28 juin · 21h00 Paris', venue:'Los Angeles · SoFi Stadium', a:NAMES.RSA, b:NAMES.CAN },
@@ -2116,14 +2135,55 @@ function nextScheduledFixture() {
   return upcoming[0] || NEXT_KNOCKOUT_FIXTURES.find(f => f.id === 'N82') || NEXT_KNOCKOUT_FIXTURES[0];
 }
 
-function renderTournamentLeaders() {
+function teamLabel(value) {
+  if (!value) return '';
+  if (typeof value === 'string') return value;
+  const flag = value.flag ? `${value.flag} ` : '';
+  return `${flag}${value.name || value.team || ''}`.trim();
+}
+
+function renderTournamentLeaders(stats = DEFAULT_TOURNAMENT_STATS) {
+  const safeStats = stats && typeof stats === 'object' ? stats : DEFAULT_TOURNAMENT_STATS;
   const scorers = document.getElementById('top-scorers-list');
-  if (!scorers) return;
-  scorers.innerHTML = TOP_SCORERS_4PLUS.map(p => `<div class="scorer-row">
-    <div class="scorer-rank">#${p.rank}</div>
-    <div><div class="scorer-name">${p.name}</div><div class="scorer-team">${p.team}</div></div>
-    <div class="scorer-goals">${p.goals}</div>
-  </div>`).join('');
+  const attackGoals = document.getElementById('best-attack-goals');
+  const attackTeams = document.getElementById('best-attack-teams');
+  const defenseGoals = document.getElementById('best-defense-goals');
+  const defenseTeams = document.getElementById('best-defense-teams');
+
+  const topScorers = Array.isArray(safeStats.topScorers) && safeStats.topScorers.length
+    ? safeStats.topScorers
+    : DEFAULT_TOURNAMENT_STATS.topScorers;
+
+  if (scorers) {
+    scorers.innerHTML = topScorers.map((p, idx) => `<div class="scorer-row">
+      <div class="scorer-rank">#${p.rank || idx + 1}</div>
+      <div><div class="scorer-name">${p.name || ''}</div><div class="scorer-team">${teamLabel(p.team || p)}</div></div>
+      <div class="scorer-goals">${p.goals ?? ''}</div>
+    </div>`).join('');
+  }
+
+  const bestAttack = safeStats.bestAttack || DEFAULT_TOURNAMENT_STATS.bestAttack;
+  const bestDefense = safeStats.bestDefense || DEFAULT_TOURNAMENT_STATS.bestDefense;
+
+  if (attackGoals) attackGoals.textContent = bestAttack.goals ?? bestAttack.goalsFor ?? DEFAULT_TOURNAMENT_STATS.bestAttack.goals;
+  if (attackTeams) attackTeams.textContent = (bestAttack.teams || DEFAULT_TOURNAMENT_STATS.bestAttack.teams).map(teamLabel).join(' · ');
+
+  if (defenseGoals) defenseGoals.textContent = bestDefense.goalsAgainst ?? bestDefense.goals ?? DEFAULT_TOURNAMENT_STATS.bestDefense.goalsAgainst;
+  if (defenseTeams) defenseTeams.textContent = (bestDefense.teams || DEFAULT_TOURNAMENT_STATS.bestDefense.teams).map(teamLabel).join(' · ');
+}
+
+async function loadTournamentStats() {
+  // Fallback immédiat : le site affiche toujours quelque chose, même si stats.json manque ou tarde.
+  renderTournamentLeaders(DEFAULT_TOURNAMENT_STATS);
+
+  try {
+    const res = await fetch(`stats.json?v=${Date.now()}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`stats.json HTTP ${res.status}`);
+    const stats = await res.json();
+    renderTournamentLeaders(stats);
+  } catch (err) {
+    console.warn('stats.json indisponible, fallback statique conservé.', err);
+  }
 }
 
 // ════════════════════════════════════════════════
@@ -2788,7 +2848,7 @@ function initAppDisplay(){
   updateMatchCards();
   filterImportantMatches();
   renderTopLiveMatches();
-  renderTournamentLeaders();
+  loadTournamentStats();
   renderKnockoutTree();
   startCountdownTicker();
   setInterval(renderTopLiveMatches, 60000);

@@ -1,0 +1,18 @@
+{
+  "updatedAt": "2026-06-28T18:00:00+02:00",
+  "topScorers": [
+    { "rank": 1, "name": "Lionel Messi", "team": "🇦🇷 Argentine", "goals": 6 },
+    { "rank": 2, "name": "Ousmane Dembélé", "team": "🇫🇷 France", "goals": 4 },
+    { "rank": 3, "name": "Kylian Mbappé", "team": "🇫🇷 France", "goals": 4 },
+    { "rank": 4, "name": "Vinícius Júnior", "team": "🇧🇷 Brésil", "goals": 4 },
+    { "rank": 5, "name": "Erling Haaland", "team": "🇳🇴 Norvège", "goals": 4 }
+  ],
+  "bestAttack": {
+    "goals": 10,
+    "teams": ["🇩🇪 Allemagne", "🇳🇱 Pays-Bas", "🇫🇷 France"]
+  },
+  "bestDefense": {
+    "goalsAgainst": 0,
+    "teams": ["🇲🇽 Mexique", "🇪🇸 Espagne"]
+  }
+}
