@@ -2278,6 +2278,7 @@ function renderTopLiveMatches() {
   };
 
   const liveCardHtml = (key, r) => {
+    // V9.7: accepte les deux formats de score : API home/away et état interne hg/ag.
     const rawStatus = r.apiStatusLong || '';
     const STATUS_FR = {
       'First Half': '1ère mi-temps',
@@ -2296,8 +2297,12 @@ function renderTopLiveMatches() {
     const minute = r.minute ? `${r.minute}'` : '●';
     const homeName = NAMES[r.h] || r.h;
     const awayName = NAMES[r.a] || r.a;
-    const homeScore = (r.home !== null && r.home !== undefined) ? r.home : '–';
-    const awayScore = (r.away !== null && r.away !== undefined) ? r.away : '–';
+    const homeScore = (r.home !== null && r.home !== undefined)
+      ? r.home
+      : ((r.hg !== null && r.hg !== undefined) ? r.hg : '–');
+    const awayScore = (r.away !== null && r.away !== undefined)
+      ? r.away
+      : ((r.ag !== null && r.ag !== undefined) ? r.ag : '–');
     return `<div class="top-live-card featured-live">
       <div class="tl-scoreboard">
         <div class="tl-live-side">
