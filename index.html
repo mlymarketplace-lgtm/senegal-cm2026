@@ -187,6 +187,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 .r32-team.tbd{color:var(--mu);font-weight:500;}
 .r32-card.senegal-slot .r32-team.sen{color:var(--or);border-color:#FDEF4244;background:#FDEF4210;}
 .r32-note{padding:0 9px 7px;font-size:.56rem;color:var(--mu);line-height:1.35;}
+.r32-note strong{color:#e5e7eb;font-weight:700;}
 @media(max-width:1000px){.r32-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:620px){.r32-grid{grid-template-columns:1fr;}}
 
@@ -329,7 +330,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 }
 
 
-/* ── ADVERSAIRE PROBABLE ── */
+/* ── PROCHAIN MATCH ── */
 .opponent-card{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   background:linear-gradient(135deg,#1a1300,#101010 72%);
@@ -572,11 +573,11 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
    <span id="hdr-proba" style="display:none">~30%</span>
  </div>
 
- <!-- ADVERSAIRE PROBABLE HEADER — dynamique depuis bracket officiel -->
- <div id="probable-opponent" class="opponent-card" title="Bracket officiel CM 2026 : 3e du Gr.I affronte le 1er du Gr.L au Round of 32">
-   <div class="opp-label"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Adversaire probable R32</div>
+ <!-- PROCHAIN MATCH HEADER — bracket officiel figé -->
+ <div id="probable-opponent" class="opponent-card" title="Prochain match du Sénégal : Belgique–Sénégal, seizième de finale">
+   <div class="opp-label"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Prochain match R32</div>
    <div class="opp-main" id="opp-main-name">🇧🇪 Belgique</div>
-   <div class="opp-sub" id="opp-main-sub">8e meilleur 3e → Belgique · Round of 32</div>
+   <div class="opp-sub" id="opp-main-sub">Belgique–Sénégal · Mer. 1 juillet · 22:00 Paris · Seattle Lumen Field</div>
  </div>
 
  <div class="hright">
@@ -684,12 +685,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
  <div class="status-live-split">
    <div class="qual-panel">
      <div>
-       <div class="clabel" id="proba-label">Probabilité estimée</div>
-       <div class="cpct" id="mainPct">~30%</div>
+       <div class="clabel" id="proba-label">Statut de qualification</div>
+       <div class="cpct high" id="mainPct">Qualifié</div>
      </div>
      <div style="flex:1;min-width:200px;">
-       <div class="mbar"><div class="mfill" id="mainBar" style="width:30%"></div></div>
-       <div class="csub" id="mainDesc"><strong>Le Sénégal a fait le travail !</strong> 5–0 contre l'Iraq · 3 pts · GD +2. Les Lions sont qualifiés et affronteront la Belgique.</div>
+       <div class="mbar"><div class="mfill" id="mainBar" style="width:100%"></div></div>
+       <div class="csub" id="mainDesc"><strong>Qualification actée.</strong> Les Lions affronteront la Belgique en 16e de finale.</div>
      </div>
    </div>
 
@@ -707,29 +708,11 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
  <div class="virtual-card">
    <div class="vbox" id="virtual-status">
      <div class="vtitle"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Sénégal actuellement</div>
-     <div class="vmain" id="virtual-main">En attente</div>
-     <div class="vsub" id="virtual-sub">Match terminé 5–0 · 3 pts · GD +2 · 8e meilleur troisième qualifié.</div>
-   </div>
-   <div class="vbox" id="danger-status">
-     <div class="vtitle"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Ce qui peut changer l’adversaire</div>
-     <div class="vmain" id="danger-main">Groupes ouverts</div>
-     <div class="vsub" id="danger-sub">G, H, J, K et L peuvent encore modifier le classement des 3e.</div>
-     <div class="group-chip-row" id="open-groups-list"></div>
+     <div class="vmain" id="virtual-main">Qualifié — meilleur troisième</div>
+     <div class="vsub" id="virtual-sub">Le Sénégal poursuit son Mondial en 16e de finale face à la Belgique.</div>
    </div>
  </div>
 
- <div style="background:#111;border:1px solid #FDEF4233;border-left:4px solid var(--or);border-radius:10px;padding:10px 14px;margin-top:12px;font-size:.72rem;line-height:1.6;color:#ddd;">
-   <img class="mascot-inline" src="assets/lion-mascotte.png" alt="Mascotte"><strong style="color:var(--or)">Adversaire probable du Sénégal en 16e : <span id="opp-encart-name">🇧🇪 Belgique</span>.</strong>
-   <span style="color:var(--mu)">Le Sénégal est qualifié ; l’enjeu est maintenant son rang parmi les meilleurs 3es. <span id="opp-encart-sub">Le mapping se met à jour automatiquement.</span></span>
- </div>
-
- <!-- Scénarios SEN-IRQ supprimés — match terminé -->
- <div style="background:#051a0e;border:1px solid #4ade8044;border-radius:10px;
-    padding:12px 16px;margin-top:14px;font-size:.75rem;color:#4ade80;text-align:center;">
-   <img class="mascot-inline" src="assets/lion-mascotte.png" alt="Mascotte"><strong>Sénégal 5–0 Iraq · Match terminé</strong><br>
-   <span style="color:var(--mu);font-size:.68rem;">3 pts · GD +2 · le tableau est figé : rendez-vous contre la Belgique.</span>
- </div>
-</div>
 
 <!-- ═══ TABLEAU 3E PLACES — REMONTÉ APRÈS PROBABILITÉ ═══ -->
 <!-- TABLEAU 3E PLACES -->
@@ -754,14 +737,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 
 <!-- Simulateur retiré de l’interface : moteurs conservés dans le code. -->
 
-<!-- ═══ FEED INTELLIGENT ═══ -->
-<div class="need-feed">
- <h3><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Ce qu'il faut surveiller pour connaître l’adversaire du Sénégal en 16e de finale</h3>
- <div class="need-grid" id="need-grid"></div>
- <div class="proba-explain" id="proba-explain">Sénégal 5–0 Iraq · 3 pts · GD +2. Le tableau est figé : rendez-vous contre la Belgique.</div>
-</div>
-
-<!-- Encart matchs restants retiré : phase de groupes terminée. -->
 
 <!-- ═══ HISTOIRE DES LIONS AU MONDIAL ═══ -->
 <section class="story-section" id="histoire-gaindes">
@@ -804,7 +779,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 </section>
 
 <!-- ═══ TABLEAU DES 16ES ═══ -->
-<div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Tableau des 16es de finale — bracket officiel</div>
+<div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Tableau figé des 16es de finale — dates, heures et stades</div>
 <div class="r32-grid" id="r32-grid"></div>
 
 
@@ -1200,7 +1175,7 @@ function estimateProbaLive(snRank, snGD, snPts) { return estimateProbaWith(snRan
 function estimateProba(snRank, snGD, snPts)     { return estimateProbaWith(snRank, snGD, snPts, scoreSim); }
 
 // ════════════════════════════════════════════════
-// ADVERSAIRE PROBABLE — MAPPING OFFICIEL SELON LE RANG DU SÉNÉGAL
+// PROCHAIN MATCH — TABLEAU OFFICIEL FIGÉ
 // Règle verrouillée dans le projet :
 // 5e → Angleterre · 6e → Suisse · 7e → 1er Groupe K · 8e → Belgique
 // Le rang du Sénégal est calculé dynamiquement dans le tableau des meilleurs 3es.
@@ -1250,7 +1225,7 @@ function getOpponentForSenegalRank(snRank) {
   if (rank === 8) {
     return {
       name: NAMES.BEL || '🇧🇪 Belgique',
-      sub: '8e meilleur 3e → Belgique · Round of 32'
+      sub: 'Belgique–Sénégal · Mer. 1 juillet · 22:00 Paris · Seattle Lumen Field'
     };
   }
 
@@ -1275,7 +1250,7 @@ function updateProbableOpponent(snRank) {
   const mainEl  = document.getElementById('opp-main-name');
   const subEl   = document.getElementById('opp-main-sub');
 
-  if (cardEl) cardEl.title = `Mapping R32 selon rang Sénégal : 5→Angleterre, 6→Suisse, 7→1er Groupe K, 8→Belgique. Rang actuel : ${snRank || '?'}`;
+  if (cardEl) cardEl.title = 'Prochain match du Sénégal : Belgique–Sénégal, seizième de finale';
   if (mainEl) mainEl.textContent = opponent.name;
   if (subEl)  subEl.textContent  = opponent.sub;
 
@@ -1283,7 +1258,7 @@ function updateProbableOpponent(snRank) {
   const encartName = document.getElementById('opp-encart-name');
   const encartSub  = document.getElementById('opp-encart-sub');
   if (encartName) encartName.textContent = opponent.name;
-  if (encartSub) encartSub.textContent = opponent.sub + ' · mapping automatique selon le rang actuel.';
+  if (encartSub) encartSub.textContent = 'Prochain match confirmé : Belgique–Sénégal.';
 }
 
 // ════════════════════════════════════════════════
@@ -1418,25 +1393,25 @@ function renderRound32Grid(snRank) {
   const grid = document.getElementById('r32-grid');
   if (!grid) return;
   const cards = [
-    {id:'N74', date:'Lun. 29/06 · 22:30', a:NAMES.GER, b:NAMES.PAR, note:'Affiche confirmée'},
-    {id:'N77', date:'Mar. 30/06 · 23:00', a:NAMES.FRA, b:NAMES.SWE, note:'Affiche confirmée'},
-    {id:'N73', date:'Dim. 28/06 · 21:00', a:NAMES.RSA, b:NAMES.CAN, note:'Affiche confirmée'},
-    {id:'N75', date:'Mar. 30/06 · 03:00', a:NAMES.NED, b:NAMES.MAR, note:'Affiche confirmée'},
+    {id:'N74', date:'Lun. 29/06 · 22:30', venue:'Boston · Gillette Stadium', a:NAMES.GER, b:NAMES.PAR, note:'Affiche confirmée'},
+    {id:'N77', date:'Mar. 30/06 · 23:00', venue:'New York · MetLife Stadium', a:NAMES.FRA, b:NAMES.SWE, note:'Affiche confirmée'},
+    {id:'N73', date:'Dim. 28/06 · 21:00', venue:'Los Angeles · SoFi Stadium', a:NAMES.RSA, b:NAMES.CAN, note:'Affiche confirmée'},
+    {id:'N75', date:'Mar. 30/06 · 03:00', venue:'Monterrey · Estadio BBVA', a:NAMES.NED, b:NAMES.MAR, note:'Affiche confirmée'},
 
-    {id:'N83', date:'Ven. 03/07 · 01:00', a:NAMES.POR, b:NAMES.CRO, note:'Affiche confirmée'},
-    {id:'N84', date:'Jeu. 02/07 · 21:00', a:NAMES.ESP, b:NAMES.AUT, note:'Affiche confirmée'},
-    {id:'N81', date:'Jeu. 02/07 · 02:00', a:NAMES.USA, b:NAMES.BIH, note:'Le vainqueur croisera le vainqueur de Belgique–Sénégal'},
-    {id:'N82', date:'Mer. 01/07 · 22:00', a:NAMES.BEL, b:NAMES.SEN, sen:true, note:'Affiche définitive du Sénégal'},
+    {id:'N83', date:'Ven. 03/07 · 01:00', venue:'Toronto · BMO Field', a:NAMES.POR, b:NAMES.CRO, note:'Affiche confirmée'},
+    {id:'N84', date:'Jeu. 02/07 · 21:00', venue:'Los Angeles · SoFi Stadium', a:NAMES.ESP, b:NAMES.AUT, note:'Affiche confirmée'},
+    {id:'N81', date:'Jeu. 02/07 · 02:00', venue:'San Francisco · Levi’s Stadium', a:NAMES.USA, b:NAMES.BIH, note:'Le vainqueur croisera le vainqueur de Belgique–Sénégal'},
+    {id:'N82', date:'Mer. 01/07 · 22:00', venue:'Seattle · Lumen Field', a:NAMES.BEL, b:NAMES.SEN, sen:true, note:'Prochain match officiel du Sénégal'},
 
-    {id:'N76', date:'Lun. 29/06 · 19:00', a:NAMES.BRA, b:NAMES.JPN, note:'Affiche confirmée'},
-    {id:'N78', date:'Mar. 30/06 · 19:00', a:NAMES.CIV, b:NAMES.NOR, note:'Affiche confirmée'},
-    {id:'N79', date:'Mer. 01/07 · 03:00', a:NAMES.MEX, b:NAMES.ECU, note:'Affiche confirmée'},
-    {id:'N80', date:'Mer. 01/07 · 18:00', a:NAMES.ENG, b:NAMES.COD, note:'Affiche confirmée'},
+    {id:'N76', date:'Lun. 29/06 · 19:00', venue:'Houston · NRG Stadium', a:NAMES.BRA, b:NAMES.JPN, note:'Affiche confirmée'},
+    {id:'N78', date:'Mar. 30/06 · 19:00', venue:'Dallas · AT&T Stadium', a:NAMES.CIV, b:NAMES.NOR, note:'Affiche confirmée'},
+    {id:'N79', date:'Mer. 01/07 · 03:00', venue:'Mexico · Estadio Azteca', a:NAMES.MEX, b:NAMES.ECU, note:'Affiche confirmée'},
+    {id:'N80', date:'Mer. 01/07 · 18:00', venue:'Atlanta · Mercedes-Benz Stadium', a:NAMES.ENG, b:NAMES.COD, note:'Affiche confirmée'},
 
-    {id:'N86', date:'Sam. 04/07 · 00:00', a:NAMES.ARG, b:NAMES.CPV, note:'Affiche confirmée'},
-    {id:'N88', date:'Ven. 03/07 · 20:00', a:NAMES.AUS, b:NAMES.EGY, note:'Affiche confirmée'},
-    {id:'N85', date:'Ven. 03/07 · 05:00', a:NAMES.SUI, b:NAMES.ALG, note:'Affiche confirmée'},
-    {id:'N87', date:'Sam. 04/07 · 03:30', a:NAMES.COL, b:NAMES.GHA, note:'Affiche confirmée'}
+    {id:'N86', date:'Sam. 04/07 · 00:00', venue:'Miami · Hard Rock Stadium', a:NAMES.ARG, b:NAMES.CPV, note:'Affiche confirmée'},
+    {id:'N88', date:'Ven. 03/07 · 20:00', venue:'Dallas · AT&T Stadium', a:NAMES.AUS, b:NAMES.EGY, note:'Affiche confirmée'},
+    {id:'N85', date:'Ven. 03/07 · 05:00', venue:'Vancouver · BC Place', a:NAMES.SUI, b:NAMES.ALG, note:'Affiche confirmée'},
+    {id:'N87', date:'Sam. 04/07 · 03:30', venue:'Kansas City · Arrowhead Stadium', a:NAMES.COL, b:NAMES.GHA, note:'Affiche confirmée'}
   ];
 
   grid.innerHTML = cards.map(c => {
@@ -1447,7 +1422,7 @@ function renderRound32Grid(snRank) {
         ${r32Team(c.a || 'À définir', String(c.a||'').includes('Sénégal') ? 'sen' : '')}
         ${r32Team(c.b || 'À définir', String(c.b||'').includes('Sénégal') ? 'sen' : '')}
      </div>
-     <div class="r32-note">${c.note || ''}</div>
+     <div class="r32-note"><strong>${c.venue || ''}</strong>${c.note ? ' · ' + c.note : ''}</div>
    </div>`;
   }).join('');
 }
@@ -1540,7 +1515,7 @@ function recalculateAll() {
 
   let desc;
   if (isMathQual) {
-    desc = ` <strong>Mathématiquement qualifié !</strong> · ${snRank}e des 3e places · GD ${gdStr} · <strong style="color:#4ade80">100%</strong>`;
+    desc = `<strong>Qualification actée.</strong> Les Lions affronteront <strong style="color:#FDEF42">la Belgique</strong> en 16e de finale.`;
   } else {
     desc = snEntry
       ? ` <strong>Sénégal 5–0 Iraq · Match terminé</strong> · ${snRank}e des 3e places · GD ${gdStr} · <strong>~${finalPct}%</strong> de qualification`
@@ -1550,7 +1525,7 @@ function recalculateAll() {
   const el = document.getElementById('mainPct');
   const probaLabel = document.getElementById('proba-label');
   if (isMathQual) {
-    el.textContent = 'Qualifié ';
+    el.textContent = 'Qualifié';
     el.className = 'cpct high';
     el.style.fontSize = '2.2rem';
     if (probaLabel) probaLabel.textContent = 'Statut de qualification';
@@ -1576,7 +1551,7 @@ function recalculateAll() {
   const pe = document.getElementById('proba-explain');
   if(pe){
     if (isMathQual) {
-      pe.innerHTML = ` <strong style="color:var(--or)">Sénégal qualifié</strong> — on surveille maintenant le rang final pour connaître l’adversaire en 16e.`;
+      pe.innerHTML = `<strong style="color:var(--or)">Sénégal qualifié</strong> — adversaire connu : Belgique.`;
     } else {
       const open = remainingOpenGroups();
       pe.innerHTML = open.length
@@ -1590,7 +1565,7 @@ function recalculateAll() {
   filterImportantMatches();
   renderTopLiveMatches();
 
-  // ── Adversaire probable (bracket officiel) ──
+  // ── Prochain match (bracket officiel figé) ──
   updateProbableOpponent(snRank);
   renderRound32Grid(snRank);
 
@@ -1614,10 +1589,10 @@ function showMathQualBanner(mathQual, confirmedBehind) {
        <div>
          <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;font-weight:800;
             letter-spacing:.1em;text-transform:uppercase;color:var(--or);">
-            Sénégal qualifié mathématiquement !
+            Sénégal qualifié · adversaire connu : Belgique
          </div>
          <div style="font-size:.72rem;color:#4ade80;margin-top:3px;">
-            Qualification verrouillée · ${confirmedBehind} groupes terminés derrière · Probabilité 100%
+            La qualification est actée · 16e de finale contre les Diables Rouges
          </div>
        </div>
        <span style="font-size:2rem"></span>
@@ -1629,9 +1604,9 @@ function showMathQualBanner(mathQual, confirmedBehind) {
     }
     // Mettre à jour hdr-proba aussi
     const hdrProba = document.getElementById('hdr-proba');
-    if (hdrProba) { hdrProba.textContent = 'Qualifié '; hdrProba.style.color = '#4ade80'; }
+    if (hdrProba) { hdrProba.textContent = 'Qualifié'; hdrProba.style.color = '#4ade80'; }
     const hdrStatut = document.getElementById('hdr-statut');
-    if (hdrStatut) { hdrStatut.textContent = 'Qualifié mathématiquement !'; hdrStatut.style.color = '#4ade80'; }
+    if (hdrStatut) { hdrStatut.textContent = 'Qualification actée'; hdrStatut.style.color = '#4ade80'; }
   } else {
     banner.style.display = 'none';
   }
@@ -1651,7 +1626,7 @@ function updateLiveCenter(snRank, snPts, snGD, diff, pct){
   scoreEl.textContent = '5 – 0 ';
   // Statut selon rang
   if(snPts >= 3 && snRank >= 1 && snRank <= 8){
-    statutEl.textContent = ' Virtuellement qualifié · En attente';
+    statutEl.textContent = ' Qualifié · Belgique connue';
     statutEl.style.color = '#4ade80';
   } else if(snPts >= 3){
     statutEl.textContent = ' Hors Top 8 · En attente';
@@ -1795,8 +1770,8 @@ function updateVirtualStatusLive(snRank, snGD, snPts, pct, diff){
     sub.textContent='Sénégal 5–0 Iraq · Match terminé · En attente des autres groupes.';
   } else if(snRank>0 && snRank<=8){
     box.classList.add('good');
-    main.textContent=`Qualifié pour le moment (${snRank}e)`;
-    sub.textContent=`Sénégal 5–0 Iraq · Match terminé · ${snPts} pts · GD ${gdStr} · probabilité estimée ~${pct}%.`;
+    main.textContent='Qualifié — meilleur troisième';
+    sub.textContent='Le Sénégal poursuit son Mondial en 16e de finale face à la Belgique.';
   } else {
     box.classList.add('bad');
     main.textContent=` Hors Top 8 pour le moment (${snRank||'?'}e)`;
@@ -1914,13 +1889,13 @@ function updateVirtualStatus(snRank, snGD, snPts, pct){
   }
   else if(d<=0){
     box.classList.add('bad');
-    main.textContent=' Virtuellement éliminé';
+    main.textContent='Éliminé';
     sub.textContent='Sénégal 5–0 Iraq · Match terminé · En attente des autres groupes.';
   }
   else if(snRank>0 && snRank<=8){
     box.classList.add('good');
-    main.textContent=`Virtuellement qualifié (${snRank}e)`;
-    sub.textContent=`Top 8 provisoire · ${snPts} pts · GD ${snGD>=0?'+'+snGD:snGD} · ${pct}% estimé.`;
+    main.textContent='Qualifié — meilleur troisième';
+    sub.textContent='Le Sénégal poursuit son Mondial en 16e de finale face à la Belgique.';
   }
   else {
     box.classList.add('bad');
