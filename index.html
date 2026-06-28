@@ -797,6 +797,55 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   .bracket-col{min-height:1040px;}
 }
 
+
+/* ── PATCH V8.1 : prochain match + leaders du tournoi ── */
+.live-panel.next-mode{
+  background:linear-gradient(135deg,#061628,#101010 62%,#07180d);
+  border-color:#38bdf858;
+  box-shadow:0 16px 50px #0006,inset 0 0 0 1px #38bdf814;
+}
+.live-panel.next-mode .live-panel-title span{color:#67e8f9;}
+.next-match-card{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:14px;
+  align-items:center;
+  background:linear-gradient(135deg,#071225,#0b0b0b 70%);
+  border:1px solid #38bdf83c;
+  border-radius:16px;
+  padding:15px 16px;
+  min-height:128px;
+}
+.next-team{text-align:center;min-width:0;}
+.next-team-name{font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:800;line-height:1.1;color:#fff;}
+.next-team-sub{font-size:.62rem;color:var(--mu);margin-top:5px;}
+.next-vs{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:96px;}
+.next-vs-main{font-family:'Oswald',sans-serif;font-size:1.55rem;font-weight:900;color:#67e8f9;letter-spacing:.1em;}
+.next-vs-time{font-size:.62rem;color:var(--or);text-align:center;line-height:1.45;}
+.next-venue{grid-column:1/-1;text-align:center;font-size:.68rem;color:#9ca3af;margin-top:2px;line-height:1.45;}
+.leaders-section{margin:16px 0 20px;}
+.leaders-grid{display:grid;grid-template-columns:1.25fr .9fr .9fr;gap:12px;align-items:stretch;}
+.leader-card{background:linear-gradient(135deg,#111,#0b0b0b);border:1px solid #ffffff16;border-radius:16px;padding:14px 15px;box-shadow:0 12px 36px #0005;overflow:hidden;position:relative;}
+.leader-card::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 90% 0,#FDEF4215,transparent 38%);}
+.leader-card>*{position:relative;z-index:1;}
+.leader-card.scorers{border-color:#FDEF4242;background:linear-gradient(135deg,#1b1503,#0c0c0c 72%);}
+.leader-card.attack{border-color:#38bdf842;background:linear-gradient(135deg,#04162a,#0d0d0d 72%);}
+.leader-card.defense{border-color:#4ade8042;background:linear-gradient(135deg,#042314,#0d0d0d 72%);}
+.leader-title{display:flex;align-items:center;gap:8px;font-family:'Oswald',sans-serif;font-size:.82rem;letter-spacing:.13em;text-transform:uppercase;color:#fff;margin-bottom:9px;}
+.leader-title img{width:18px;height:18px;border-radius:5px;object-fit:cover;}
+.scorer-list{display:flex;flex-direction:column;gap:7px;}
+.scorer-row{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;background:#ffffff08;border:1px solid #ffffff10;border-radius:10px;padding:7px 9px;font-size:.72rem;}
+.scorer-rank{font-family:'Oswald',sans-serif;color:var(--mu);font-size:.75rem;min-width:20px;}
+.scorer-name{font-weight:800;color:#fff;line-height:1.25;}
+.scorer-team{font-size:.58rem;color:var(--mu);margin-top:2px;}
+.scorer-goals{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:900;color:var(--or);min-width:28px;text-align:right;}
+.leader-big{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:900;color:var(--or);line-height:1;margin:9px 0 8px;}
+.attack .leader-big{color:#67e8f9;}.defense .leader-big{color:#4ade80;}
+.leader-teams{font-size:.82rem;font-weight:800;line-height:1.55;color:#fff;}
+.leader-note{font-size:.64rem;color:var(--mu);line-height:1.6;margin-top:8px;}
+.leader-note strong{color:#e5e7eb;}
+@media(max-width:920px){.leaders-grid{grid-template-columns:1fr;}.next-match-card{grid-template-columns:1fr;gap:9px}.next-vs{min-width:0}.next-venue{grid-column:auto}.next-team-name{font-size:1.18rem}}
+
 </style>
 </head>
 <body>
@@ -1006,6 +1055,31 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
         <div class="form-row"><span>Sénégal 5–0 Iraq</span><strong>V</strong></div>
       </div>
     </aside>
+  </div>
+</section>
+
+
+<!-- ═══ LEADERS DU TOURNOI ═══ -->
+<section class="leaders-section" id="leaders-section">
+  <div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Leaders du tournoi</div>
+  <div class="leaders-grid">
+    <div class="leader-card scorers">
+      <div class="leader-title"><img src="assets/lion-mascotte.png" alt="Mascotte">Meilleurs buteurs · 4 buts et plus</div>
+      <div class="scorer-list" id="top-scorers-list"></div>
+      <div class="leader-note">Encart statique, facile à mettre à jour dans le code sans toucher au moteur API.</div>
+    </div>
+    <div class="leader-card attack">
+      <div class="leader-title"><img src="assets/lion-mascotte.png" alt="Mascotte">Meilleure attaque</div>
+      <div class="leader-big" id="best-attack-goals">10</div>
+      <div class="leader-teams" id="best-attack-teams">🇩🇪 Allemagne · 🇳🇱 Pays-Bas · 🇫🇷 France</div>
+      <div class="leader-note">Équipes avec le plus grand nombre de buts marqués en phase de groupes.</div>
+    </div>
+    <div class="leader-card defense">
+      <div class="leader-title"><img src="assets/lion-mascotte.png" alt="Mascotte">Meilleure défense</div>
+      <div class="leader-big" id="best-defense-goals">0</div>
+      <div class="leader-teams" id="best-defense-teams">🇲🇽 Mexique · 🇪🇸 Espagne</div>
+      <div class="leader-note">Équipes avec le moins de buts encaissés en phase de groupes.</div>
+    </div>
   </div>
 </section>
 
@@ -1693,6 +1767,34 @@ function liveImpactText(key) {
 
 
 
+const TOP_SCORERS_4PLUS = [
+  { rank: 1, name: 'Lionel Messi', team: '🇦🇷 Argentine', goals: 6 },
+  { rank: 2, name: 'Ousmane Dembélé', team: '🇫🇷 France', goals: 4 },
+  { rank: 3, name: 'Kylian Mbappé', team: '🇫🇷 France', goals: 4 },
+  { rank: 4, name: 'Vinícius Júnior', team: '🇧🇷 Brésil', goals: 4 },
+  { rank: 5, name: 'Erling Haaland', team: '🇳🇴 Norvège', goals: 4 }
+];
+
+const NEXT_KNOCKOUT_FIXTURES = [
+  { id:'N73', ts:'2026-06-28T21:00:00+02:00', date:'Dim. 28 juin · 21h00 Paris', venue:'Los Angeles · SoFi Stadium', a:NAMES.RSA, b:NAMES.CAN },
+  { id:'N78', ts:'2026-06-29T19:00:00+02:00', date:'Lun. 29 juin · 19h00 Paris', venue:'Houston · NRG Stadium', a:NAMES.BRA, b:NAMES.JPN },
+  { id:'N74', ts:'2026-06-29T22:30:00+02:00', date:'Lun. 29 juin · 22h30 Paris', venue:'Boston · Gillette Stadium', a:NAMES.GER, b:NAMES.PAR },
+  { id:'N75', ts:'2026-06-30T03:00:00+02:00', date:'Mar. 30 juin · 03h00 Paris', venue:'Philadelphia · Lincoln Financial Field', a:NAMES.NED, b:NAMES.MAR },
+  { id:'N76', ts:'2026-06-30T19:00:00+02:00', date:'Mar. 30 juin · 19h00 Paris', venue:'Miami · Hard Rock Stadium', a:NAMES.CIV, b:NAMES.NOR },
+  { id:'N77', ts:'2026-06-30T23:00:00+02:00', date:'Mar. 30 juin · 23h00 Paris', venue:'New York · MetLife Stadium', a:NAMES.FRA, b:NAMES.SWE },
+  { id:'N79', ts:'2026-07-01T03:00:00+02:00', date:'Mer. 1er juillet · 03h00 Paris', venue:'Mexico City · Estadio Azteca', a:NAMES.MEX, b:NAMES.ECU },
+  { id:'N80', ts:'2026-07-01T18:00:00+02:00', date:'Mer. 1er juillet · 18h00 Paris', venue:'Atlanta · Mercedes-Benz Stadium', a:NAMES.ENG, b:NAMES.COD },
+  { id:'N82', ts:'2026-07-01T22:00:00+02:00', date:'Mer. 1er juillet · 22h00 Paris', venue:'Seattle · Lumen Field', a:NAMES.BEL, b:NAMES.SEN },
+  { id:'N81', ts:'2026-07-02T02:00:00+02:00', date:'Jeu. 2 juillet · 02h00 Paris', venue:'San Francisco · Levi’s Stadium', a:NAMES.USA, b:NAMES.BIH },
+  { id:'N84', ts:'2026-07-02T21:00:00+02:00', date:'Jeu. 2 juillet · 21h00 Paris', venue:'Toronto · BMO Field', a:NAMES.ESP, b:NAMES.AUT },
+  { id:'N83', ts:'2026-07-03T01:00:00+02:00', date:'Ven. 3 juillet · 01h00 Paris', venue:'Dallas · AT&T Stadium', a:NAMES.POR, b:NAMES.CRO },
+  { id:'N85', ts:'2026-07-03T05:00:00+02:00', date:'Ven. 3 juillet · 05h00 Paris', venue:'Vancouver · BC Place', a:NAMES.SUI, b:NAMES.ALG },
+  { id:'N86', ts:'2026-07-03T20:00:00+02:00', date:'Ven. 3 juillet · 20h00 Paris', venue:'Kansas City · Arrowhead Stadium', a:NAMES.AUS, b:NAMES.EGY },
+  { id:'N87', ts:'2026-07-04T00:00:00+02:00', date:'Sam. 4 juillet · 00h00 Paris', venue:'Dallas · AT&T Stadium', a:NAMES.ARG, b:NAMES.CPV },
+  { id:'N88', ts:'2026-07-04T03:30:00+02:00', date:'Sam. 4 juillet · 03h30 Paris', venue:'Los Angeles · SoFi Stadium', a:NAMES.COL, b:NAMES.GHA }
+];
+
+
 const R32_CARDS = [
   {id:'N74', date:'Lun. 29 juin · 22h30 Paris', venue:'Boston · Gillette Stadium', a:NAMES.GER, b:NAMES.PAR, note:'Tableau A–D'},
   {id:'N77', date:'Mar. 30 juin · 23h00 Paris', venue:'New York · MetLife Stadium', a:NAMES.FRA, b:NAMES.SWE, note:'Tableau A–D'},
@@ -1943,6 +2045,9 @@ function startCountdownTicker() {
 function renderTopLiveMatches() {
   const wrap = document.getElementById('top-live-matches');
   const meta = document.getElementById('top-live-updated');
+  const panel = document.querySelector('#match-live-section .live-panel');
+  const titleSpan = document.querySelector('#match-live-section .live-panel-title span');
+  const sec = document.querySelector('#match-live-section .sec');
   if (!wrap) return;
 
   const liveEntries = Object.entries(RESULTS)
@@ -1953,37 +2058,73 @@ function renderTopLiveMatches() {
       return mb - ma;
     });
 
-  if (meta) {
-    const now = new Date();
-    meta.textContent = liveEntries.length
-      ? `${liveEntries.length} match${liveEntries.length>1?'s':''} live · ${now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`
-      : `Aucun live · ${now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`;
+  if (liveEntries.length) {
+    if (panel) panel.classList.remove('next-mode');
+    if (titleSpan) titleSpan.textContent = 'Match en direct';
+    if (sec) sec.innerHTML = '<img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Match en direct';
+    if (meta) {
+      const now = new Date();
+      meta.textContent = `${liveEntries.length} match${liveEntries.length>1?'s':''} live · ${now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`;
+    }
+
+    wrap.className = 'top-live-grid';
+    wrap.innerHTML = liveEntries.map(([key, r]) => {
+      const score = matchScoreText(r, '0 – 0');
+      const statusLabel = r.apiStatusLong || 'Live';
+      const minute = r.minute ? `${r.minute}'` : 'LIVE';
+      return `<div class="top-live-card">
+       <div>
+         <div class="tl-teams">${NAMES[r.h]||r.h} <span style="color:var(--mu)">vs</span> ${NAMES[r.a]||r.a}</div>
+         <div class="tl-score">${score}</div>
+       </div>
+       <div>
+         <div class="tl-meta"><span>${statusLabel}</span><span class="tl-minute">${minute}</span></div>
+         <div class="tl-impact">${liveImpactText(key)}</div>
+       </div>
+     </div>`;
+    }).join('');
+    return;
   }
 
-  if (!liveEntries.length) {
+  const next = nextScheduledFixture();
+  if (panel) panel.classList.add('next-mode');
+  if (titleSpan) titleSpan.textContent = 'Prochain match';
+  if (sec) sec.innerHTML = '<img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Prochain match';
+  if (meta) meta.textContent = 'API en pause · aucun match en direct';
+
+  if (!next) {
     wrap.className = 'top-live-grid';
-    wrap.innerHTML = '<div class="top-live-empty">Aucun match en direct pour le moment. Les prochains matchs remonteront ici automatiquement.</div>';
+    wrap.innerHTML = '<div class="top-live-empty">Aucun match en direct pour le moment.</div>';
     return;
   }
 
   wrap.className = 'top-live-grid';
-  wrap.innerHTML = liveEntries.map(([key, r]) => {
-    const score = matchScoreText(r, '0 – 0');
-    const statusLabel = r.apiStatusLong || 'Live';
-    const minute = r.minute ? `${r.minute}'` : 'LIVE';
-    return `<div class="top-live-card">
-     <div>
-       <div class="tl-teams">${NAMES[r.h]||r.h} <span style="color:var(--mu)">vs</span> ${NAMES[r.a]||r.a}</div>
-       <div class="tl-score">${score}</div>
-     </div>
-     <div>
-       <div class="tl-meta"><span>${statusLabel}</span><span class="tl-minute">${minute}</span></div>
-       <div class="tl-impact">${liveImpactText(key)}</div>
-     </div>
-   </div>`;
-  }).join('');
+  wrap.innerHTML = `<div class="next-match-card">
+    <div class="next-team"><div class="next-team-name">${next.a}</div><div class="next-team-sub">Prochaine affiche</div></div>
+    <div class="next-vs"><div class="next-vs-main">VS</div><div class="next-vs-time">${next.date}</div></div>
+    <div class="next-team"><div class="next-team-name">${next.b}</div><div class="next-team-sub">Round of 32</div></div>
+    <div class="next-venue"><strong>${next.venue}</strong></div>
+  </div>`;
 }
 
+function nextScheduledFixture() {
+  const now = Date.now();
+  const upcoming = NEXT_KNOCKOUT_FIXTURES
+    .map(f => ({...f, time: new Date(f.ts).getTime()}))
+    .filter(f => Number.isFinite(f.time) && f.time > now)
+    .sort((a,b) => a.time - b.time);
+  return upcoming[0] || NEXT_KNOCKOUT_FIXTURES.find(f => f.id === 'N82') || NEXT_KNOCKOUT_FIXTURES[0];
+}
+
+function renderTournamentLeaders() {
+  const scorers = document.getElementById('top-scorers-list');
+  if (!scorers) return;
+  scorers.innerHTML = TOP_SCORERS_4PLUS.map(p => `<div class="scorer-row">
+    <div class="scorer-rank">#${p.rank}</div>
+    <div><div class="scorer-name">${p.name}</div><div class="scorer-team">${p.team}</div></div>
+    <div class="scorer-goals">${p.goals}</div>
+  </div>`).join('');
+}
 
 // ════════════════════════════════════════════════
 // MOTEUR UNIQUE POST-MATCH
@@ -2647,8 +2788,10 @@ function initAppDisplay(){
   updateMatchCards();
   filterImportantMatches();
   renderTopLiveMatches();
+  renderTournamentLeaders();
   renderKnockoutTree();
   startCountdownTicker();
+  setInterval(renderTopLiveMatches, 60000);
   buildTicker();
   // Forcer une seconde passe 200ms plus tard pour les éléments chargés en retard
   setTimeout(() => { updateMatchCards(); filterImportantMatches(); renderTopLiveMatches(); }, 200);
