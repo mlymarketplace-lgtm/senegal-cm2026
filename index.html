@@ -632,6 +632,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   background:var(--g2);border:1px solid rgba(255,255,255,.1);
   border-radius:10px;overflow:hidden;margin-bottom:10px;
   transition:border-color .2s,box-shadow .2s;
+  display:flex;flex-direction:column;
 }
 .b-match:hover{border-color:rgba(255,255,255,.22);}
 .b-match.senegal{
@@ -649,19 +650,28 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 .b-head-date{color:var(--mu);font-family:'Inter',sans-serif;letter-spacing:0;text-transform:none;font-size:.54rem;}
 .b-team{
   display:flex;align-items:center;justify-content:space-between;
-  padding:7px 9px;font-size:.78rem;font-weight:600;
-  cursor:pointer;transition:background .15s;
+  padding:9px 11px;font-size:.78rem;font-weight:600;
+  cursor:pointer;transition:background .15s, opacity .2s, color .2s;
   border-bottom:1px solid rgba(255,255,255,.05);
   user-select:none;-webkit-user-select:none;
+  min-height:38px;
+  position:relative;
 }
 .b-team:last-of-type{border-bottom:none;}
-.b-team:hover{background:rgba(255,255,255,.06);}
+.b-team:hover{background:rgba(255,255,255,.1);}
+.b-team:active{background:rgba(255,255,255,.18);}
+.b-team::after{
+  content:'▶';font-size:.5rem;color:rgba(255,255,255,.18);
+  position:absolute;right:36px;opacity:0;transition:opacity .15s;
+}
+.b-team:hover::after{opacity:1;}
 .b-team.winner{
   color:var(--or);font-weight:800;
-  background:rgba(250,204,21,.07);
+  background:rgba(250,204,21,.12);
 }
+.b-team.winner::after{content:'✓';color:var(--or);opacity:1;font-size:.7rem;right:34px;}
 .b-team.senegal-team{color:var(--or);}
-.b-team.eliminated{opacity:.38;}
+.b-team.eliminated{opacity:.28;text-decoration:line-through;}
 .b-score{
   font-family:'Oswald',sans-serif;font-size:.95rem;
   color:rgba(255,255,255,.6);min-width:22px;text-align:right;
@@ -909,9 +919,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 <div class="bracket-section">
   <div class="bracket-title">
     Seizièmes de finale
-    <span class="bracket-subtitle">— cliquez sur une équipe pour la faire avancer · le chemin du Sénégal est mis en valeur</span>
+    <span class="bracket-subtitle">— <strong style="color:var(--or)">cliquez sur une équipe</strong> pour la qualifier · le chemin du Sénégal 🇸🇳 est mis en or</span>
   </div>
-  <div class="bracket-scroll">
+  <div style="background:rgba(250,204,21,.08);border:1px solid rgba(250,204,21,.25);border-radius:8px;padding:8px 14px;margin-bottom:10px;font-size:.72rem;color:rgba(255,255,255,.7);">
+  💡 <strong style="color:var(--or)">Mode simulation</strong> : cliquez sur une équipe pour la qualifier. Elle apparaît en or, l'autre s'estompe. Les huitièmes se mettent à jour automatiquement.
+</div>
+<div class="bracket-scroll">
     <div class="bracket-grid" id="bracket-r16">
       <!-- Col 1 : matchs 1-4 -->
       <div>
@@ -1026,43 +1039,43 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   <div class="r8-grid" id="bracket-r8">
     <div class="b-match" id="bm-r8-1">
       <div class="b-head">QF A/B <span class="b-head-date">env. 5-6 juil</span></div>
-      <div class="b-team" id="r8-1h" onclick="pickR8(1,'h')"><span id="r8-1h-name">V. Match 1</span><span class="b-score">—</span></div>
-      <div class="b-team" id="r8-1a" onclick="pickR8(1,'a')"><span id="r8-1a-name">V. Match 2</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-1h" onclick="pickR8(1,'h')"><span id="r8-1h-name">Vainqueur A · Tableau A-D</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-1a" onclick="pickR8(1,'a')"><span id="r8-1a-name">Vainqueur B · Tableau A-D</span><span class="b-score">—</span></div>
     </div>
     <div class="b-match" id="bm-r8-2">
       <div class="b-head">QF C/D <span class="b-head-date">env. 5-6 juil</span></div>
-      <div class="b-team" id="r8-2h" onclick="pickR8(2,'h')"><span id="r8-2h-name">V. Match 3</span><span class="b-score">—</span></div>
-      <div class="b-team" id="r8-2a" onclick="pickR8(2,'a')"><span id="r8-2a-name">V. Match 4</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-2h" onclick="pickR8(2,'h')"><span id="r8-2h-name">Vainqueur C · Tableau A-D</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-2a" onclick="pickR8(2,'a')"><span id="r8-2a-name">Vainqueur D · Tableau A-D</span><span class="b-score">—</span></div>
     </div>
     <div class="b-match" id="bm-r8-3">
       <div class="b-head">QF E/F <span class="b-head-date">env. 6-7 juil</span></div>
-      <div class="b-team" id="r8-3h" onclick="pickR8(3,'h')"><span id="r8-3h-name">V. Match 5</span><span class="b-score">—</span></div>
-      <div class="b-team" id="r8-3a" onclick="pickR8(3,'a')"><span id="r8-3a-name">V. Match 6</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-3h" onclick="pickR8(3,'h')"><span id="r8-3h-name">Vainqueur E · Tableau E-H</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-3a" onclick="pickR8(3,'a')"><span id="r8-3a-name">Vainqueur F · Tableau E-H</span><span class="b-score">—</span></div>
     </div>
     <div class="b-match senegal" id="bm-r8-4">
       <div class="b-head">🌟 QF G/H — Chemin Sénégal <span class="b-head-date">env. 6-7 juil</span></div>
-      <div class="b-team senegal-team" id="r8-4h" onclick="pickR8(4,'h')"><span id="r8-4h-name">V. Match 7</span><span class="b-score">—</span></div>
-      <div class="b-team senegal-team" id="r8-4a" onclick="pickR8(4,'a')"><span id="r8-4a-name">V. Match 8</span><span class="b-score">—</span></div>
+      <div class="b-team senegal-team" id="r8-4h" onclick="pickR8(4,'h')"><span id="r8-4h-name">Vainqueur G · Tableau E-H</span><span class="b-score">—</span></div>
+      <div class="b-team senegal-team" id="r8-4a" onclick="pickR8(4,'a')"><span id="r8-4a-name">Vainqueur H · Tableau E-H</span><span class="b-score">—</span></div>
     </div>
     <div class="b-match" id="bm-r8-5">
       <div class="b-head">QF I/J <span class="b-head-date">env. 9-10 juil</span></div>
-      <div class="b-team" id="r8-5h" onclick="pickR8(5,'h')"><span id="r8-5h-name">V. Match 9</span><span class="b-score">—</span></div>
-      <div class="b-team" id="r8-5a" onclick="pickR8(5,'a')"><span id="r8-5a-name">V. Match 10</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-5h" onclick="pickR8(5,'h')"><span id="r8-5h-name">Vainqueur I · Tableau I-L</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-5a" onclick="pickR8(5,'a')"><span id="r8-5a-name">Vainqueur J · Tableau I-L</span><span class="b-score">—</span></div>
     </div>
     <div class="b-match" id="bm-r8-6">
       <div class="b-head">QF K/L <span class="b-head-date">env. 9-10 juil</span></div>
-      <div class="b-team" id="r8-6h" onclick="pickR8(6,'h')"><span id="r8-6h-name">V. Match 11</span><span class="b-score">—</span></div>
-      <div class="b-team" id="r8-6a" onclick="pickR8(6,'a')"><span id="r8-6a-name">V. Match 12</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-6h" onclick="pickR8(6,'h')"><span id="r8-6h-name">Vainqueur K · Tableau I-L</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-6a" onclick="pickR8(6,'a')"><span id="r8-6a-name">Vainqueur L · Tableau I-L</span><span class="b-score">—</span></div>
     </div>
     <div class="b-match" id="bm-r8-7">
       <div class="b-head">QF M/N <span class="b-head-date">env. 10-11 juil</span></div>
-      <div class="b-team" id="r8-7h" onclick="pickR8(7,'h')"><span id="r8-7h-name">V. Match 13</span><span class="b-score">—</span></div>
-      <div class="b-team" id="r8-7a" onclick="pickR8(7,'a')"><span id="r8-7a-name">V. Match 14</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-7h" onclick="pickR8(7,'h')"><span id="r8-7h-name">Vainqueur M · Tableau M-P</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-7a" onclick="pickR8(7,'a')"><span id="r8-7a-name">Vainqueur N · Tableau M-P</span><span class="b-score">—</span></div>
     </div>
     <div class="b-match" id="bm-r8-8">
       <div class="b-head">QF O/P <span class="b-head-date">env. 10-11 juil</span></div>
-      <div class="b-team" id="r8-8h" onclick="pickR8(8,'h')"><span id="r8-8h-name">V. Match 15</span><span class="b-score">—</span></div>
-      <div class="b-team" id="r8-8a" onclick="pickR8(8,'a')"><span id="r8-8a-name">V. Match 16</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-8h" onclick="pickR8(8,'h')"><span id="r8-8h-name">Vainqueur O · Tableau M-P</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-8a" onclick="pickR8(8,'a')"><span id="r8-8a-name">Vainqueur P · Tableau M-P</span><span class="b-score">—</span></div>
     </div>
   </div>
   <div class="bracket-legend">
@@ -1075,8 +1088,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 
 <!-- FOOTER -->
 <div class="footer">
- <img class="mascot-inline" src="assets/lion-mascotte.png" alt="Mascotte"><span id="live-updated-at">Données en attente…</span><br>
-  Allez les Lions de la Téranga !<br>
+  Allez les Lions de la Téranga ! 🦁🇸🇳<br>
  <strong>Offert par Mohamed LY et le Think Tank IPODE</strong>
 </div>
 
@@ -2844,26 +2856,26 @@ setTimeout(()=>{
 // ══════════════════════════════════════
 // COMPTE À REBOURS BELGIQUE–SÉNÉGAL
 // ══════════════════════════════════════
-(function(){
+document.addEventListener('DOMContentLoaded', function(){
   // 1er juillet 2026 22h00 Paris = UTC+2 → 20h00 UTC
-  const target = new Date('2026-07-01T20:00:00Z');
-  function pad(n){return String(n).padStart(2,'0');}
+  var target = new Date('2026-07-01T20:00:00Z').getTime();
+  function pad(n){return n < 10 ? '0'+n : ''+n;}
   function updateCD(){
-    const now = new Date();
-    const diff = target - now;
+    var now = Date.now();
+    var diff = target - now;
     if(diff <= 0){
-      const b = document.getElementById('cd-blocks');
+      var b = document.getElementById('cd-blocks');
       if(b) b.innerHTML='<div class="cd-done">⚽ Match en cours ou terminé · Allez les Lions ! 🇸🇳</div>';
       return;
     }
-    const j = Math.floor(diff/86400000);
-    const h = Math.floor((diff%86400000)/3600000);
-    const m = Math.floor((diff%3600000)/60000);
-    const s = Math.floor((diff%60000)/1000);
-    const jE=document.getElementById('cd-j'),
-          hE=document.getElementById('cd-h'),
-          mE=document.getElementById('cd-m'),
-          sE=document.getElementById('cd-s');
+    var j = Math.floor(diff/86400000);
+    var h = Math.floor((diff%86400000)/3600000);
+    var m = Math.floor((diff%3600000)/60000);
+    var s = Math.floor((diff%60000)/1000);
+    var jE=document.getElementById('cd-j');
+    var hE=document.getElementById('cd-h');
+    var mE=document.getElementById('cd-m');
+    var sE=document.getElementById('cd-s');
     if(jE)jE.textContent=pad(j);
     if(hE)hE.textContent=pad(h);
     if(mE)mE.textContent=pad(m);
@@ -2871,7 +2883,7 @@ setTimeout(()=>{
   }
   updateCD();
   setInterval(updateCD,1000);
-})();
+});
 
 // ══════════════════════════════════════
 // BRACKET 16ES → 8ES SIMULABLE
@@ -2928,8 +2940,9 @@ setTimeout(()=>{
   function updateR8(r8id){
     const pair = R8_PAIRS[r8id];
     const [m1,m2] = pair;
-    const t1 = winners[m1] ? TEAMS[m1][winners[m1]] : ('V. Match '+m1);
-    const t2 = winners[m2] ? TEAMS[m2][winners[m2]] : ('V. Match '+m2);
+    const LETTERS = {1:'A',2:'B',3:'C',4:'D',5:'E',6:'F',7:'G',8:'H',9:'I',10:'J',11:'K',12:'L',13:'M',14:'N',15:'O',16:'P'};
+    const t1 = winners[m1] ? TEAMS[m1][winners[m1]] : ('V. '+LETTERS[m1]+' — cliquez pour qualifier');
+    const t2 = winners[m2] ? TEAMS[m2][winners[m2]] : ('V. '+LETTERS[m2]+' — cliquez pour qualifier');
     const nh = document.getElementById('r8-'+r8id+'h-name');
     const na = document.getElementById('r8-'+r8id+'a-name');
     if(nh) nh.textContent = t1;
