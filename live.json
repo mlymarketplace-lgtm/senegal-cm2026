@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T00:55:00+02:00",
+  "updatedAt": "2026-06-28T03:55:00+02:00",
   "matches": {
     "uru-esp": {
       "home": 0,
@@ -32,24 +32,24 @@
       "status": "final"
     },
     "col-por": {
-      "home": null,
-      "away": null,
-      "status": "scheduled"
+      "home": 0,
+      "away": 0,
+      "status": "final"
     },
     "cod-uzb": {
-      "home": null,
-      "away": null,
-      "status": "scheduled"
+      "home": 3,
+      "away": 1,
+      "status": "final"
     },
     "jor-arg": {
-      "home": null,
-      "away": null,
-      "status": "scheduled"
+      "home": 1,
+      "away": 3,
+      "status": "final"
     },
     "alg-aut": {
-      "home": null,
-      "away": null,
-      "status": "scheduled"
+      "home": 2,
+      "away": 2,
+      "status": "final"
     }
   }
 }

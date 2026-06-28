@@ -528,6 +528,13 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 .story-tile b{display:block;color:var(--or);font-family:'Oswald',sans-serif;font-size:.9rem;margin-bottom:3px;}
 @media(max-width:760px){.story-head{align-items:flex-start;flex-direction:column}.story-title{font-size:1rem}.story-body{max-height:430px;font-size:.78rem;padding:14px}.story-timeline{grid-template-columns:1fr 1fr}.section-mascot{width:16px;height:16px}}
 
+.belgium-teaser{margin:18px 0 18px;border:1px solid #FDEF4244;border-left:5px solid var(--or);border-radius:16px;background:linear-gradient(135deg,#170f04,#0d0d0d 62%,#07180d);padding:16px 18px;box-shadow:0 18px 50px #0005;}
+.teaser-title{font-family:'Oswald',sans-serif;font-size:1.05rem;letter-spacing:.1em;text-transform:uppercase;color:var(--or);display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.teaser-body{font-size:.82rem;line-height:1.75;color:#e8e8e8;max-width:980px;}
+.teaser-body strong{color:var(--or)}
+@media(max-width:760px){.belgium-teaser{padding:13px 14px}.teaser-title{font-size:.9rem}.teaser-body{font-size:.76rem}}
+
+
 </style>
 </head>
 <body>
@@ -568,8 +575,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
  <!-- ADVERSAIRE PROBABLE HEADER — dynamique depuis bracket officiel -->
  <div id="probable-opponent" class="opponent-card" title="Bracket officiel CM 2026 : 3e du Gr.I affronte le 1er du Gr.L au Round of 32">
    <div class="opp-label"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Adversaire probable R32</div>
-   <div class="opp-main" id="opp-main-name">🇨🇭 Suisse</div>
-   <div class="opp-sub" id="opp-main-sub">6e meilleur 3e → 1er du Gr.C · Round of 32</div>
+   <div class="opp-main" id="opp-main-name">🇧🇪 Belgique</div>
+   <div class="opp-sub" id="opp-main-sub">8e meilleur 3e → Belgique · Round of 32</div>
  </div>
 
  <div class="hright">
@@ -682,7 +689,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
      </div>
      <div style="flex:1;min-width:200px;">
        <div class="mbar"><div class="mfill" id="mainBar" style="width:30%"></div></div>
-       <div class="csub" id="mainDesc"><strong>Le Sénégal a fait le travail !</strong> 5–0 contre l'Iraq · 3 pts · GD +1. La qualification dépend maintenant des résultats des groupes G, H, J, K et L.</div>
+       <div class="csub" id="mainDesc"><strong>Le Sénégal a fait le travail !</strong> 5–0 contre l'Iraq · 3 pts · GD +2. Les Lions sont qualifiés et affronteront la Belgique.</div>
      </div>
    </div>
 
@@ -701,7 +708,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
    <div class="vbox" id="virtual-status">
      <div class="vtitle"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Sénégal actuellement</div>
      <div class="vmain" id="virtual-main">En attente</div>
-     <div class="vsub" id="virtual-sub">Match terminé 5–0 · 3 pts · GD +1 · En attente des groupes G, H, J, K, L.</div>
+     <div class="vsub" id="virtual-sub">Match terminé 5–0 · 3 pts · GD +2 · 8e meilleur troisième qualifié.</div>
    </div>
    <div class="vbox" id="danger-status">
      <div class="vtitle"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Ce qui peut changer l’adversaire</div>
@@ -712,7 +719,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
  </div>
 
  <div style="background:#111;border:1px solid #FDEF4233;border-left:4px solid var(--or);border-radius:10px;padding:10px 14px;margin-top:12px;font-size:.72rem;line-height:1.6;color:#ddd;">
-   <img class="mascot-inline" src="assets/lion-mascotte.png" alt="Mascotte"><strong style="color:var(--or)">Adversaire probable du Sénégal en 16e : <span id="opp-encart-name">🇨🇭 Suisse</span>.</strong>
+   <img class="mascot-inline" src="assets/lion-mascotte.png" alt="Mascotte"><strong style="color:var(--or)">Adversaire probable du Sénégal en 16e : <span id="opp-encart-name">🇧🇪 Belgique</span>.</strong>
    <span style="color:var(--mu)">Le Sénégal est qualifié ; l’enjeu est maintenant son rang parmi les meilleurs 3es. <span id="opp-encart-sub">Le mapping se met à jour automatiquement.</span></span>
  </div>
 
@@ -720,14 +727,14 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
  <div style="background:#051a0e;border:1px solid #4ade8044;border-radius:10px;
     padding:12px 16px;margin-top:14px;font-size:.75rem;color:#4ade80;text-align:center;">
    <img class="mascot-inline" src="assets/lion-mascotte.png" alt="Mascotte"><strong>Sénégal 5–0 Iraq · Match terminé</strong><br>
-   <span style="color:var(--mu);font-size:.68rem;">3 pts · GD +1 · les résultats restants mettront à jour le rang et l’adversaire.</span>
+   <span style="color:var(--mu);font-size:.68rem;">3 pts · GD +2 · le tableau est figé : rendez-vous contre la Belgique.</span>
  </div>
 </div>
 
 <!-- ═══ TABLEAU 3E PLACES — REMONTÉ APRÈS PROBABILITÉ ═══ -->
 <!-- TABLEAU 3E PLACES -->
  <div>
-   <div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Course des 3e places — <span id="tp-live-lbl" style="color:var(--or);font-family:'Oswald',sans-serif;letter-spacing:.05em;">mise à jour dynamique</span></div>
+   <div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Classement final des 8 meilleurs troisièmes — <span id="tp-live-lbl" style="color:var(--or);font-family:'Oswald',sans-serif;letter-spacing:.05em;">qualifiés pour les 16es</span></div>
    <div class="tp-wrap">
      <table class="tp-table">
        <thead>
@@ -738,10 +745,10 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
    </div>
    <div class="tip">
      <strong>Lecture du tableau :</strong><br>
-      Le Sénégal est déjà qualifié. Ce classement sert maintenant à déterminer son adversaire en 16e de finale.<br>
-     <span class="tor">Mapping officiel utilisé par l’app :</span>
-     <strong>5e → Angleterre</strong> · <strong>6e → Suisse</strong> · <strong>7e → 1er Groupe K</strong> · <strong>8e → Belgique</strong>.<br>
-     <span class="tvert">Les équipes à 4 points et le Sénégal sont marqués “Qualifiée”.</span>
+     À l’issue de tous les matchs de groupes, ces huit équipes sont les meilleurs troisièmes qualifiés pour les 16es de finale. Les quatre autres troisièmes sont éliminés et ne sont plus affichés ici.<br>
+     <span class="tor">Le Sénégal termine 8e des meilleurs troisièmes :</span>
+     il affronte donc <strong>la Belgique</strong> en 16e de finale, selon le tableau officiel.<br>
+     <span class="tvert">Le classement est désormais figé : place au match Belgique–Sénégal.</span>
    </div>
  </div>
 
@@ -751,89 +758,10 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 <div class="need-feed">
  <h3><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Ce qu'il faut surveiller pour connaître l’adversaire du Sénégal en 16e de finale</h3>
  <div class="need-grid" id="need-grid"></div>
- <div class="proba-explain" id="proba-explain">Sénégal 5–0 Iraq · 3 pts · GD +1. Les résultats restants mettent à jour le rang et l’adversaire.</div>
+ <div class="proba-explain" id="proba-explain">Sénégal 5–0 Iraq · 3 pts · GD +2. Le tableau est figé : rendez-vous contre la Belgique.</div>
 </div>
 
-<!-- ═══ MATCHS IMPORTANTS ═══ -->
-<div class="matches-full">
-
- <!-- MATCHS IMPORTANTS — visible sur toutes tailles -->
- <div>
-   <div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Matchs restants — impact sur l’adversaire du Sénégal</div>
-   <div class="match-col">
-     <div class="sepl">Groupe K — matchs restants</div>
-     <div class="match neu">
-       <div class="mst"></div>
-       <div class="minfo">
-         <div class="teams">🇨🇴 Colombie vs 🇵🇹 Portugal</div>
-         <div class="lieu">Gr. K · Mercedes-Benz Stadium, Atlanta</div>
-         <div class="mwish">
-           <span class="wneu">Peut déterminer le 1er du Groupe K.</span><br>
-           <span class="wneu">→ Important si le Sénégal glisse au 7e rang des meilleurs 3es : il jouerait alors le 1er du Gr.K.</span>
-         </div>
-       </div>
-       <div class="mright">
-         <div class="mscore live" id="m-col-por">? – ?</div>
-         <div class="mtime">À venir</div>
-       </div>
-     </div>
-     <div class="match bon">
-       <div class="mst"></div>
-       <div class="minfo">
-         <div class="teams">🇨🇩 RD Congo vs 🇺🇿 Ouzbékistan</div>
-         <div class="lieu">Gr. K · Mercedes-Benz Stadium, Atlanta</div>
-         <div class="mwish">
-           <span class="wbon">Ouzbékistan qui ne perd pas limite la pression sur le Sénégal.</span><br>
-           <span class="wmal">Une victoire de la RDC peut produire un 3e à 4 pts et faire reculer le Sénégal.</span>
-         </div>
-       </div>
-       <div class="mright">
-         <div class="mscore live" id="m-cod-uzb">? – ?</div>
-         <div class="mtime">À venir</div>
-       </div>
-     </div>
-     <div class="sepl">Groupe J — matchs restants</div>
-     <div class="match neu">
-       <div class="mst"></div>
-       <div class="minfo">
-         <div class="teams">🇯🇴 Jordanie vs 🇦🇷 Argentine</div>
-         <div class="lieu">Gr. J · Arrowhead Stadium, Kansas City</div>
-         <div class="mwish">
-           <span class="wneu">Ce match verrouille le haut du Groupe J.</span><br>
-           <span class="wneu">→ Son effet principal est indirect : il fixe le classement final et donc le rang relatif du 3e.</span>
-         </div>
-       </div>
-       <div class="mright">
-         <div class="mscore live" id="m-jor-arg">? – ?</div>
-         <div class="mtime">À venir</div>
-       </div>
-     </div>
-     <div class="match bon">
-       <div class="mst"></div>
-       <div class="minfo">
-         <div class="teams">🇩🇿 Algérie vs 🇦🇹 Autriche</div>
-         <div class="lieu">Gr. J · Arrowhead Stadium, Kansas City</div>
-         <div class="mwish">
-           <span class="wbon">Si le 3e du Groupe J reste derrière le Sénégal, l’adversaire probable se stabilise.</span><br>
-           <span class="wmal">Si l’Autriche ou l’Algérie finit 3e avec 4 pts, le Sénégal peut descendre d’un rang.</span>
-         </div>
-       </div>
-       <div class="mright">
-         <div class="mscore live" id="m-alg-aut">? – ?</div>
-         <div class="mtime">À venir</div>
-       </div>
-     </div>
-   </div>
- </div>
-</div>
-
-<!-- ═══ 12 GROUPES ═══ -->
-<div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Les 12 Groupes — classements actualisés</div>
-<div class="gg" id="groups-grid"></div>
-
-<!-- ═══ TABLEAU DES 16ES ═══ -->
-<div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Tableau des 16es de finale — bracket officiel</div>
-<div class="r32-grid" id="r32-grid"></div>
+<!-- Encart matchs restants retiré : phase de groupes terminée. -->
 
 <!-- ═══ HISTOIRE DES LIONS AU MONDIAL ═══ -->
 <section class="story-section" id="histoire-gaindes">
@@ -847,22 +775,39 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
    <p>Il y a des équipes qui jouent une Coupe du monde. Et puis il y a celles qui y entrent comme dans une légende. Le Sénégal appartient à cette deuxième catégorie.</p>
    <p>Tout commence en <strong>2002</strong>. Pour sa première participation, le Sénégal arrive en Corée-Japon avec une génération dorée : El Hadji Diouf, Pape Bouba Diop, Henri Camara, Khalilou Fadiga, Tony Sylva, Aliou Cissé, Ferdinand Coly, Lamine Diatta, Omar Daf, Salif Diao, sous la conduite de Bruno Metsu.</p>
    <p>Le 31 mai 2002, le monde entier regarde le match d’ouverture. En face, il y a la France, championne du monde en titre et championne d’Europe. À la 30e minute, Pape Bouba Diop surgit. Le ballon entre. Le Sénégal mène. Le monde bascule : <strong>France 0–1 Sénégal</strong>.</p>
-   <p>Ce n’est pas seulement une victoire. C’est un séisme footballistique. C’est l’Afrique qui se lève. C’est une nation qui découvre que ses rêves peuvent devenir plus grands que les pronostics.</p>
    <p>La suite confirme que ce n’était pas un accident. Le Sénégal accroche le Danemark, livre un match fou contre l’Uruguay, puis sort du groupe invaincu. En huitième de finale, Henri Camara terrasse la Suède avec un but en or resté dans la mémoire collective. Dès sa première Coupe du monde, le Sénégal atteint les quarts de finale.</p>
    <p>Le rêve s’arrête face à la Turquie, mais l’histoire est déjà écrite. Les Lions de la Téranga deviennent l’une des plus grandes révélations de l’histoire du Mondial.</p>
    <p>En <strong>2018</strong>, le Sénégal revient en Russie avec Aliou Cissé, capitaine de 2002 devenu sélectionneur. Les Lions battent la Pologne, font match nul contre le Japon, puis sortent cruellement au classement du fair-play après la défaite contre la Colombie.</p>
-   <p>En <strong>2022</strong>, au Qatar, les Lions arrivent avec un autre statut : <strong>champions d’Afrique</strong>. Malgré une défaite initiale contre les Pays-Bas, ils se relèvent, battent le Qatar, dominent l’Équateur et retrouvent les huitièmes de finale.</p>
-   <p>Et maintenant, les Lions reviennent encore. Cette Coupe du monde 2026 n’est pas une simple participation. Le début a été difficile, mais les grandes équipes se révèlent dans les moments compliqués. Face à l’Iraq, les Gaïndés ont rugi : une victoire nette, forte, libératrice.</p>
-   <p>Aujourd’hui, toute la nation de la Téranga regarde ses Lions avec fierté. Et au-delà du Sénégal, c’est tout le continent africain qui reconnaît dans cette équipe une part de lui-même : le courage, le talent, la foi, la résilience.</p>
-   <p><strong>De Pape Bouba Diop à la génération actuelle, de Séoul à 2026, une même flamme traverse l’histoire : celle des Gaïndés.</strong></p>
+   <p>En <strong>2022</strong>, au Qatar, les Lions arrivent avec un autre statut : celui de <strong>champions d’Afrique</strong>. Le départ est difficile contre les Pays-Bas, mais le Sénégal se relève, bat le Qatar, domine l’Équateur dans un match décisif et retrouve les huitièmes de finale, vingt ans après l’épopée de 2002. L’Angleterre met fin au parcours, mais les Lions confirment leur rang : le Sénégal n’est plus une surprise, c’est une nation mondiale.</p>
+   <p>En <strong>2026</strong>, les Lions reviennent avec cette mémoire derrière eux : l’exploit de 2002, la cruauté de 2018, la confirmation de 2022 et le poids d’un statut continental à défendre. Malgré un début difficile, ils ont rugi face à l’Iraq avec une victoire nette, forte, libératrice.</p>
+   <p>Aujourd’hui, toute la nation de la Téranga regarde ses Lions avec fierté. Et au-delà du Sénégal, c’est tout le continent africain qui reconnaît dans ces Gaïndés une part de son ambition : du courage, du talent, de la foi et cette volonté de ne jamais baisser la tête.</p>
    <div class="story-timeline">
      <div class="story-tile"><b>2002</b>Première participation, victoire contre la France, quart de finale historique.</div>
      <div class="story-tile"><b>2018</b>Retour mondial, victoire contre la Pologne, élimination cruelle au fair-play.</div>
-     <div class="story-tile"><b>2022</b>Champion d’Afrique, huitième de finale au Qatar.</div>
-     <div class="story-tile"><b>2026</b>Début difficile, réveil contre l’Iraq, rang africain à faire respecter.</div>
+     <div class="story-tile"><b>2022</b>Champion d’Afrique, huitième de finale au Qatar, parcours stoppé par l’Angleterre.</div>
+     <div class="story-tile"><b>2026</b>Début difficile, réveil contre l’Iraq, 16e de finale contre la Belgique.</div>
    </div>
  </div>
 </section>
+
+<!-- ═══ 12 GROUPES ═══ -->
+<div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Les 12 Groupes — classements actualisés</div>
+<div class="gg" id="groups-grid"></div>
+
+<!-- ═══ TEASER BELGIQUE–SÉNÉGAL ═══ -->
+<section class="belgium-teaser" id="belgique-senegal">
+  <div class="teaser-title"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Belgique–Sénégal : le choc de rang</div>
+  <div class="teaser-body">
+    <strong>Belgique–Sénégal</strong>, c’est plus qu’un 16e de finale : c’est un test de rang. Les Diables Rouges arrivent avec leur expérience européenne. Les Lions, eux, viennent avec leur orgueil, leur puissance et une histoire qui rappelle que le Sénégal sait faire tomber les grands.<br><br>
+    Le vainqueur pourrait retrouver les États-Unis, pays organisateur, au tour suivant. Alors il faudra être fort, froid, discipliné. Les Gaïndés ne viennent pas subir. Ils viennent faire respecter leur rang de champions d’Afrique.
+  </div>
+</section>
+
+<!-- ═══ TABLEAU DES 16ES ═══ -->
+<div class="sec"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Tableau des 16es de finale — bracket officiel</div>
+<div class="r32-grid" id="r32-grid"></div>
+
+
 
 <!-- FOOTER -->
 <div class="footer">
@@ -981,20 +926,20 @@ const RESULTS = {
   'nor-sen': {h:'NOR',a:'SEN',hg:3,ag:2,grp:'I',status:'final'},
   'sen-irq': {h:'SEN',a:'IRQ',hg:5,ag:0,grp:'I',status:'final'},
   'nor-fra': {h:'NOR',a:'FRA',hg:1,ag:4,grp:'I',status:'final'}, // ← NOR 1-4 FRA
-  // ── Groupe J — 2 matchs restants ──
+  // ── Groupe J — TERMINÉ ──
   'arg-alg': {h:'ARG',a:'ALG',hg:3,ag:0,grp:'J',status:'final'},
   'aut-jor': {h:'AUT',a:'JOR',hg:3,ag:1,grp:'J',status:'final'},
   'arg-aut': {h:'ARG',a:'AUT',hg:2,ag:0,grp:'J',status:'final'},
   'jor-alg': {h:'JOR',a:'ALG',hg:1,ag:2,grp:'J',status:'final'},
-  'jor-arg': {h:'JOR',a:'ARG',hg:null,ag:null,grp:'J',status:'scheduled',simKeys:['jor','arg']},
-  'alg-aut': {h:'ALG',a:'AUT',hg:null,ag:null,grp:'J',status:'scheduled',simKeys:['alg','aut']},
-  // ── Groupe K — 2 matchs restants ──
+  'jor-arg': {h:'JOR',a:'ARG',hg:1,ag:3,grp:'J',status:'final',simKeys:['jor','arg']},
+  'alg-aut': {h:'ALG',a:'AUT',hg:2,ag:2,grp:'J',status:'final',simKeys:['alg','aut']},
+  // ── Groupe K — TERMINÉ ──
   'col-uzb': {h:'COL',a:'UZB',hg:3,ag:1,grp:'K',status:'final'},
   'por-cod': {h:'POR',a:'COD',hg:1,ag:1,grp:'K',status:'final'},
   'col-cod': {h:'COL',a:'COD',hg:1,ag:0,grp:'K',status:'final'},
   'por-uzb': {h:'POR',a:'UZB',hg:5,ag:0,grp:'K',status:'final'},
-  'col-por': {h:'COL',a:'POR',hg:null,ag:null,grp:'K',status:'scheduled',simKeys:['col','por']},
-  'cod-uzb': {h:'COD',a:'UZB',hg:null,ag:null,grp:'K',status:'scheduled',simKeys:['cod','uzb']},
+  'col-por': {h:'COL',a:'POR',hg:0,ag:0,grp:'K',status:'final',simKeys:['col','por']},
+  'cod-uzb': {h:'COD',a:'UZB',hg:3,ag:1,grp:'K',status:'final',simKeys:['cod','uzb']},
   // ── Groupe L — 2 matchs restants ──
   'eng-cro': {h:'ENG',a:'CRO',hg:4,ag:2,grp:'L',status:'final'},
   'gha-pan': {h:'GHA',a:'PAN',hg:1,ag:0,grp:'L',status:'final'},
@@ -1472,42 +1417,35 @@ function r32Team(label, extraCls) {
 function renderRound32Grid(snRank) {
   const grid = document.getElementById('r32-grid');
   if (!grid) return;
-  const rank = Number(snRank || 0);
-  const senLabel = NAMES.SEN || '🇸🇳 Sénégal';
-  const groupKLeader = calcGroupLive('K') && calcGroupLive('K')[0] ? calcGroupLive('K')[0][0] : null;
-  const groupKLabel = groupKLeader ? (NAMES[groupKLeader] || '1er Groupe K') : '1er Groupe K';
-  const groupJSecond = calcGroupLive('J') && calcGroupLive('J')[1] ? calcGroupLive('J')[1][0] : null;
-  const groupJSecondLabel = groupJSecond ? (NAMES[groupJSecond] || '2e Groupe J') : '2e Groupe J';
-  const groupKSecond = calcGroupLive('K') && calcGroupLive('K')[1] ? calcGroupLive('K')[1][0] : null;
-  const groupKSecondLabel = groupKSecond ? (NAMES[groupKSecond] || '2e Groupe K') : '2e Groupe K';
-
   const cards = [
-    {id:'N73', date:'Dim. 28/06 · 21:00', a:NAMES.RSA, b:NAMES.CAN, note:'Vainqueur → huitième N89'},
-    {id:'N74', date:'Lun. 29/06 · 22:30', a:NAMES.GER, b:NAMES.PAR, note:'Vainqueur → huitième N89'},
-    {id:'N75', date:'Mar. 30/06 · 03:00', a:NAMES.NED, b:NAMES.MAR, note:'Vainqueur → huitième N90'},
-    {id:'N76', date:'Lun. 29/06 · 19:00', a:NAMES.BRA, b:NAMES.JPN, note:'Vainqueur → huitième N91'},
-    {id:'N77', date:'Mar. 30/06 · 23:00', a:NAMES.FRA, b:NAMES.SWE, note:'Vainqueur → huitième N90'},
-    {id:'N78', date:'Mar. 30/06 · 19:00', a:NAMES.CIV, b:NAMES.NOR, note:'Vainqueur → huitième N91'},
-    {id:'N79', date:'Mer. 01/07 · 03:00', a:NAMES.MEX, b:'3e C/E/F/H/I', note:'Slot meilleur 3e à confirmer'},
-    {id:'N80', date:'Mer. 01/07 · 18:00', a:NAMES.ENG, b: rank===5 ? senLabel : '3e E/H/I/J/K', sen: rank===5, note: rank===5 ? 'Scénario Sénégal 5e meilleur 3e' : 'Slot possible si Sénégal finit 5e'},
-    {id:'N81', date:'Jeu. 02/07 · 02:00', a:NAMES.USA, b:NAMES.BIH, note:'Affiche confirmée'},
-    {id:'N82', date:'Mer. 01/07 · 22:00', a:NAMES.BEL, b: rank===8 ? senLabel : '3e A/E/H/I/J', sen: rank===8, note: rank===8 ? 'Scénario Sénégal 8e meilleur 3e' : 'Slot possible si Sénégal finit 8e'},
-    {id:'N83', date:'Ven. 03/07 · 01:00', a:groupKSecondLabel, b:NAMES.CRO, note:'2e K à confirmer'},
-    {id:'N84', date:'Jeu. 02/07 · 21:00', a:NAMES.ESP, b:groupJSecondLabel, note:'2e J à confirmer'},
-    {id:'N85', date:'Ven. 03/07 · 05:00', a:NAMES.SUI, b: rank===6 ? senLabel : '3e E/F/G/I/J', sen: rank===6, note: rank===6 ? 'Scénario Sénégal 6e meilleur 3e' : 'Slot possible si Sénégal finit 6e'},
+    {id:'N74', date:'Lun. 29/06 · 22:30', a:NAMES.GER, b:NAMES.PAR, note:'Affiche confirmée'},
+    {id:'N77', date:'Mar. 30/06 · 23:00', a:NAMES.FRA, b:NAMES.SWE, note:'Affiche confirmée'},
+    {id:'N73', date:'Dim. 28/06 · 21:00', a:NAMES.RSA, b:NAMES.CAN, note:'Affiche confirmée'},
+    {id:'N75', date:'Mar. 30/06 · 03:00', a:NAMES.NED, b:NAMES.MAR, note:'Affiche confirmée'},
+
+    {id:'N83', date:'Ven. 03/07 · 01:00', a:NAMES.POR, b:NAMES.CRO, note:'Affiche confirmée'},
+    {id:'N84', date:'Jeu. 02/07 · 21:00', a:NAMES.ESP, b:NAMES.AUT, note:'Affiche confirmée'},
+    {id:'N81', date:'Jeu. 02/07 · 02:00', a:NAMES.USA, b:NAMES.BIH, note:'Le vainqueur croisera le vainqueur de Belgique–Sénégal'},
+    {id:'N82', date:'Mer. 01/07 · 22:00', a:NAMES.BEL, b:NAMES.SEN, sen:true, note:'Affiche définitive du Sénégal'},
+
+    {id:'N76', date:'Lun. 29/06 · 19:00', a:NAMES.BRA, b:NAMES.JPN, note:'Affiche confirmée'},
+    {id:'N78', date:'Mar. 30/06 · 19:00', a:NAMES.CIV, b:NAMES.NOR, note:'Affiche confirmée'},
+    {id:'N79', date:'Mer. 01/07 · 03:00', a:NAMES.MEX, b:NAMES.ECU, note:'Affiche confirmée'},
+    {id:'N80', date:'Mer. 01/07 · 18:00', a:NAMES.ENG, b:NAMES.COD, note:'Affiche confirmée'},
+
     {id:'N86', date:'Sam. 04/07 · 00:00', a:NAMES.ARG, b:NAMES.CPV, note:'Affiche confirmée'},
-    {id:'N87', date:'Sam. 04/07 · 03:30', a:groupKLabel, b: rank===7 ? senLabel : NAMES.GHA, sen: rank===7, note: rank===7 ? 'Scénario Sénégal 7e meilleur 3e' : '1er K à confirmer'},
-    {id:'N88', date:'Ven. 03/07 · 20:00', a:NAMES.AUS, b:NAMES.EGY, note:'Affiche confirmée'}
+    {id:'N88', date:'Ven. 03/07 · 20:00', a:NAMES.AUS, b:NAMES.EGY, note:'Affiche confirmée'},
+    {id:'N85', date:'Ven. 03/07 · 05:00', a:NAMES.SUI, b:NAMES.ALG, note:'Affiche confirmée'},
+    {id:'N87', date:'Sam. 04/07 · 03:30', a:NAMES.COL, b:NAMES.GHA, note:'Affiche confirmée'}
   ];
 
   grid.innerHTML = cards.map(c => {
     const senCls = c.sen ? ' senegal-slot' : '';
-    const bIsTbd = String(c.b).includes('3e') || String(c.b).includes('Groupe') || String(c.b).startsWith('2e') || String(c.b).startsWith('1er');
     return `<div class="r32-card${senCls}">
      <div class="r32-head"><span>${c.id}</span><span class="r32-date">${c.date}</span></div>
      <div class="r32-teams">
         ${r32Team(c.a || 'À définir', String(c.a||'').includes('Sénégal') ? 'sen' : '')}
-        ${r32Team(c.b || 'À définir', `${bIsTbd ? 'tbd' : ''}${String(c.b||'').includes('Sénégal') ? ' sen' : ''}`)}
+        ${r32Team(c.b || 'À définir', String(c.b||'').includes('Sénégal') ? 'sen' : '')}
      </div>
      <div class="r32-note">${c.note || ''}</div>
    </div>`;
@@ -1756,12 +1694,13 @@ function getTeamStatusBadge(team) {
 function renderThirdTable(thirds, snIdx, mode) { mode = mode || 'live';
   const body = document.getElementById('tp-body');
   let html = '';
-  thirds.forEach((t,i)=>{
+  // Phase de groupes terminée : affichage figé aux 8 meilleurs troisièmes qualifiés.
+  thirds.slice(0,8).forEach((t,i)=>{
     const rank = i+1;
     const isSen = t.team==='SEN';
     const hasFourPts = t.stats.pts >= 4;
     const isTop8 = rank<=8;
-    const isQualified = isTop8 && (hasFourPts || isSen || rank<=4);
+    const isQualified = isTop8;
     const gdStr = t.stats.gd>=0?'+'+t.stats.gd:t.stats.gd;
     const rowCls = isSen?'rsn':isQualified?'rq':isTop8?'rb':'rel';
     const gdCls = t.stats.gd>0?'pos':t.stats.gd<0?'neg':'neu';
@@ -1772,7 +1711,6 @@ function renderThirdTable(thirds, snIdx, mode) { mode = mode || 'live';
       badge = getTeamStatusBadge(t.team);
     }
 
-    if(rank===9) html+='<tr><td colspan="8" class="cut-td">━━━━━  LIGNE DE COUPURE TOP 8  ━━━━━</td></tr>';
 
     let statut = '';
     if(isQualified) {
