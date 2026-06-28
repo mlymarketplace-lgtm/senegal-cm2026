@@ -536,6 +536,155 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 @media(max-width:760px){.belgium-teaser{padding:13px 14px}.teaser-title{font-size:.9rem}.teaser-body{font-size:.76rem}}
 
 
+
+/* ═══════════════════════════════════
+   COMPTE À REBOURS
+═══════════════════════════════════ */
+.countdown-section{
+  background:linear-gradient(135deg,#0a1a10,#111 60%,#07180d);
+  border:1px solid rgba(250,204,21,.4);
+  border-radius:18px;
+  padding:22px 28px 20px;
+  margin:18px 0;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.countdown-section::before{
+  content:'🇧🇪 ⚽ 🇸🇳';
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:5rem;opacity:.05;pointer-events:none;
+}
+.cd-label{
+  font-family:'Oswald',sans-serif;
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--or);margin-bottom:10px;
+}
+.cd-match{
+  font-family:'Oswald',sans-serif;
+  font-size:1.4rem;font-weight:800;color:#fff;
+  margin-bottom:4px;letter-spacing:.08em;
+}
+.cd-info{
+  font-size:.7rem;color:rgba(255,255,255,.55);margin-bottom:18px;
+}
+.cd-blocks{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;
+}
+.cd-block{
+  background:rgba(0,0,0,.4);border:1px solid rgba(250,204,21,.3);
+  border-radius:12px;padding:12px 18px;min-width:72px;
+}
+.cd-num{
+  font-family:'Oswald',sans-serif;font-size:2.5rem;font-weight:800;
+  color:var(--or);line-height:1;
+}
+.cd-unit{
+  font-size:.6rem;color:rgba(255,255,255,.5);letter-spacing:.1em;
+  text-transform:uppercase;margin-top:4px;
+}
+.cd-done{
+  font-family:'Oswald',sans-serif;font-size:1.8rem;color:#4ade80;
+  font-weight:800;letter-spacing:.05em;
+}
+@media(max-width:600px){
+  .cd-num{font-size:1.8rem;}
+  .cd-match{font-size:1.1rem;}
+  .cd-blocks{gap:10px;}
+  .cd-block{padding:8px 12px;min-width:56px;}
+}
+
+/* ═══════════════════════════════════
+   BRACKET 16ES DE FINALE
+═══════════════════════════════════ */
+.bracket-section{
+  margin:18px 0 22px;
+}
+.bracket-title{
+  font-family:'Oswald',sans-serif;
+  font-size:1rem;letter-spacing:.14em;text-transform:uppercase;
+  color:#fff;margin-bottom:12px;
+  display:flex;align-items:center;gap:10px;
+}
+.bracket-subtitle{
+  font-size:.65rem;color:var(--mu);font-family:'Inter',sans-serif;
+  letter-spacing:0;text-transform:none;
+}
+.bracket-scroll{
+  overflow-x:auto;
+  padding-bottom:12px;
+}
+.bracket-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(220px,1fr));
+  gap:12px;
+  min-width:900px;
+}
+.bracket-col-head{
+  font-family:'Oswald',sans-serif;
+  font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--mu);text-align:center;padding:4px 0 8px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  margin-bottom:4px;
+}
+.b-match{
+  background:var(--g2);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;overflow:hidden;margin-bottom:10px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.b-match:hover{border-color:rgba(255,255,255,.22);}
+.b-match.senegal{
+  border-color:rgba(250,204,21,.55);
+  box-shadow:0 0 0 1px rgba(250,204,21,.15),0 4px 20px rgba(0,0,0,.35);
+  background:linear-gradient(135deg,#1a1500,var(--g2) 55%);
+}
+.b-head{
+  font-family:'Oswald',sans-serif;
+  font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(139,179,255,.85);padding:5px 9px;
+  background:#0d0d0d;border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;justify-content:space-between;
+}
+.b-head-date{color:var(--mu);font-family:'Inter',sans-serif;letter-spacing:0;text-transform:none;font-size:.54rem;}
+.b-team{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:7px 9px;font-size:.78rem;font-weight:600;
+  cursor:pointer;transition:background .15s;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  user-select:none;-webkit-user-select:none;
+}
+.b-team:last-of-type{border-bottom:none;}
+.b-team:hover{background:rgba(255,255,255,.06);}
+.b-team.winner{
+  color:var(--or);font-weight:800;
+  background:rgba(250,204,21,.07);
+}
+.b-team.senegal-team{color:var(--or);}
+.b-team.eliminated{opacity:.38;}
+.b-score{
+  font-family:'Oswald',sans-serif;font-size:.95rem;
+  color:rgba(255,255,255,.6);min-width:22px;text-align:right;
+}
+.b-team.winner .b-score{color:var(--or);}
+.b-note{
+  font-size:.56rem;color:var(--mu);
+  padding:4px 9px 5px;
+  background:#0a0a0a;border-top:1px solid rgba(255,255,255,.05);
+  line-height:1.3;
+}
+/* 8es auto-générés */
+.r8-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:10px;margin-top:12px;
+}
+.bracket-legend{
+  font-size:.65rem;color:var(--mu);margin-top:10px;line-height:1.6;
+}
+.bracket-legend span{color:var(--or);}
+@media(max-width:900px){.bracket-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.bracket-grid{grid-template-columns:1fr;}}
+
 </style>
 </head>
 <body>
@@ -783,6 +932,194 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 <div class="r32-grid" id="r32-grid"></div>
 
 
+
+
+<!-- ═══════════════════════════════
+     COMPTE À REBOURS BELGIQUE–SÉNÉGAL
+═══════════════════════════════════ -->
+<section class="sec">⏳ Compte à rebours · Prochain match</section>
+<div class="countdown-section" aria-label="Compte à rebours Belgique vs Sénégal">
+  <div class="cd-label">Prochaine rencontre des Gaïndés</div>
+  <div class="cd-match">🇧🇪 Belgique vs Sénégal 🇸🇳</div>
+  <div class="cd-info">Mercredi 1er juillet 2026 · 22h00 Paris · Seattle · Lumen Field</div>
+  <div class="cd-blocks" id="cd-blocks">
+    <div class="cd-block"><div class="cd-num" id="cd-j">--</div><div class="cd-unit">Jours</div></div>
+    <div class="cd-block"><div class="cd-num" id="cd-h">--</div><div class="cd-unit">Heures</div></div>
+    <div class="cd-block"><div class="cd-num" id="cd-m">--</div><div class="cd-unit">Min</div></div>
+    <div class="cd-block"><div class="cd-num" id="cd-s">--</div><div class="cd-unit">Sec</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     BRACKET 16ES DE FINALE
+═══════════════════════════════════ -->
+<section class="sec">🏆 Bracket 16es de finale · FIFA World Cup 2026</section>
+<div class="bracket-section">
+  <div class="bracket-title">
+    Seizièmes de finale
+    <span class="bracket-subtitle">— cliquez sur une équipe pour la faire avancer · le chemin du Sénégal est mis en valeur</span>
+  </div>
+  <div class="bracket-scroll">
+    <div class="bracket-grid" id="bracket-r16">
+      <!-- Col 1 : matchs 1-4 -->
+      <div>
+        <div class="bracket-col-head">Tableau A – D</div>
+        <div class="b-match" id="bm-1">
+          <div class="b-head">Match 73 — N°74 <span class="b-head-date">29 juin · 22h30</span></div>
+          <div class="b-team" data-match="1" data-side="h" onclick="pickWinner(1,'h')"><span>🇩🇪 Allemagne</span><span class="b-score" id="bs-1h">—</span></div>
+          <div class="b-team" data-match="1" data-side="a" onclick="pickWinner(1,'a')"><span>🇵🇾 Paraguay</span><span class="b-score" id="bs-1a">—</span></div>
+        </div>
+        <div class="b-match" id="bm-2">
+          <div class="b-head">Match 74 — N°77 <span class="b-head-date">30 juin · 23h00</span></div>
+          <div class="b-team" data-match="2" data-side="h" onclick="pickWinner(2,'h')"><span>🇫🇷 France</span><span class="b-score" id="bs-2h">—</span></div>
+          <div class="b-team" data-match="2" data-side="a" onclick="pickWinner(2,'a')"><span>🇸🇪 Suède</span><span class="b-score" id="bs-2a">—</span></div>
+        </div>
+        <div class="b-match" id="bm-3">
+          <div class="b-head">Match 75 — N°73 <span class="b-head-date">28 juin · 21h00</span></div>
+          <div class="b-team" data-match="3" data-side="h" onclick="pickWinner(3,'h')"><span>🇿🇦 Afrique du Sud</span><span class="b-score" id="bs-3h">—</span></div>
+          <div class="b-team" data-match="3" data-side="a" onclick="pickWinner(3,'a')"><span>🇨🇦 Canada</span><span class="b-score" id="bs-3a">—</span></div>
+        </div>
+        <div class="b-match" id="bm-4">
+          <div class="b-head">Match 76 — N°75 <span class="b-head-date">30 juin · 03h00</span></div>
+          <div class="b-team" data-match="4" data-side="h" onclick="pickWinner(4,'h')"><span>🇳🇱 Pays-Bas</span><span class="b-score" id="bs-4h">—</span></div>
+          <div class="b-team" data-match="4" data-side="a" onclick="pickWinner(4,'a')"><span>🇲🇦 Maroc</span><span class="b-score" id="bs-4a">—</span></div>
+        </div>
+      </div>
+      <!-- Col 2 : matchs 5-8 -->
+      <div>
+        <div class="bracket-col-head">Tableau E – H</div>
+        <div class="b-match" id="bm-5">
+          <div class="b-head">Match 77 — N°83 <span class="b-head-date">3 juil · 03h00</span></div>
+          <div class="b-team" data-match="5" data-side="h" onclick="pickWinner(5,'h')"><span>🇭🇷 Croatie</span><span class="b-score" id="bs-5h">—</span></div>
+          <div class="b-team" data-match="5" data-side="a" onclick="pickWinner(5,'a')"><span>🇪🇸 Espagne</span><span class="b-score" id="bs-5a">—</span></div>
+          <div class="b-note">2K Gr.K · 2J Gr.J</div>
+        </div>
+        <div class="b-match" id="bm-6">
+          <div class="b-head">Match 78 — N°84 <span class="b-head-date">2 juil · 21h00</span></div>
+          <div class="b-team" data-match="6" data-side="h" onclick="pickWinner(6,'h')"><span>🇪🇸 Espagne</span><span class="b-score" id="bs-6h">—</span></div>
+          <div class="b-team" data-match="6" data-side="a" onclick="pickWinner(6,'a')"><span>🏴 Angleterre</span><span class="b-score" id="bs-6a">—</span></div>
+          <div class="b-note">1J Gr.J · 3e AEHIJ</div>
+        </div>
+        <div class="b-match senegal" id="bm-7">
+          <div class="b-head">Match 79 — N°81 <span class="b-head-date">2 juil · 02h00</span></div>
+          <div class="b-team" data-match="7" data-side="h" onclick="pickWinner(7,'h')"><span>🇺🇸 États-Unis</span><span class="b-score" id="bs-7h">—</span></div>
+          <div class="b-team" data-match="7" data-side="a" onclick="pickWinner(7,'a')"><span>🇧🇦 Bosnie-Herzégovine</span><span class="b-score" id="bs-7a">—</span></div>
+          <div class="b-note">Vainqueur → possible quart contre Belgique-Sén.</div>
+        </div>
+        <div class="b-match senegal" id="bm-8">
+          <div class="b-head" style="color:var(--or)">🌟 Match 80 — N°82 <span class="b-head-date">1er juil · 22h00</span></div>
+          <div class="b-team senegal-team" data-match="8" data-side="h" onclick="pickWinner(8,'h')"><span>🇧🇪 Belgique</span><span class="b-score" id="bs-8h">—</span></div>
+          <div class="b-team senegal-team" data-match="8" data-side="a" onclick="pickWinner(8,'a')"><span>🇸🇳 Sénégal</span><span class="b-score" id="bs-8a">—</span></div>
+          <div class="b-note">Seattle · Lumen Field · Meilleurs 3e AEHIJ</div>
+        </div>
+      </div>
+      <!-- Col 3 : matchs 9-12 -->
+      <div>
+        <div class="bracket-col-head">Tableau I – L</div>
+        <div class="b-match" id="bm-9">
+          <div class="b-head">Match 81 — N°76 <span class="b-head-date">29 juin · 19h00</span></div>
+          <div class="b-team" data-match="9" data-side="h" onclick="pickWinner(9,'h')"><span>🇧🇷 Brésil</span><span class="b-score" id="bs-9h">—</span></div>
+          <div class="b-team" data-match="9" data-side="a" onclick="pickWinner(9,'a')"><span>🇯🇵 Japon</span><span class="b-score" id="bs-9a">—</span></div>
+        </div>
+        <div class="b-match" id="bm-10">
+          <div class="b-head">Match 82 — N°78 <span class="b-head-date">30 juin · 19h00</span></div>
+          <div class="b-team" data-match="10" data-side="h" onclick="pickWinner(10,'h')"><span>🇨🇮 Côte d'Ivoire</span><span class="b-score" id="bs-10h">—</span></div>
+          <div class="b-team" data-match="10" data-side="a" onclick="pickWinner(10,'a')"><span>🇳🇴 Norvège</span><span class="b-score" id="bs-10a">—</span></div>
+        </div>
+        <div class="b-match" id="bm-11">
+          <div class="b-head">Match 83 — N°79 <span class="b-head-date">1er juil · 03h00</span></div>
+          <div class="b-team" data-match="11" data-side="h" onclick="pickWinner(11,'h')"><span>🇲🇽 Mexique</span><span class="b-score" id="bs-11h">—</span></div>
+          <div class="b-team" data-match="11" data-side="a" onclick="pickWinner(11,'a')"><span>3e CEFHI</span><span class="b-score" id="bs-11a">—</span></div>
+        </div>
+        <div class="b-match" id="bm-12">
+          <div class="b-head">Match 84 — N°80 <span class="b-head-date">1er juil · 18h00</span></div>
+          <div class="b-team" data-match="12" data-side="h" onclick="pickWinner(12,'h')"><span>🏴 Angleterre</span><span class="b-score" id="bs-12h">—</span></div>
+          <div class="b-team" data-match="12" data-side="a" onclick="pickWinner(12,'a')"><span>3e EHIJK</span><span class="b-score" id="bs-12a">—</span></div>
+        </div>
+      </div>
+      <!-- Col 4 : matchs 13-16 -->
+      <div>
+        <div class="bracket-col-head">Tableau M – P</div>
+        <div class="b-match" id="bm-13">
+          <div class="b-head">Match 85 — N°86 <span class="b-head-date">4 juil · 00h00</span></div>
+          <div class="b-team" data-match="13" data-side="h" onclick="pickWinner(13,'h')"><span>🇦🇷 Argentine</span><span class="b-score" id="bs-13h">—</span></div>
+          <div class="b-team" data-match="13" data-side="a" onclick="pickWinner(13,'a')"><span>🇨🇻 Cap-Vert</span><span class="b-score" id="bs-13a">—</span></div>
+        </div>
+        <div class="b-match" id="bm-14">
+          <div class="b-head">Match 86 — N°88 <span class="b-head-date">3 juil · 20h00</span></div>
+          <div class="b-team" data-match="14" data-side="h" onclick="pickWinner(14,'h')"><span>🇦🇺 Australie</span><span class="b-score" id="bs-14h">—</span></div>
+          <div class="b-team" data-match="14" data-side="a" onclick="pickWinner(14,'a')"><span>🇪🇬 Égypte</span><span class="b-score" id="bs-14a">—</span></div>
+        </div>
+        <div class="b-match" id="bm-15">
+          <div class="b-head" style="color:rgba(139,179,255,.85)">Match 87 — N°85 <span class="b-head-date">4 juil · 05h00</span></div>
+          <div class="b-team" data-match="15" data-side="h" onclick="pickWinner(15,'h')"><span>🇨🇭 Suisse</span><span class="b-score" id="bs-15h">—</span></div>
+          <div class="b-team" data-match="15" data-side="a" onclick="pickWinner(15,'a')"><span>🇩🇿 Algérie</span><span class="b-score" id="bs-15a">—</span></div>
+          <div class="b-note">3e EFGIJ · Prochain match Algérie</div>
+        </div>
+        <div class="b-match" id="bm-16">
+          <div class="b-head">Match 88 — N°87 <span class="b-head-date">4 juil · 22h00</span></div>
+          <div class="b-team" data-match="16" data-side="h" onclick="pickWinner(16,'h')"><span>🇬🇭 Ghana</span><span class="b-score" id="bs-16h">—</span></div>
+          <div class="b-team" data-match="16" data-side="a" onclick="pickWinner(16,'a')"><span>🇨🇴 Colombie</span><span class="b-score" id="bs-16a">—</span></div>
+          <div class="b-note">1K Gr.K</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8es de finale générés -->
+  <div class="bracket-title" style="margin-top:22px">
+    Huitièmes de finale
+    <span class="bracket-subtitle">— générés automatiquement selon vos choix au 16es</span>
+  </div>
+  <div class="r8-grid" id="bracket-r8">
+    <div class="b-match" id="bm-r8-1">
+      <div class="b-head">QF A/B <span class="b-head-date">env. 5-6 juil</span></div>
+      <div class="b-team" id="r8-1h" onclick="pickR8(1,'h')"><span id="r8-1h-name">V. Match 1</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-1a" onclick="pickR8(1,'a')"><span id="r8-1a-name">V. Match 2</span><span class="b-score">—</span></div>
+    </div>
+    <div class="b-match" id="bm-r8-2">
+      <div class="b-head">QF C/D <span class="b-head-date">env. 5-6 juil</span></div>
+      <div class="b-team" id="r8-2h" onclick="pickR8(2,'h')"><span id="r8-2h-name">V. Match 3</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-2a" onclick="pickR8(2,'a')"><span id="r8-2a-name">V. Match 4</span><span class="b-score">—</span></div>
+    </div>
+    <div class="b-match" id="bm-r8-3">
+      <div class="b-head">QF E/F <span class="b-head-date">env. 6-7 juil</span></div>
+      <div class="b-team" id="r8-3h" onclick="pickR8(3,'h')"><span id="r8-3h-name">V. Match 5</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-3a" onclick="pickR8(3,'a')"><span id="r8-3a-name">V. Match 6</span><span class="b-score">—</span></div>
+    </div>
+    <div class="b-match senegal" id="bm-r8-4">
+      <div class="b-head">🌟 QF G/H — Chemin Sénégal <span class="b-head-date">env. 6-7 juil</span></div>
+      <div class="b-team senegal-team" id="r8-4h" onclick="pickR8(4,'h')"><span id="r8-4h-name">V. Match 7</span><span class="b-score">—</span></div>
+      <div class="b-team senegal-team" id="r8-4a" onclick="pickR8(4,'a')"><span id="r8-4a-name">V. Match 8</span><span class="b-score">—</span></div>
+    </div>
+    <div class="b-match" id="bm-r8-5">
+      <div class="b-head">QF I/J <span class="b-head-date">env. 9-10 juil</span></div>
+      <div class="b-team" id="r8-5h" onclick="pickR8(5,'h')"><span id="r8-5h-name">V. Match 9</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-5a" onclick="pickR8(5,'a')"><span id="r8-5a-name">V. Match 10</span><span class="b-score">—</span></div>
+    </div>
+    <div class="b-match" id="bm-r8-6">
+      <div class="b-head">QF K/L <span class="b-head-date">env. 9-10 juil</span></div>
+      <div class="b-team" id="r8-6h" onclick="pickR8(6,'h')"><span id="r8-6h-name">V. Match 11</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-6a" onclick="pickR8(6,'a')"><span id="r8-6a-name">V. Match 12</span><span class="b-score">—</span></div>
+    </div>
+    <div class="b-match" id="bm-r8-7">
+      <div class="b-head">QF M/N <span class="b-head-date">env. 10-11 juil</span></div>
+      <div class="b-team" id="r8-7h" onclick="pickR8(7,'h')"><span id="r8-7h-name">V. Match 13</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-7a" onclick="pickR8(7,'a')"><span id="r8-7a-name">V. Match 14</span><span class="b-score">—</span></div>
+    </div>
+    <div class="b-match" id="bm-r8-8">
+      <div class="b-head">QF O/P <span class="b-head-date">env. 10-11 juil</span></div>
+      <div class="b-team" id="r8-8h" onclick="pickR8(8,'h')"><span id="r8-8h-name">V. Match 15</span><span class="b-score">—</span></div>
+      <div class="b-team" id="r8-8a" onclick="pickR8(8,'a')"><span id="r8-8a-name">V. Match 16</span><span class="b-score">—</span></div>
+    </div>
+  </div>
+  <div class="bracket-legend">
+    <span>🌟</span> Match mis en valeur · 
+    Cliquez sur une équipe au 16e pour désigner le vainqueur · 
+    Les huitièmes se remplissent automatiquement ·
+    <span>🔄</span> Rechargez pour réinitialiser
+  </div>
+</div>
 
 <!-- FOOTER -->
 <div class="footer">
@@ -2550,6 +2887,132 @@ setTimeout(()=>{
     initAppDisplay();
   }
 }, 900);
+
+
+// ══════════════════════════════════════
+// COMPTE À REBOURS BELGIQUE–SÉNÉGAL
+// ══════════════════════════════════════
+(function(){
+  // 1er juillet 2026 22h00 Paris = UTC+2 → 20h00 UTC
+  const target = new Date('2026-07-01T20:00:00Z');
+  function pad(n){return String(n).padStart(2,'0');}
+  function updateCD(){
+    const now = new Date();
+    const diff = target - now;
+    if(diff <= 0){
+      const b = document.getElementById('cd-blocks');
+      if(b) b.innerHTML='<div class="cd-done">⚽ Match en cours ou terminé · Allez les Lions ! 🇸🇳</div>';
+      return;
+    }
+    const j = Math.floor(diff/86400000);
+    const h = Math.floor((diff%86400000)/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
+    const jE=document.getElementById('cd-j'),
+          hE=document.getElementById('cd-h'),
+          mE=document.getElementById('cd-m'),
+          sE=document.getElementById('cd-s');
+    if(jE)jE.textContent=pad(j);
+    if(hE)hE.textContent=pad(h);
+    if(mE)mE.textContent=pad(m);
+    if(sE)sE.textContent=pad(s);
+  }
+  updateCD();
+  setInterval(updateCD,1000);
+})();
+
+// ══════════════════════════════════════
+// BRACKET 16ES → 8ES SIMULABLE
+// ══════════════════════════════════════
+(function(){
+  const TEAMS = {
+    1:{h:'🇩🇪 Allemagne',a:'🇵🇾 Paraguay'},
+    2:{h:'🇫🇷 France',a:'🇸🇪 Suède'},
+    3:{h:'🇿🇦 Afrique du Sud',a:'🇨🇦 Canada'},
+    4:{h:'🇳🇱 Pays-Bas',a:'🇲🇦 Maroc'},
+    5:{h:'🇭🇷 Croatie',a:'🇪🇸 Espagne'},
+    6:{h:'🇪🇸 Espagne',a:'🏴 Angleterre'},
+    7:{h:'🇺🇸 États-Unis',a:'🇧🇦 Bosnie-Herzégovine'},
+    8:{h:'🇧🇪 Belgique',a:'🇸🇳 Sénégal'},
+    9:{h:'🇧🇷 Brésil',a:'🇯🇵 Japon'},
+    10:{h:'🇨🇮 Côte d'Ivoire',a:'🇳🇴 Norvège'},
+    11:{h:'🇲🇽 Mexique',a:'3e CEFHI'},
+    12:{h:'🏴 Angleterre',a:'3e EHIJK'},
+    13:{h:'🇦🇷 Argentine',a:'🇨🇻 Cap-Vert'},
+    14:{h:'🇦🇺 Australie',a:'🇪🇬 Égypte'},
+    15:{h:'🇨🇭 Suisse',a:'🇩🇿 Algérie'},
+    16:{h:'🇬🇭 Ghana',a:'🇨🇴 Colombie'},
+  };
+  // pairings: r8 match → [r16 matchH, r16 matchA]
+  const R8_PAIRS = {1:[1,2],2:[3,4],3:[5,6],4:[7,8],5:[9,10],6:[11,12],7:[13,14],8:[15,16]};
+  const winners = {}; // {matchId: 'h'|'a'}
+  const r8winners = {};
+
+  window.pickWinner = function(matchId, side){
+    winners[matchId] = side;
+    updateR16UI(matchId);
+    // update r8 match that uses this
+    for(const [r8id, pair] of Object.entries(R8_PAIRS)){
+      if(pair[0]===matchId || pair[1]===matchId) updateR8(parseInt(r8id));
+    }
+  };
+  window.pickR8 = function(r8id, side){
+    r8winners[r8id] = side;
+    updateR8UI(r8id);
+  };
+
+  function updateR16UI(matchId){
+    const w = winners[matchId];
+    const sides = ['h','a'];
+    sides.forEach(s=>{
+      const el = document.querySelector('[data-match="'+matchId+'"][data-side="'+s+'"]');
+      if(!el) return;
+      el.classList.remove('winner','eliminated');
+      if(w===s) el.classList.add('winner');
+      else if(w) el.classList.add('eliminated');
+    });
+  }
+
+  function updateR8(r8id){
+    const pair = R8_PAIRS[r8id];
+    const [m1,m2] = pair;
+    const t1 = winners[m1] ? TEAMS[m1][winners[m1]] : ('V. Match '+m1);
+    const t2 = winners[m2] ? TEAMS[m2][winners[m2]] : ('V. Match '+m2);
+    const nh = document.getElementById('r8-'+r8id+'h-name');
+    const na = document.getElementById('r8-'+r8id+'a-name');
+    if(nh) nh.textContent = t1;
+    if(na) na.textContent = t2;
+    // Reset r8 winner if teams changed
+    if(r8winners[r8id]) { delete r8winners[r8id]; updateR8UI(r8id); }
+    // Senegal highlight in r8
+    const bm = document.getElementById('bm-r8-'+r8id);
+    if(bm && r8id===4){
+      // r8 4 is always senegal match
+    }
+    // Check senegal in r8 for other r8 (in case simulation leads there)
+    const hEl = document.getElementById('r8-'+r8id+'h');
+    const aEl = document.getElementById('r8-'+r8id+'a');
+    if(hEl){
+      hEl.classList.remove('senegal-team');
+      if(t1.includes('Sénégal')) hEl.classList.add('senegal-team');
+    }
+    if(aEl){
+      aEl.classList.remove('senegal-team');
+      if(t2.includes('Sénégal')) aEl.classList.add('senegal-team');
+    }
+  }
+
+  function updateR8UI(r8id){
+    const w = r8winners[r8id];
+    const hEl = document.getElementById('r8-'+r8id+'h');
+    const aEl = document.getElementById('r8-'+r8id+'a');
+    if(hEl){ hEl.classList.remove('winner','eliminated'); if(w==='h')hEl.classList.add('winner'); else if(w)hEl.classList.add('eliminated');}
+    if(aEl){ aEl.classList.remove('winner','eliminated'); if(w==='a')aEl.classList.add('winner'); else if(w)aEl.classList.add('eliminated');}
+  }
+
+  // Init r8 names
+  for(const r8id of Object.keys(R8_PAIRS)){ updateR8(parseInt(r8id)); }
+})();
 
 </script>
 </body>
