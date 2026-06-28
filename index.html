@@ -1867,6 +1867,9 @@ function filterImportantMatches() {
 }
 
 function liveImpactText(key) {
+  if (typeof R32_API_KEY_META !== 'undefined' && R32_API_KEY_META[key]) {
+    return '16e de finale en direct · le vainqueur avance dans le tableau.';
+  }
   const impacts = {
     'cro-gha': "Groupe L : influe sur le rang final du Sénégal et l'adversaire probable.",
     'pan-eng': "Groupe L : peut modifier le 1er du groupe L et donc l'affiche du Sénégal.",
@@ -1921,6 +1924,29 @@ const NEXT_KNOCKOUT_FIXTURES = [
   { id:'N87', ts:'2026-07-04T00:00:00+02:00', date:'Sam. 4 juillet · 00h00 Paris', venue:'Dallas · AT&T Stadium', a:NAMES.ARG, b:NAMES.CPV },
   { id:'N88', ts:'2026-07-04T03:30:00+02:00', date:'Sam. 4 juillet · 03h30 Paris', venue:'Los Angeles · SoFi Stadium', a:NAMES.COL, b:NAMES.GHA }
 ];
+
+
+// Les matchs à élimination directe ne doivent pas polluer le moteur de groupes.
+// On les garde dans un état séparé pour le panneau live/prochain match.
+const KNOCKOUT_LIVE_RESULTS = {};
+const R32_API_KEY_META = {
+  'rsa-can': {h:'RSA', a:'CAN', id:'N73'},
+  'bra-jpn': {h:'BRA', a:'JPN', id:'N78'},
+  'ger-par': {h:'GER', a:'PAR', id:'N74'},
+  'ned-mar': {h:'NED', a:'MAR', id:'N75'},
+  'civ-nor': {h:'CIV', a:'NOR', id:'N76'},
+  'fra-swe': {h:'FRA', a:'SWE', id:'N77'},
+  'mex-ecu': {h:'MEX', a:'ECU', id:'N79'},
+  'eng-cod': {h:'ENG', a:'COD', id:'N80'},
+  'bel-sen': {h:'BEL', a:'SEN', id:'N82'},
+  'usa-bih': {h:'USA', a:'BIH', id:'N81'},
+  'esp-aut': {h:'ESP', a:'AUT', id:'N84'},
+  'por-cro': {h:'POR', a:'CRO', id:'N83'},
+  'sui-alg': {h:'SUI', a:'ALG', id:'N85'},
+  'aus-egy': {h:'AUS', a:'EGY', id:'N86'},
+  'arg-cpv': {h:'ARG', a:'CPV', id:'N87'},
+  'col-gha': {h:'COL', a:'GHA', id:'N88'}
+};
 
 
 const R32_CARDS = [
@@ -2204,7 +2230,7 @@ function renderTopLiveMatches() {
      </div>`;
   };
 
-  const liveEntries = Object.entries(RESULTS)
+  const liveEntries = [...Object.entries(RESULTS), ...Object.entries(KNOCKOUT_LIVE_RESULTS)]
     .filter(([key, r]) => r && (r.status === 'live' || r.status === 'in_progress'))
     .sort(([ka, a], [kb, b]) => {
       const ma = a.minute || 0;
@@ -3127,7 +3153,8 @@ function isApiWindowOpen(now = new Date()) {
 }
 
 function hasLiveMatchInCurrentState() {
-  return Object.values(RESULTS).some(r => r && (r.status === 'live' || r.status === 'in_progress'));
+  return [...Object.values(RESULTS), ...Object.values(KNOCKOUT_LIVE_RESULTS)]
+    .some(r => r && (r.status === 'live' || r.status === 'in_progress'));
 }
 
 function shouldCallScoresApi() {
@@ -3143,9 +3170,6 @@ function applyScoresData(data, source = 'api') {
   let liveCount = 0;
 
   Object.entries(data.matches).forEach(([key, match]) => {
-    const r = RESULTS[key];
-    if (!r) return;
-
     const newStatus = match.status || 'scheduled';
     const newH = (match.home !== undefined && match.home !== null) ? match.home : null;
     const newA = (match.away !== undefined && match.away !== null) ? match.away : null;
@@ -3154,6 +3178,36 @@ function applyScoresData(data, source = 'api') {
     const newApiStatusLong = match.apiStatusLong || null;
 
     if (newStatus === 'live' || newStatus === 'in_progress') liveCount++;
+
+    const r = RESULTS[key];
+    if (!r) {
+      const koMeta = R32_API_KEY_META[key];
+      if (!koMeta) return;
+      const prev = KNOCKOUT_LIVE_RESULTS[key] || {};
+      if (
+        prev.status !== newStatus ||
+        prev.hg !== newH ||
+        prev.ag !== newA ||
+        prev.minute !== newMinute ||
+        prev.apiStatus !== newApiStatus ||
+        prev.apiStatusLong !== newApiStatusLong
+      ) {
+        KNOCKOUT_LIVE_RESULTS[key] = {
+          h: koMeta.h,
+          a: koMeta.a,
+          hg: newH,
+          ag: newA,
+          status: newStatus,
+          minute: newMinute,
+          apiStatus: newApiStatus,
+          apiStatusLong: newApiStatusLong,
+          apiSynced: apiPriority,
+          koId: koMeta.id
+        };
+        changed = true;
+      }
+      return;
+    }
 
     if (
       r.status !== newStatus ||
