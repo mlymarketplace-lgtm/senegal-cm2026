@@ -724,6 +724,79 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
   .bracket-tree{grid-template-columns:repeat(4,210px);min-width:880px;}
 }
 
+
+/* ── PATCH V8 : finitions UX compte à rebours + bracket complet ── */
+.player-side.sen .player-photo{
+  object-position:center top;
+}
+.countdown-center .cd-num{
+  font-variant-numeric:tabular-nums;
+  min-width:44px;
+  display:inline-block;
+}
+.countdown-center.countdown-live{
+  box-shadow:inset 0 0 0 1px #00853F28,0 0 34px #FDEF4212;
+}
+
+/* Bracket desktop : progression visuelle vers le centre/finale */
+.bracket-scroll{
+  padding:8px 4px 16px;
+}
+.bracket-tree{
+  grid-template-columns:minmax(250px,1.15fr) minmax(250px,.98fr) minmax(250px,.88fr) minmax(270px,.84fr);
+  gap:18px;
+  min-width:1120px;
+  align-items:stretch;
+}
+.bracket-col{
+  display:flex;
+  flex-direction:column;
+  min-height:1120px;
+}
+.bracket-col-title{
+  text-align:center;
+  padding:7px 8px;
+  border-radius:999px;
+  background:#38bdf810;
+  border:1px solid #38bdf825;
+  margin-bottom:12px;
+}
+.bracket-stack{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.bracket-col-r16 .bracket-stack{justify-content:flex-start;}
+.bracket-col-qf .bracket-stack{justify-content:space-around;padding:48px 0;}
+.bracket-col-sf .bracket-stack{justify-content:space-evenly;padding:150px 0;}
+.bracket-col-final .bracket-stack{justify-content:center;padding:260px 0;}
+.bracket-col-qf .ko-card,.bracket-col-sf .ko-card,.bracket-col-final .ko-card{
+  box-shadow:0 18px 42px #0005,inset 0 0 0 1px #7c3aed16;
+}
+.ko-team.placeholder span:first-child{
+  opacity:.75;
+  font-style:italic;
+}
+.ko-card.waiting{
+  opacity:.78;
+}
+.ko-card.waiting .ko-scoreline{
+  display:none;
+}
+.ko-card.waiting .ko-note{
+  padding-top:8px;
+}
+
+@media(max-width:980px){
+  .bracket-tree{min-width:1020px;}
+  .bracket-col{min-height:1040px;}
+}
+@media(max-width:620px){
+  .bracket-tree{grid-template-columns:repeat(4,235px);min-width:1000px;}
+  .bracket-col{min-height:1040px;}
+}
+
 </style>
 </head>
 <body>
@@ -1005,7 +1078,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 
 <section class="knockout-zone knockout-sim full-sim-zone">
   <div class="sec knockout-title"><img class="section-mascot" src="assets/lion-mascotte.png" alt="Mascotte">Simule le chemin jusqu’à la finale</div>
-  <div class="r16-help knockout-copy">Choisis les vainqueurs tour après tour. Les libellés techniques restent cachés : seuls les scénarios lisibles apparaissent pour les supporters.</div>
+  <div class="r16-help knockout-copy">Choisis les vainqueurs tour après tour. Les cases restent vides tant que le tour précédent n’est pas décidé : le parcours se construit proprement jusqu’à la finale.</div>
   <div class="bracket-scroll">
     <div class="bracket-tree" id="bracket-tree"></div>
   </div>
@@ -1702,15 +1775,7 @@ function sourceResolved(source) {
   return koPicks[source.round] && koPicks[source.round][source.id] !== undefined;
 }
 function unresolvedLabelForSource(source) {
-  if (source.type === 'r32') {
-    const c = r32CardById(source.id);
-    if (!c) return 'En attente de ton choix';
-    return `Vainqueur ${cleanLabel(c.a)}–${cleanLabel(c.b)}`;
-  }
-  const m = koMatchById(source.round, source.id);
-  if (!m) return 'En attente de ton choix';
-  const labels = m.sources.map(src => cleanLabel(unresolvedLabelForSource(src)).replace(/^Vainqueur\s+/,'')).join(' / ');
-  return `Vainqueur ${labels}`;
+  return 'En attente de ton choix';
 }
 function r32WinnerLabel(id) {
   const c = r32CardById(id);
@@ -1806,26 +1871,30 @@ function koTeam(round, matchId, idx, label, resolved, picked) {
 function renderKOCard(round, m) {
   const labels = m.sources.map(src => sourceLabel(src));
   const resolved = m.sources.map(src => sourceResolved(src));
-  const display = labels.map((label, i) => label || unresolvedLabelForSource(m.sources[i]));
+  const display = labels.map(label => label || 'En attente');
   const pick = koPicks[round]?.[m.id];
   const score = (koScores[round] && koScores[round][m.id]) || [null, null];
   const senCls = matchHasSenegal(round, m) ? ' senegal-path' : '';
-  return `<div class="ko-card${senCls}" data-round="${round}" data-match="${m.id}">
+  const waitingCls = (!resolved[0] || !resolved[1]) ? ' waiting' : '';
+  const scoreInputs = resolved[0] && resolved[1]
+    ? `<div class="ko-scoreline">
+      <input type="number" min="0" placeholder="-" value="${score[0] ?? ''}" onclick="event.stopPropagation()" onchange="setKOScore('${round}','${m.id}',0,this.value)">
+      <span>score</span>
+      <input type="number" min="0" placeholder="-" value="${score[1] ?? ''}" onclick="event.stopPropagation()" onchange="setKOScore('${round}','${m.id}',1,this.value)">
+    </div>`
+    : `<div class="ko-scoreline" aria-hidden="true"></div>`;
+  return `<div class="ko-card${senCls}${waitingCls}" data-round="${round}" data-match="${m.id}">
     <div class="ko-head"><span>${m.final ? 'Finale' : koRoundByKey(round).title}</span><span class="ko-date">${m.date}</span></div>
     ${koTeam(round, m.id, 0, display[0], resolved[0], pick === 0)}
     ${koTeam(round, m.id, 1, display[1], resolved[1], pick === 1)}
-    <div class="ko-scoreline">
-      <input type="number" min="0" placeholder="-" value="${score[0] ?? ''}" ${resolved[0] && resolved[1] ? '' : 'disabled'} onclick="event.stopPropagation()" onchange="setKOScore('${round}','${m.id}',0,this.value)">
-      <span>score</span>
-      <input type="number" min="0" placeholder="-" value="${score[1] ?? ''}" ${resolved[0] && resolved[1] ? '' : 'disabled'} onclick="event.stopPropagation()" onchange="setKOScore('${round}','${m.id}',1,this.value)">
-    </div>
-    <div class="ko-note">${resolved[0] && resolved[1] ? 'Choisis le vainqueur ou renseigne le score.' : 'En attente des choix précédents.'}</div>
+    ${scoreInputs}
+    <div class="ko-note">${resolved[0] && resolved[1] ? 'Choisis le vainqueur ou renseigne le score.' : 'Choisis les vainqueurs du tour précédent pour ouvrir ce match.'}</div>
   </div>`;
 }
 function renderKnockoutTree() {
   const tree = document.getElementById('bracket-tree');
   if (tree) {
-    tree.innerHTML = KO_ROUNDS.map(round => `<div class="bracket-col"><div class="bracket-col-title">${round.title}</div>${round.matches.map(m => renderKOCard(round.key, m)).join('')}</div>`).join('');
+    tree.innerHTML = KO_ROUNDS.map(round => `<div class="bracket-col bracket-col-${round.key}"><div class="bracket-col-title">${round.title}</div><div class="bracket-stack">${round.matches.map(m => renderKOCard(round.key, m)).join('')}</div></div>`).join('');
   }
   const finalBox = document.getElementById('ko-final-winner');
   if (finalBox) {
@@ -1837,21 +1906,38 @@ function renderKnockoutTree() {
 }
 function renderRound16Grid() { renderKnockoutTree(); }
 
+const COUNTDOWN_TARGET_TS = new Date('2026-07-01T22:00:00+02:00').getTime();
+let countdownIntervalId = null;
+
 function updateCountdown() {
-  const target = new Date('2026-07-01T22:00:00+02:00').getTime();
   const now = Date.now();
-  let diff = Math.max(0, target - now);
+  let diff = Math.max(0, COUNTDOWN_TARGET_TS - now);
   const days = Math.floor(diff / 86400000); diff -= days * 86400000;
   const hours = Math.floor(diff / 3600000); diff -= hours * 3600000;
   const minutes = Math.floor(diff / 60000); diff -= minutes * 60000;
   const seconds = Math.floor(diff / 1000);
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = String(val).padStart(2,'0'); };
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = String(val).padStart(2,'0');
+  };
   set('cd-days', days);
   set('cd-hours', hours);
   set('cd-min', minutes);
   set('cd-sec', seconds);
   const msg = document.getElementById('countdown-end-msg');
-  if (msg && target - now <= 0) msg.textContent = 'C’est le jour du match : allez les Lions !';
+  if (msg) {
+    msg.textContent = COUNTDOWN_TARGET_TS - now <= 0
+      ? 'C’est le jour du match : allez les Lions !'
+      : 'Les secondes défilent : les Gaïndés arrivent.';
+  }
+  const card = document.querySelector('.countdown-center');
+  if (card) card.classList.add('countdown-live');
+}
+
+function startCountdownTicker() {
+  updateCountdown();
+  if (countdownIntervalId) clearInterval(countdownIntervalId);
+  countdownIntervalId = setInterval(updateCountdown, 1000);
 }
 
 function renderTopLiveMatches() {
@@ -2562,11 +2648,7 @@ function initAppDisplay(){
   filterImportantMatches();
   renderTopLiveMatches();
   renderKnockoutTree();
-  updateCountdown();
-  if (!window._countdownTimerStarted) {
-    window._countdownTimerStarted = true;
-    setInterval(updateCountdown, 1000);
-  }
+  startCountdownTicker();
   buildTicker();
   // Forcer une seconde passe 200ms plus tard pour les éléments chargés en retard
   setTimeout(() => { updateMatchCards(); filterImportantMatches(); renderTopLiveMatches(); }, 200);
@@ -2674,6 +2756,12 @@ if (document.readyState === 'loading') {
 } else {
   // DOM déjà prêt (script en bas de page)
   initAppDisplay();
+}
+// Sécurité V8 : le rebours démarre aussi indépendamment du reste de l’app.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startCountdownTicker);
+} else {
+  startCountdownTicker();
 }
 
 // ════════════════════════════════════════════════
